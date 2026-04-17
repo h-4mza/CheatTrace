@@ -19,7 +19,7 @@ Système forensique avancé pour la détection de fraude académique (IA & Plagi
 
 ### 1. Cloner le projet
 ```bash
-cd prjt_fixed2
+cd plateforme-confiance-numerique
 ```
 
 ### 2. Créer l'environnement virtuel
