@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-12">
+        <h1>Console d'Administration</h1>
+        <hr>
+    </div>
+</div>
+
+<div class="row mb-4 text-center">
+    <div class="col-md-3">
+        <div class="card shadow border-0">
+            <div class="card-body">
+                <h6 class="text-muted text-uppercase small fw-bold">Utilisateurs</h6>
+                <h2 class="mb-0">{{ stats.users }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card shadow border-0">
+            <div class="card-body">
+                <h6 class="text-muted text-uppercase small fw-bold">Modules</h6>
+                <h2 class="mb-0">{{ stats.modules }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card shadow border-0">
+            <div class="card-body">
+                <h6 class="text-muted text-uppercase small fw-bold">Analyses Totales</h6>
+                <h2 class="mb-0">{{ stats.investigations }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card shadow border-0 bg-info text-white">
+            <div class="card-body">
+                <h6 class="text-uppercase small fw-bold">Analyses en cours</h6>
+                <h2 class="mb-0">{{ stats.pending }}</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card shadow">
+            <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Dernières Activités Système</h5>
+                <a href="/admin/investigations" class="btn btn-outline-light btn-sm">Voir tout</a>
+            </div>
+            <div class="card-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Professeur</th>
+                            <th>Module</th>
+                            <th>Date</th>
+                            <th>Statut</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for inv in investigations %}
+                        <tr>
+                            <td>{{ inv.module.professor.username }}</td>
+                            <td>{{ inv.module.name }}</td>
+                            <td>{{ inv.created_at.strftime('%d/%m/%Y %H:%M') }}</td>
+                            <td>
+                                {% if inv.status == 'completed' %}
+                                    <span class="badge bg-success">Terminée</span>
+                                {% elif inv.status == 'processing' %}
+                                    <span class="badge bg-info">En cours</span>
+                                {% else %}
+                                    <span class="badge bg-secondary">{{ inv.status }}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mt-4">
+    <a href="/admin/users" class="btn btn-primary">Gérer les Utilisateurs</a>
+</div>
+{% endblock %}

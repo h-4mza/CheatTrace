@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Mes Modules{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Liste des Modules</h2>
+    <a href="/modules/new" class="btn btn-primary">+ Nouveau Module</a>
+</div>
+
+<div class="card shadow">
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead class="table-light">
+                <tr>
+                    <th>Code</th>
+                    <th>Nom</th>
+                    <th>Date création</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for module in modules %}
+                <tr>
+                    <td><code>MOD-{{ module.id }}</code></td>
+                    <td><strong>{{ module.name }}</strong><br><small class="text-muted">{{ module.description }}</small></td>
+                    <td>{{ module.created_at.strftime('%d/%m/%Y') }}</td>
+                    <td class="text-end">
+                        <a href="/investigations/new?module_id={{ module.id }}" class="btn btn-success btn-sm">Lancer Analyse</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

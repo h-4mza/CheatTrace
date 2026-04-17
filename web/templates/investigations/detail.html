@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+{% block title %}Rapport #{{ investigation.id }} — ENSAJ{% endblock %}
+{% block content %}
+<div class="flex flex-col lg:flex-row gap-8">
+    
+    <!-- SIDE INFO -->
+    <div class="lg:w-1/3 space-y-6">
+        <div class="bg-dark-lighter p-6 rounded-2xl border border-slate-700 shadow-xl">
+            <h3 class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4">Informations</h3>
+            <div class="space-y-4">
+                <div>
+                    <p class="text-[10px] text-slate-500 uppercase font-bold">Module</p>
+                    <p class="text-slate-200 font-semibold">{{ investigation.module.name }}</p>
+                </div>
+                <div>
+                    <p class="text-[10px] text-slate-500 uppercase font-bold">Date de création</p>
+                    <p class="text-slate-200 font-semibold">{{ investigation.created_at.strftime('%d %b %Y, %H:%M') }}</p>
+                </div>
+                <div>
+                    <p class="text-[10px] text-slate-500 uppercase font-bold">Statut actuel</p>
+                    <div id="status-badge-container" class="mt-1">
+                        <!-- Dynamic Badge -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-dark-lighter p-6 rounded-2xl border border-slate-700 shadow-xl">
+            <h3 class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4">Copies analysées ({{ investigation.exam_copies|length }})</h3>
+            <div class="max-h-60 overflow-y-auto pr-2 custom-scrollbar space-y-2">
+                {% for copy in investigation.exam_copies %}
+                <div class="p-3 bg-slate-900/50 rounded-xl border border-slate-800 flex items-center gap-3">
+                    <i class="bi bi-file-earmark-image text-slate-500"></i>
+                    <span class="text-xs text-slate-400 truncate">{{ copy.original_filename }}</span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN REPORT AREA -->
+    <div class="lg:flex-1">
+        
+        <!-- PROCESSING STATE -->
+        <div id="processing-view" class="bg-dark-lighter p-12 rounded-2xl border border-slate-700 shadow-xl text-center {% if investigation.status != 'pending' and investigation.status != 'processing' %}hidden{% endif %}">
+            <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-blue-500/10 text-blue-400 mb-6 animate-processing">
+                <i class="bi bi-cpu text-4xl"></i>
+            </div>
+            <h2 class="text-2xl font-bold text-white mb-2">Analyse IA en cours</h2>
+            <p class="text-slate-400 max-w-md mx-auto">Nos agents spécialisés (Expert NLP, Stylométriste Forensique) examinent actuellement la syntaxe et la sémantique de vos copies.</p>
+            <div class="mt-8 flex justify-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-blue-500 animate-bounce" style="animation-delay: 0s"></span>
+                <span class="w-2 h-2 rounded-full bg-blue-500 animate-bounce" style="animation-delay: 0.2s"></span>
+                <span class="w-2 h-2 rounded-full bg-blue-500 animate-bounce" style="animation-delay: 0.4s"></span>
+            </div>
+        </div>
+
+        <!-- COMPLETED STATE (REPORT) -->
+        <div id="report-view" class="bg-dark-lighter rounded-2xl border border-slate-700 shadow-2xl overflow-hidden {% if investigation.status != 'completed' %}hidden{% endif %}">
+            <div class="p-6 bg-slate-800/50 border-b border-slate-700 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-green-500/10 text-green-400 flex items-center justify-center">
+                        <i class="bi bi-file-earmark-check text-xl"></i>
+                    </div>
+                    <h2 class="text-lg font-bold text-white">Rapport Forensique Officiel</h2>
+                </div>
+                <button onclick="window.print()" class="p-2 px-4 bg-slate-700 hover:bg-slate-600 rounded-lg text-xs font-bold transition-colors">
+                    <i class="bi bi-printer mr-2"></i> Imprimer
+                </button>
+            </div>
+            <div class="p-8 lg:p-12 prose prose-invert prose-blue max-w-none" id="markdown-content">
+                <!-- Marked logic here -->
+                {{ report_content | safe }}
+            </div>
+        </div>
+
+        <!-- FAILED STATE -->
+        <div id="error-view" class="bg-red-500/10 p-12 rounded-2xl border border-red-500/20 shadow-xl text-center {% if investigation.status != 'failed' %}hidden{% endif %}">
+            <i class="bi bi-exclamation-octagon text-5xl text-red-500 mb-4"></i>
+            <h2 class="text-2xl font-bold text-white mb-2">Échec de l'analyse</h2>
+            <p class="text-slate-400">Une erreur critique est survenue dans le pipeline CrewAI. Veuillez réessayer ou contacter l'administrateur.</p>
+            <a href="/investigations/new?module_id={{ investigation.module_id }}" class="mt-6 inline-block bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded-xl transition-colors">
+                Réessayer
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+    const invId = {{ investigation.id }};
+    const badgeContainer = document.getElementById('status-badge-container');
+
+    function updateBadge(status) {
+        let colorClass = "";
+        let text = "";
+        let animation = "";
+
+        if (status === 'pending') {
+            colorClass = "bg-yellow-500/10 text-yellow-400 border-yellow-500/20";
+            text = "En attente";
+        } else if (status === 'processing') {
+            colorClass = "bg-blue-500/10 text-blue-400 border-blue-500/20";
+            text = "Analyse...";
+            animation = "animate-processing";
+        } else if (status === 'completed') {
+            colorClass = "bg-green-500/10 text-green-400 border-green-500/20";
+            text = "Terminée";
+        } else {
+            colorClass = "bg-red-500/10 text-red-400 border-red-500/20";
+            text = "Échec";
+        }
+
+        badgeContainer.innerHTML = `<span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold ${colorClass} border ${animation}">${text}</span>`;
+    }
+
+    updateBadge("{{ investigation.status }}");
+
+    if ("{{ investigation.status }}" === 'pending' || "{{ investigation.status }}" === 'processing') {
+        const poll = setInterval(async () => {
+            try {
+                const res = await fetch(`/api/investigations/${invId}/status`);
+                const data = await res.json();
+                
+                if (data.status !== "{{ investigation.status }}") {
+                    updateBadge(data.status);
+                    if (data.status === 'completed' || data.status === 'failed') {
+                        clearInterval(poll);
+                        window.location.reload();
+                    }
+                }
+            } catch (e) { console.error("Polling error", e); }
+        }, 3000);
+    }
+</script>
+
+<style>
+    .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+    
+    /* Styled Markdown adjustments */
+    #markdown-content h1 { color: #F1F5F9; border-bottom: 1px solid #334155; padding-bottom: 0.5rem; margin-top: 2rem; }
+    #markdown-content h2 { color: #3B82F6; margin-top: 1.5rem; }
+    #markdown-content p { color: #94A3B8; line-height: 1.8; }
+    #markdown-content ul { list-style-type: disc; padding-left: 1.5rem; color: #94A3B8; }
+    #markdown-content li { margin-bottom: 0.5rem; }
+    #markdown-content strong { color: #E2E8F0; }
+</style>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Historique des Investigations{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Historique des Investigations</h2>
+    <a href="/investigations/new" class="btn btn-primary">+ Nouvelle Analyse</a>
+</div>
+
+<div class="card shadow">
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead class="table-light">
+                <tr>
+                    <th>Module</th>
+                    <th>Date</th>
+                    <th>Copies</th>
+                    <th>Statut</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for inv in investigations %}
+                <tr>
+                    <td><strong>{{ inv.module.name }}</strong></td>
+                    <td>{{ inv.created_at.strftime('%d/%m/%Y %H:%M') }}</td>
+                    <td>{{ inv.exam_copies|length }}</td>
+                    <td>
+                        {% if inv.status == 'pending' %}
+                            <span class="badge bg-secondary">En attente</span>
+                        {% elif inv.status == 'processing' %}
+                            <span class="badge bg-info">Analyse...</span>
+                        {% elif inv.status == 'completed' %}
+                            <span class="badge bg-success">Terminée</span>
+                        {% else %}
+                            <span class="badge bg-danger">Échec</span>
+                        {% endif %}
+                    </td>
+                    <td class="text-end">
+                        <a href="/investigations/{{ inv.id }}" class="btn btn-outline-primary btn-sm">Détails</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

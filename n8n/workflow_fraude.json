@@ -1,0 +1,158 @@
+{
+  "name": "PFA Fraude — Upload Images → OCR → CrewAI → Dashboard",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "upload-copies",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "node-webhook",
+      "name": "Webhook — Réception des scans",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [180, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Sauvegarde chaque fichier image reçu sur le disque local\n// et retourne la liste des chemins\nconst fs = require('fs');\nconst path = require('path');\n\nconst UPLOAD_DIR = 'C:\\Users\\HP\\Downloads\\prjt_fixed2\\data\\uploads';\nif (!fs.existsSync(UPLOAD_DIR)) fs.mkdirSync(UPLOAD_DIR, { recursive: true });\n\nconst fichiersSauvegardes = [];\nconst items = $input.all();\n\nfor (const item of items) {\n  const body = item.json.body || {};\n  const files = item.binary || {};\n  \n  // Traiter chaque fichier binaire uploadé\n  for (const [key, file] of Object.entries(files)) {\n    const nomFichier = file.fileName || `scan_${Date.now()}.jpg`;\n    const cheminSortie = path.join(UPLOAD_DIR, nomFichier);\n    \n    // Décoder base64 et sauvegarder\n    const buffer = Buffer.from(file.data, 'base64');\n    fs.writeFileSync(cheminSortie, buffer);\n    \n    fichiersSauvegardes.push({\n      nom: nomFichier,\n      chemin: cheminSortie,\n      taille: buffer.length\n    });\n  }\n}\n\nreturn [{ json: { fichiers: fichiersSauvegardes, nb_fichiers: fichiersSauvegardes.length } }];"
+      },
+      "id": "node-save-files",
+      "name": "Sauvegarde des images",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [400, 300]
+    },
+    {
+      "parameters": {
+        "command": "cd C:\\Users\\HP\\Downloads\\prjt_fixed2 && env\\Scripts\\python.exe crewai\\ocr_batch.py --dossier data/uploads --sortie data/resultats_ocr.json 2>&1"
+      },
+      "id": "node-ocr",
+      "name": "OCR — Extraction texte",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [620, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Vérifier que l'OCR a réussi\nconst stdout = $input.first().json.stdout || '';\nconst stderr = $input.first().json.stderr || '';\nconst exitCode = $input.first().json.exitCode;\n\nif (exitCode !== 0) {\n  return [{ json: { statut: 'erreur_ocr', message: stderr.substring(0, 500) } }];\n}\n\nreturn [{ json: { statut: 'ocr_ok', log: stdout.substring(0, 200) } }];"
+      },
+      "id": "node-check-ocr",
+      "name": "Vérification OCR",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [840, 300]
+    },
+    {
+      "parameters": {
+        "command": "cd C:\\Users\\HP\\Downloads\\prjt_fixed2\\crewai && ..\\env\\Scripts\\python.exe crew_pipeline.py --payload \"{\\\"chemin_json\\\": \\\"../data/resultats_ocr.json\\\", \\\"email\\\": \\\"professeur@ensaj.ma\\\", \\\"session_id\\\": \\\"session_{{$now.toFormat('yyyyMMdd_HHmm')}}\\\"}\" 2>>../logs/crewai.log"
+      },
+      "id": "node-crewai",
+      "name": "CrewAI — Investigation",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [1060, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parser le JSON retourné par CrewAI (stdout seulement)\nconst stdout = $input.first().json.stdout || '{}';\nconst exitCode = $input.first().json.exitCode;\n\n// Extraire la dernière ligne JSON valide du stdout\nconst lignes = stdout.trim().split('\\n');\nlet resultat = null;\n\nfor (let i = lignes.length - 1; i >= 0; i--) {\n  try {\n    const parsed = JSON.parse(lignes[i].trim());\n    if (parsed.statut || parsed.nb_suspects !== undefined || parsed.copies_suspectes) {\n      resultat = parsed;\n      break;\n    }\n  } catch(e) {}\n}\n\nif (!resultat) {\n  resultat = { statut: 'erreur_parsing', raw: stdout.substring(0, 300) };\n}\n\nreturn [{ json: resultat }];"
+      },
+      "id": "node-parse-result",
+      "name": "Parse résultat CrewAI",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1280, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true },
+          "conditions": [
+            {
+              "id": "cond-suspects",
+              "leftValue": "={{ $json.nb_suspects }}",
+              "rightValue": 0,
+              "operator": { "type": "number", "operation": "gt" }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "node-if-suspects",
+      "name": "Y a-t-il des suspects ?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1500, 300]
+    },
+    {
+      "parameters": {
+        "sendTo": "professeur@ensaj.ma",
+        "subject": "=🚨 Alerte Fraude — {{ $json.nb_suspects }} suspect(s) détecté(s)",
+        "emailType": "html",
+        "message": "=<h2>Rapport d'Investigation Forensique</h2><p><strong>Session :</strong> {{ $json.session_id }}</p><p><strong>Copies analysées :</strong> {{ $json.nb_copies_analysees || 20 }}</p><p><strong>Suspects détectés :</strong> {{ $json.nb_suspects }}</p><p>Consultez le dashboard pour le rapport complet : <a href='http://localhost:5000'>http://localhost:5000</a></p>",
+        "options": {}
+      },
+      "id": "node-email",
+      "name": "Email alerte professeur",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [1720, 200]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      },
+      "id": "node-response-ok",
+      "name": "Réponse — Succès",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1720, 400]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\"statut\": \"ok\", \"message\": \"Aucune fraude détectée.\"}",
+        "options": {}
+      },
+      "id": "node-response-clean",
+      "name": "Réponse — Aucune fraude",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1720, 500]
+    }
+  ],
+  "connections": {
+    "Webhook — Réception des scans": {
+      "main": [[{ "node": "Sauvegarde des images", "type": "main", "index": 0 }]]
+    },
+    "Sauvegarde des images": {
+      "main": [[{ "node": "OCR — Extraction texte", "type": "main", "index": 0 }]]
+    },
+    "OCR — Extraction texte": {
+      "main": [[{ "node": "Vérification OCR", "type": "main", "index": 0 }]]
+    },
+    "Vérification OCR": {
+      "main": [[{ "node": "CrewAI — Investigation", "type": "main", "index": 0 }]]
+    },
+    "CrewAI — Investigation": {
+      "main": [[{ "node": "Parse résultat CrewAI", "type": "main", "index": 0 }]]
+    },
+    "Parse résultat CrewAI": {
+      "main": [[{ "node": "Y a-t-il des suspects ?", "type": "main", "index": 0 }]]
+    },
+    "Y a-t-il des suspects ?": {
+      "main": [
+        [
+          { "node": "Email alerte professeur", "type": "main", "index": 0 },
+          { "node": "Réponse — Succès", "type": "main", "index": 0 }
+        ],
+        [{ "node": "Réponse — Aucune fraude", "type": "main", "index": 0 }]
+      ]
+    }
+  },
+  "settings": { "executionOrder": "v1" },
+  "meta": { "instanceId": "pfa-fraude-2026" }
+}

@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+env/
+venv/
+.env
+
+# Databases
+*.db
+*.sqlite3
+
+# Uploads and Reports (Data)
+data/uploads/investigations/*
+data/reports/investigation_*
+ocr_results.json
+
+# OS files
+.DS_Store
+Thumbs.db

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="fr" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Plateforme de Confiance Numérique{% endblock %}</title>
+    <!-- CDNs -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            DEFAULT: '#0F172A',
+                            lighter: '#1E293B',
+                            accent: '#3B82F6',
+                            purple: '#8B5CF6'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #0F172A; color: #F1F5F9; }
+        .sidebar-active { width: 260px; }
+        .sidebar-inactive { width: 0px; overflow: hidden; }
+        .glass { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); }
+        .btn-primary { background-color: #3B82F6; transition: 0.3s; }
+        .btn-primary:hover { background-color: #2563EB; transform: translateY(-1px); }
+        .animate-processing { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .5; } }
+    </style>
+</head>
+<body class="flex min-h-screen">
+
+    <!-- MOBILE OVERLAY -->
+    <div id="mobile-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
+
+    <!-- SIDEBAR -->
+    <aside id="sidebar" class="fixed lg:static inset-y-0 left-0 z-50 bg-dark-lighter border-r border-slate-700 transition-all duration-300 sidebar-active flex flex-col">
+        <div class="p-6 border-b border-slate-700">
+            <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                <span class="text-dark-accent">🔍</span> ENSAJ
+            </h2>
+            <p class="text-[10px] text-slate-400 mt-1 uppercase tracking-widest font-semibold">Forensique Numérique</p>
+        </div>
+
+        <nav class="flex-1 p-4 space-y-2 mt-4">
+            {% if current_user.is_authenticated %}
+                <a href="/dashboard" class="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-700 transition-colors {% if request.path == '/dashboard' %}bg-dark-accent text-white{% else %}text-slate-400{% endif %}">
+                    <i class="bi bi-grid-1x2"></i> Tableau de bord
+                </a>
+                <a href="/investigations" class="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-700 transition-colors {% if '/investigations' in request.path %}bg-dark-accent text-white{% else %}text-slate-400{% endif %}">
+                    <i class="bi bi-search"></i> Investigations
+                </a>
+                <a href="/modules" class="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-700 transition-colors {% if '/modules' in request.path %}bg-dark-accent text-white{% else %}text-slate-400{% endif %}">
+                    <i class="bi bi-journal-text"></i> Mes Modules
+                </a>
+                
+                {% if current_user.role == 'admin' %}
+                <div class="pt-6 pb-2 px-3">
+                    <p class="text-[10px] text-slate-500 uppercase font-bold tracking-widest">Administration</p>
+                </div>
+                <a href="/admin/dashboard" class="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-700 transition-colors {% if '/admin/dashboard' in request.path %}bg-dark-purple text-white{% else %}text-slate-400{% endif %}">
+                    <i class="bi bi-cpu"></i> Console Admin
+                </a>
+                <a href="/admin/users" class="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-700 transition-colors {% if '/admin/users' in request.path %}bg-dark-purple text-white{% else %}text-slate-400{% endif %}">
+                    <i class="bi bi-people"></i> Utilisateurs
+                </a>
+                {% endif %}
+            {% else %}
+                <a href="/login" class="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-700 text-slate-400 transition-colors">
+                    <i class="bi bi-box-arrow-in-right"></i> Connexion
+                </a>
+            {% endif %}
+        </nav>
+
+        <div class="p-4 border-t border-slate-700">
+            {% if current_user.is_authenticated %}
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-full bg-dark-accent flex items-center justify-center text-xs font-bold">
+                        {{ current_user.username[:2].upper() }}
+                    </div>
+                    <div class="overflow-hidden">
+                        <p class="text-xs font-semibold truncate">{{ current_user.username }}</p>
+                        <p class="text-[10px] text-slate-400 truncate">{{ current_user.role | upper }}</p>
+                    </div>
+                </div>
+                <a href="/logout" class="text-slate-400 hover:text-red-400" title="Déconnexion">
+                    <i class="bi bi-power"></i>
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 flex flex-col transition-all duration-300">
+        <!-- TOPBAR -->
+        <header class="h-16 border-b border-slate-700 glass flex items-center justify-between px-6 sticky top-0 z-30">
+            <div class="flex items-center gap-4">
+                <button onclick="toggleSidebar()" class="lg:hidden text-2xl text-slate-400">
+                    <i class="bi bi-list"></i>
+                </button>
+                <h1 class="text-sm font-medium text-slate-300">🔍 Plateforme de Confiance Numérique — ENSAJ</h1>
+            </div>
+            <div class="flex items-center gap-3">
+                <span class="text-xs px-2 py-1 bg-green-500/10 text-green-400 rounded-full border border-green-500/20 font-medium">
+                    <span class="w-2 h-2 bg-green-500 rounded-full inline-block mr-1"></span> Système Actif
+                </span>
+            </div>
+        </header>
+
+        <!-- CONTENT -->
+        <div class="p-6 lg:p-10 max-w-7xl mx-auto w-full">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('mobile-overlay');
+            if (sidebar.classList.contains('sidebar-active')) {
+                sidebar.classList.remove('sidebar-active');
+                sidebar.classList.add('sidebar-inactive');
+                overlay.classList.add('hidden');
+            } else {
+                sidebar.classList.remove('sidebar-inactive');
+                sidebar.classList.add('sidebar-active');
+                overlay.classList.remove('hidden');
+            }
+        }
+
+        // Display Flash Messages as Toasts
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              Swal.fire({
+                toast: true,
+                position: 'top-end',
+                icon: '{{ "error" if category == "danger" else "success" if category == "success" else "info" }}',
+                title: '{{ message }}',
+                showConfirmButton: false,
+                timer: 3000,
+                background: '#1E293B',
+                color: '#F1F5F9'
+              });
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+    </script>
+</body>
+</html>

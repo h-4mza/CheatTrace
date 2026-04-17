@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block title %}Gestion des Utilisateurs{% endblock %}
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-8">
+        <h2>Gestion des Utilisateurs</h2>
+    </div>
+    <div class="col-md-4 text-end">
+        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#addUserForm">
+            + Ajouter un Utilisateur
+        </button>
+    </div>
+</div>
+
+<div class="collapse mb-4" id="addUserForm">
+    <div class="card card-body shadow border-0">
+        <h5>Nouvel Utilisateur</h5>
+        <form method="POST" class="row g-3">
+            <div class="col-md-3">
+                <input type="text" name="username" class="form-control" placeholder="Nom d'utilisateur" required>
+            </div>
+            <div class="col-md-3">
+                <input type="email" name="email" class="form-control" placeholder="Email" required>
+            </div>
+            <div class="col-md-3">
+                <input type="password" name="password" class="form-control" placeholder="Mot de passe" required>
+            </div>
+            <div class="col-md-2">
+                <select name="role" class="form-select">
+                    <option value="prof">Professeur</option>
+                    <option value="admin">Administrateur</option>
+                </select>
+            </div>
+            <div class="col-md-1 text-end">
+                <button type="submit" class="btn btn-success">OK</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card shadow">
+    <div class="card-body">
+        <table class="table table-striped align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Rôle</th>
+                    <th>Date d'inscription</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td><strong>{{ user.username }}</strong></td>
+                    <td>{{ user.email }}</td>
+                    <td>
+                        <span class="badge {% if user.role == 'admin' %}bg-dark{% else %}bg-info text-dark{% endif %}">
+                            {{ user.role | upper }}
+                        </span>
+                    </td>
+                    <td>{{ user.created_at.strftime('%d/%m/%Y') }}</td>
+                    <td class="text-end">
+                        {% if user.id != current_user.id %}
+                        <a href="/admin/users/delete/{{ user.id }}" class="btn btn-outline-danger btn-sm" onclick="return confirm('Supprimer cet utilisateur ?')">Supprimer</a>
+                        {% else %}
+                        <span class="badge bg-secondary">Vous</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

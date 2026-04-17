@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block title %}Toutes les Investigations{% endblock %}
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-12">
+        <h2>Investigations du Système</h2>
+        <p class="text-muted">Vue globale de toutes les analyses effectuées sur la plateforme.</p>
+    </div>
+</div>
+
+<div class="card mb-4 bg-light border-0 shadow-sm">
+    <div class="card-body">
+        <form method="GET" class="row g-3 align-items-end">
+            <div class="col-md-4">
+                <label class="form-label small fw-bold">Professeur</label>
+                <select name="prof_id" class="form-select">
+                    <option value="">-- Tous les professeurs --</option>
+                    {% for prof in professors %}
+                    <option value="{{ prof.id }}" {% if current_prof_id == prof.id %}selected{% endif %}>
+                        {{ prof.username }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label small fw-bold">Statut</label>
+                <select name="status" class="form-select">
+                    <option value="">-- Tous les statuts --</option>
+                    <option value="pending" {% if current_status == 'pending' %}selected{% endif %}>En attente</option>
+                    <option value="processing" {% if current_status == 'processing' %}selected{% endif %}>En cours</option>
+                    <option value="completed" {% if current_status == 'completed' %}selected{% endif %}>Terminée</option>
+                    <option value="failed" {% if current_status == 'failed' %}selected{% endif %}>Échec</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-dark w-100">Filtrer</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card shadow">
+    <div class="card-body">
+        <table class="table table-hover align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>Professeur</th>
+                    <th>Module</th>
+                    <th>Date</th>
+                    <th>Statut</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for inv in investigations %}
+                <tr>
+                    <td><strong>{{ inv.module.professor.username }}</strong></td>
+                    <td>{{ inv.module.name }}</td>
+                    <td>{{ inv.created_at.strftime('%d/%m/%Y %H:%M') }}</td>
+                    <td>
+                        {% if inv.status == 'completed' %}
+                            <span class="badge bg-success">Terminée</span>
+                        {% elif inv.status == 'processing' %}
+                            <span class="badge bg-info">En cours</span>
+                        {% elif inv.status == 'failed' %}
+                            <span class="badge bg-danger">Échec</span>
+                        {% else %}
+                            <span class="badge bg-secondary">En attente</span>
+                        {% endif %}
+                    </td>
+                    <td class="text-end">
+                        <a href="/investigations/{{ inv.id }}" class="btn btn-outline-primary btn-sm">Consulter le Rapport</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% if not investigations %}
+        <div class="text-center p-5">
+            <p class="text-muted">Aucune investigation ne correspond aux filtres.</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
