@@ -4,13 +4,10 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# FIX BUG 1 & 2 :
-# - model name corrigé : "mistral-medium-latest" (pas "mistralai/mistral-medium")
-# - api_base au lieu de base_url
-# - api_key via os.environ
-llm_mistral = LLM(
-    model="mistral/mistral-small-latest",
-    api_key=os.environ.get("MISTRAL_API_KEY"),
+# Utilisation de Google Gemini (AI Studio)
+llm_gemini = LLM(
+    model="gemini/gemini-3.1-flash-lite-preview",
+    api_key=os.environ.get("GEMINI_API_KEY"),
 )
 
 def creer_agents() -> dict:
@@ -28,7 +25,7 @@ def creer_agents() -> dict:
             "et une rédaction IA (trop lisse, parfaite, sans bruit humain). Tu ne te laisses "
             "jamais tromper par de simples fautes d'orthographe rajoutées artificiellement."
         ),
-        llm=llm_mistral,
+        llm=llm_gemini,
         verbose=True,
         allow_delegation=False,
     )
@@ -45,7 +42,7 @@ def creer_agents() -> dict:
             "les étudiants qui se partagent les réponses. Tu sais que si deux étudiants ont "
             "les mêmes idées formulées différemment, c'est une fraude. Tu te bases uniquement sur les mathématiques."
         ),
-        llm=llm_mistral,
+        llm=llm_gemini,
         verbose=True,
         allow_delegation=False,
     )
@@ -63,7 +60,7 @@ def creer_agents() -> dict:
             "et tu exiges des preuves convergentes avant d'accuser un étudiant. "
             "Tu formates toujours tes conclusions dans un JSON strict pour les systèmes informatiques."
         ),
-        llm=llm_mistral,
+        llm=llm_gemini,
         verbose=True,
         allow_delegation=True,
     )

@@ -1,75 +1,59 @@
 """
-ocr_batch.py — Traitement OCR via API Mistral
+ocr_batch.py — Traitement OCR via API Google Gemini
 Appelé par n8n : python ocr_batch.py --dossier data/uploads --sortie data/resultats_ocr.json
 """
 import argparse
 import json
 import os
 import sys
+try:
+    sys.stdout.reconfigure(encoding='utf-8')
+except AttributeError:
+    pass
 import time
-import base64
 from pathlib import Path
-from mistralai import Mistral
+import google.generativeai as genai
+from PIL import Image
+import PIL.PngImagePlugin
+import PIL.JpegImagePlugin
+import PIL.WebPImagePlugin
+import PIL.BmpImagePlugin
 from dotenv import load_dotenv
 
 load_dotenv()
 
-# Config Mistral
-api_key = os.environ.get("MISTRAL_API_KEY")
-client = Mistral(api_key=api_key)
+# Config Gemini
+api_key = os.environ.get("GEMINI_API_KEY")
+genai.configure(api_key=api_key)
+model = genai.GenerativeModel('gemini-3.1-flash-lite-preview')
 
-def encoder_image(chemin_image: str) -> str:
-    """Encode l'image en base64 pour l'envoi à l'API."""
-    with open(chemin_image, "rb") as image_file:
-        return base64.b64encode(image_file.read()).decode('utf-8')
-
-def extraire_texte_api_mistral(chemin_image: str) -> str:
+def extraire_texte_api_gemini(chemin_image: str) -> str:
     """
-    Utilise l'API Mistral OCR (Pixtral or dedicated OCR) to extract text.
+    Utilise l'API Google Gemini 1.5 Flash pour extraire le texte d'une image.
     """
     chemin = Path(chemin_image)
     if not chemin.exists():
         return ""
 
     try:
-        print(f"  [API Mistral] Traitement de {chemin.name}...")
+        print(f"  [API Gemini] Traitement de {chemin.name}...")
         
-        # Detect mime type
-        ext = chemin.suffix.lower()
-        if ext in ['.jpg', '.jpeg']: mime = "image/jpeg"
-        elif ext == '.png': mime = "image/png"
-        elif ext == '.webp': mime = "image/webp"
-        else: mime = "image/jpeg"
-
-        base64_image = encoder_image(chemin_image)
+        img = Image.open(chemin_image)
         
-        reponse = client.chat.complete(
-            model="pixtral-12b-2409",
-            messages=[
-                {
-                    "role": "user",
-                    "content": [
-                        {"type": "text", "text": "Extrais TOUT le texte de cette image. Ne commente pas, donne juste le texte brut."},
-                        {
-                            "type": "image_url",
-                            "image_url": f"data:{mime};base64,{base64_image}"
-                        }
-                    ]
-                }
-            ]
-        )
+        prompt = "Extrais TOUT le texte de cette image. Ne commente pas, donne juste le texte brut."
         
-        texte = reponse.choices[0].message.content
-        print(f"  [API Mistral] Succès : {len(texte)} caractères extraits.")
+        reponse = model.generate_content([prompt, img])
+        
+        texte = reponse.text
+        print(f"  [API Gemini] Succès : {len(texte)} caractères extraits.")
         return texte
 
     except Exception as e:
-        print(f"  [API Mistral Erreur] {e}", file=sys.stderr)
-        # Fallback local ultra-basique si l'API échoue (optionnel)
+        print(f"  [API Gemini Erreur] {e}", file=sys.stderr)
         return ""
 
 def main():
-    parser = argparse.ArgumentParser(description="OCR via API externe sur un dossier d'images")
+    parser = argparse.ArgumentParser(description="OCR via Gemini sur un dossier d'images")
     parser.add_argument("--dossier", required=True, help="Dossier contenant les images")
     parser.add_argument("--sortie",  required=True, help="Fichier JSON de sortie")
     args = parser.parse_args()
@@ -89,7 +73,7 @@ def main():
             json.dump(sortie, f, ensure_ascii=False, indent=2)
         sys.exit(0)
 
-    print(f"[OCR API] {len(images)} image(s) trouvée(s). Envoi vers Mistral...")
+    print(f"[OCR API] {len(images)} image(s) trouvée(s). Envoi vers Gemini...")
 
     copies = []
     for i, image in enumerate(images, 1):
@@ -97,7 +81,7 @@ def main():
         print(f"[{i}/{len(images)}] Appel API pour {image.name}...")
         debut = time.time()
 
-        texte = extraire_texte_api_mistral(str(image))
+        texte = extraire_texte_api_gemini(str(image))
         duree = round(time.time() - debut, 2)
 
         copies.append({

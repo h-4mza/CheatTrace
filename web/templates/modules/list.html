@@ -1,35 +1,102 @@
 {% extends "base.html" %}
-{% block title %}Mes Modules{% endblock %}
+{% block title %}Mes Modules — ENSAJ{% endblock %}
+{% block header_title %}Gestion des Modules{% endblock %}
+
 {% block content %}
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h2>Liste des Modules</h2>
-    <a href="/modules/new" class="btn btn-primary">+ Nouveau Module</a>
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+    <div>
+        <h2 class="text-2xl font-black text-slate-900">Catalogue d'Enseignement</h2>
+        <p class="text-sm text-slate-500 font-medium">Gérez vos cours et lancez de nouvelles analyses forensiques.</p>
+    </div>
+    <a href="/modules/new" class="btn-ethic-primary flex items-center gap-2 shadow-lg shadow-ethical-600/20">
+        <i class="bi bi-plus-lg"></i> Créer un Module
+    </a>
 </div>
 
-<div class="card shadow">
-    <div class="card-body">
-        <table class="table table-hover">
-            <thead class="table-light">
-                <tr>
-                    <th>Code</th>
-                    <th>Nom</th>
-                    <th>Date création</th>
-                    <th class="text-end">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for module in modules %}
-                <tr>
-                    <td><code>MOD-{{ module.id }}</code></td>
-                    <td><strong>{{ module.name }}</strong><br><small class="text-muted">{{ module.description }}</small></td>
-                    <td>{{ module.created_at.strftime('%d/%m/%Y') }}</td>
-                    <td class="text-end">
-                        <a href="/investigations/new?module_id={{ module.id }}" class="btn btn-success btn-sm">Lancer Analyse</a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+{% if not modules %}
+<div class="card-ethic p-12 text-center">
+    <div class="w-20 h-20 bg-slate-50 text-slate-300 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-6">
+        <i class="bi bi-journal-x"></i>
     </div>
+    <h3 class="text-xl font-bold text-slate-900 mb-2">Aucun module trouvé</h3>
+    <p class="text-slate-500 mb-8 max-w-md mx-auto">Commencez par créer votre premier module d'enseignement pour pouvoir y rattacher des investigations.</p>
+    <a href="/modules/new" class="text-ethical-600 font-bold hover:underline">Créer mon premier module →</a>
 </div>
+{% else %}
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {% for module in modules %}
+    <div class="card-ethic group p-0 overflow-hidden flex flex-col h-full">
+        <div class="h-3 bg-gradient-to-r from-ethical-600 to-trust-600"></div>
+        <div class="p-8 flex-1">
+            <div class="flex justify-between items-start mb-6">
+                <div class="w-12 h-12 rounded-2xl bg-ethical-50 text-ethical-600 flex items-center justify-center text-xl font-black">
+                    {{ module.name[:1].upper() }}
+                </div>
+                <div class="flex flex-col items-end">
+                    <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest bg-slate-50 px-2 py-1 rounded">#MOD-{{ module.id }}</span>
+                    <span class="text-[9px] font-bold text-ethical-600 mt-1 uppercase">{{ module.investigations|length }} Investigations</span>
+                </div>
+            </div>
+            
+            <h3 class="text-xl font-extrabold text-slate-900 mb-3 group-hover:text-ethical-600 transition-colors">{{ module.name }}</h3>
+            <p class="text-sm text-slate-500 leading-relaxed line-clamp-3 mb-6">
+                {{ module.description or "Aucune description fournie pour ce module d'enseignement." }}
+            </p>
+            
+            <div class="flex items-center gap-2 text-xs font-bold text-slate-400 border-t border-slate-50 pt-6">
+                <i class="bi bi-calendar3"></i> Créé le {{ module.created_at.strftime('%d/%m/%Y') }}
+            </div>
+        </div>
+        
+        <div class="p-4 bg-slate-50/50 border-t border-slate-100 flex gap-2 mt-auto">
+            <a href="/investigations/new?module_id={{ module.id }}" class="flex-1 bg-white border border-slate-200 text-slate-700 font-bold py-2.5 rounded-xl text-center text-sm hover:border-ethical-600 hover:text-ethical-600 transition-all flex items-center justify-center gap-2">
+                <i class="bi bi-play-fill text-lg"></i> Analyser
+            </a>
+            
+            <form action="/modules/{{ module.id }}/delete" method="POST" id="delete-form-{{ module.id }}">
+                <button type="button" 
+                        onclick="confirmDelete({{ module.id }}, '{{ module.name }}', {{ module.investigations|length }})"
+                        class="w-11 h-11 bg-white border border-slate-200 text-slate-400 rounded-xl hover:text-red-500 hover:border-red-200 transition-all flex items-center justify-center">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<script>
+function confirmDelete(id, name, invCount) {
+    if (invCount > 0) {
+        Swal.fire({
+            title: 'Action impossible',
+            text: `Le module "${name}" contient ${invCount} investigation(s). Vous devez d'abord les supprimer.`,
+            icon: 'warning',
+            confirmButtonColor: '#16a34a'
+        });
+        return;
+    }
+
+    Swal.fire({
+        title: 'Êtes-vous sûr ?',
+        text: `Voulez-vous vraiment supprimer le module "${name}" ?`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#ef4444',
+        cancelButtonColor: '#64748b',
+        confirmButtonText: 'Oui, supprimer',
+        cancelButtonText: 'Annuler',
+        background: '#ffffff',
+        customClass: {
+            title: 'text-slate-900 font-black',
+            htmlContainer: 'text-slate-500 font-medium'
+        }
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById('delete-form-' + id).submit();
+        }
+    });
+}
+</script>
+{% endif %}
 {% endblock %}

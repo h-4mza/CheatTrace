@@ -1,90 +1,170 @@
 {% extends "base.html" %}
-{% block title %}Admin Dashboard{% endblock %}
+{% block title %}Console Admin — ENSAJ{% endblock %}
+{% block header_title %}Console d'Administration{% endblock %}
+
 {% block content %}
-<div class="row mb-4">
-    <div class="col-md-12">
-        <h1>Console d'Administration</h1>
-        <hr>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+    <div class="card-ethic p-6 flex items-center gap-4">
+        <div class="w-12 h-12 rounded-2xl bg-ethical-50 text-ethical-600 flex items-center justify-center text-2xl">
+            <i class="bi bi-people"></i>
+        </div>
+        <div>
+            <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Utilisateurs</p>
+            <h3 class="text-2xl font-black text-slate-900">{{ stats.users }}</h3>
+        </div>
     </div>
-</div>
+    
+    <div class="card-ethic p-6 flex items-center gap-4">
+        <div class="w-12 h-12 rounded-2xl bg-trust-50 text-trust-600 flex items-center justify-center text-2xl">
+            <i class="bi bi-journal-text"></i>
+        </div>
+        <div>
+            <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Modules</p>
+            <h3 class="text-2xl font-black text-slate-900">{{ stats.modules }}</h3>
+        </div>
+    </div>
 
-<div class="row mb-4 text-center">
-    <div class="col-md-3">
-        <div class="card shadow border-0">
-            <div class="card-body">
-                <h6 class="text-muted text-uppercase small fw-bold">Utilisateurs</h6>
-                <h2 class="mb-0">{{ stats.users }}</h2>
-            </div>
+    <div class="card-ethic p-6 flex items-center gap-4">
+        <div class="w-12 h-12 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center text-2xl">
+            <i class="bi bi-search"></i>
+        </div>
+        <div>
+            <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Analyses</p>
+            <h3 class="text-2xl font-black text-slate-900">{{ stats.investigations }}</h3>
         </div>
     </div>
-    <div class="col-md-3">
-        <div class="card shadow border-0">
-            <div class="card-body">
-                <h6 class="text-muted text-uppercase small fw-bold">Modules</h6>
-                <h2 class="mb-0">{{ stats.modules }}</h2>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="card shadow border-0">
-            <div class="card-body">
-                <h6 class="text-muted text-uppercase small fw-bold">Analyses Totales</h6>
-                <h2 class="mb-0">{{ stats.investigations }}</h2>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="card shadow border-0 bg-info text-white">
-            <div class="card-body">
-                <h6 class="text-uppercase small fw-bold">Analyses en cours</h6>
-                <h2 class="mb-0">{{ stats.pending }}</h2>
-            </div>
-        </div>
-    </div>
-</div>
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="card shadow">
-            <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
-                <h5 class="mb-0">Dernières Activités Système</h5>
-                <a href="/admin/investigations" class="btn btn-outline-light btn-sm">Voir tout</a>
-            </div>
-            <div class="card-body">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Professeur</th>
-                            <th>Module</th>
-                            <th>Date</th>
-                            <th>Statut</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for inv in investigations %}
-                        <tr>
-                            <td>{{ inv.module.professor.username }}</td>
-                            <td>{{ inv.module.name }}</td>
-                            <td>{{ inv.created_at.strftime('%d/%m/%Y %H:%M') }}</td>
-                            <td>
-                                {% if inv.status == 'completed' %}
-                                    <span class="badge bg-success">Terminée</span>
-                                {% elif inv.status == 'processing' %}
-                                    <span class="badge bg-info">En cours</span>
-                                {% else %}
-                                    <span class="badge bg-secondary">{{ inv.status }}</span>
-                                {% endif %}
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+    <div class="card-ethic p-6 flex items-center gap-4 border-l-4 border-ethical-600">
+        <div class="w-12 h-12 rounded-2xl bg-ethical-100 text-ethical-700 flex items-center justify-center text-2xl">
+            <i class="bi bi-activity"></i>
+        </div>
+        <div>
+            <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">En cours</p>
+            <h3 class="text-2xl font-black text-slate-900">{{ stats.pending }}</h3>
         </div>
     </div>
 </div>
 
-<div class="mt-4">
-    <a href="/admin/users" class="btn btn-primary">Gérer les Utilisateurs</a>
+<!-- CHARTS SECTION -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
+    <div class="card-ethic p-8">
+        <h4 class="text-lg font-bold text-slate-900 mb-6 flex items-center gap-2">
+            <i class="bi bi-bar-chart-line text-ethical-600"></i> Volume des Analyses (7 derniers jours)
+        </h4>
+        <div class="h-[300px]">
+            <canvas id="dailyChart"></canvas>
+        </div>
+    </div>
+    
+    <div class="card-ethic p-8">
+        <h4 class="text-lg font-bold text-slate-900 mb-6 flex items-center gap-2">
+            <i class="bi bi-pie-chart text-trust-600"></i> Répartition par Statut
+        </h4>
+        <div class="h-[300px] flex justify-center">
+            <canvas id="statusChart"></canvas>
+        </div>
+    </div>
 </div>
+
+<div class="card-ethic overflow-hidden">
+    <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
+        <h4 class="font-bold text-slate-900">Dernières Activités Système</h4>
+        <a href="/admin/investigations" class="text-sm font-bold text-ethical-600 hover:underline">Voir tout →</a>
+    </div>
+    <div class="overflow-x-auto">
+        <table class="w-full text-left">
+            <thead>
+                <tr class="text-[11px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-100">
+                    <th class="px-6 py-4">Professeur</th>
+                    <th class="px-6 py-4">Module</th>
+                    <th class="px-6 py-4">Date</th>
+                    <th class="px-6 py-4">Statut</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-50">
+                {% for inv in investigations %}
+                <tr class="hover:bg-slate-50/50 transition-colors">
+                    <td class="px-6 py-4">
+                        <div class="flex items-center gap-2">
+                            <div class="w-7 h-7 rounded-lg bg-slate-100 text-slate-600 flex items-center justify-center text-[10px] font-bold">
+                                {{ inv.module.professor.username[:2].upper() }}
+                            </div>
+                            <span class="font-semibold text-slate-700">{{ inv.module.professor.username }}</span>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 font-medium text-slate-600">{{ inv.module.name }}</td>
+                    <td class="px-6 py-4 text-sm text-slate-500">{{ inv.created_at.strftime('%d/%m/%Y %H:%M') }}</td>
+                    <td class="px-6 py-4">
+                        {% if inv.status == 'completed' %}
+                            <span class="px-2.5 py-1 rounded-full bg-ethical-50 text-ethical-700 text-[10px] font-black uppercase border border-ethical-100">Terminée</span>
+                        {% elif inv.status == 'processing' %}
+                            <span class="px-2.5 py-1 rounded-full bg-trust-50 text-trust-700 text-[10px] font-black uppercase border border-trust-100 animate-pulse">En cours</span>
+                        {% else %}
+                            <span class="px-2.5 py-1 rounded-full bg-slate-100 text-slate-600 text-[10px] font-black uppercase border border-slate-200">{{ inv.status }}</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    // Config Chart.js Defaults
+    Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
+    Chart.defaults.color = '#64748b';
+
+    // Daily Chart
+    const ctxDaily = document.getElementById('dailyChart').getContext('2d');
+    new Chart(ctxDaily, {
+        type: 'line',
+        data: {
+            labels: {{ chart_daily_labels | tojson }},
+            datasets: [{
+                label: 'Analyses',
+                data: {{ chart_daily_data | tojson }},
+                borderColor: '#16a34a',
+                backgroundColor: 'rgba(22, 163, 74, 0.1)',
+                fill: true,
+                tension: 0.4,
+                borderWidth: 3,
+                pointBackgroundColor: '#16a34a',
+                pointRadius: 4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+                y: { beginAtZero: true, grid: { display: false } },
+                x: { grid: { display: false } }
+            }
+        }
+    });
+
+    // Status Chart
+    const ctxStatus = document.getElementById('statusChart').getContext('2d');
+    new Chart(ctxStatus, {
+        type: 'doughnut',
+        data: {
+            labels: {{ chart_status_labels | tojson }},
+            datasets: [{
+                data: {{ chart_status_data | tojson }},
+                backgroundColor: ['#16a34a', '#0284c7', '#94a3b8', '#8b5cf6'],
+                borderWidth: 0,
+                hoverOffset: 10
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '75%',
+            plugins: {
+                legend: { position: 'bottom', labels: { usePointStyle: true, padding: 20 } }
+            }
+        }
+    });
+</script>
 {% endblock %}

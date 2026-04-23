@@ -1,7 +1,7 @@
 import os
 import json
 from crewai.tools import tool
-from mistralai import Mistral
+import google.generativeai as genai
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -14,7 +14,17 @@ def outil_detection_ia(chemin_fichier: str) -> str:
     Action : Lit le fichier, boucle sur chaque copie et évalue si elle a été générée par une IA.
     Retourne : Un rapport JSON listant le score et les preuves.
     """
-    client = Mistral(api_key=os.environ.get("MISTRAL_API_KEY"))
+    api_key = os.environ.get("GEMINI_API_KEY")
+    genai.configure(api_key=api_key)
+    
+    system_prompt = """Tu es un algorithme forensique spécialisé dans la stylométrie.
+    Détermine si ce texte est écrit par un humain ou généré par une IA.
+    CRITÈRES IA : Parfait, lisse, transitions mécaniques.
+    CRITÈRES HUMAIN : Irrégulier, fautes, oralité.
+    Tu dois retourner UNIQUEMENT un JSON strict avec cette structure :
+    {"score_ia": <int 0-100>, "niveau_risque": "faible|modere|eleve", "preuves_ia": [], "preuves_humain": [], "synthese": "..."}"""
+
+    model = genai.GenerativeModel('gemini-3.1-flash-lite-preview')
     
     # 1. LECTURE DU FICHIER SUR LE DISQUE
     try:
@@ -24,17 +34,10 @@ def outil_detection_ia(chemin_fichier: str) -> str:
     except Exception as e:
         return f'{{"erreur": "Impossible de lire le fichier {chemin_fichier} : {str(e)}"}}'
 
-    system_prompt = """Tu es un algorithme forensique spécialisé dans la stylométrie.
-    Détermine si ce texte est écrit par un humain ou généré par une IA.
-    CRITÈRES IA : Parfait, lisse, transitions mécaniques.
-    CRITÈRES HUMAIN : Irrégulier, fautes, oralité.
-    Tu dois retourner UNIQUEMENT un JSON strict avec cette structure :
-    {"score_ia": <int 0-100>, "niveau_risque": "faible|modere|eleve", "preuves_ia": [], "preuves_humain": [], "synthese": "..."}"""
-
     resultats_globaux = []
     print("\n[Outil NLP] 🚀 Début de l'analyse des copies en cours...")
 
-    # 2. BOUCLE D'ANALYSE (Le reste de ton code ne change pas)
+    # 2. BOUCLE D'ANALYSE
     for copie in copies:
         copie_id = copie.get("copie_id", "Inconnu")
         texte = copie.get("texte_complet", "")
@@ -43,19 +46,13 @@ def outil_detection_ia(chemin_fichier: str) -> str:
             continue
             
         print(f"   -> Analyse de la copie {copie_id}...")
-        texte_tronque = texte[:4000] if len(texte) > 4000 else texte
+        texte_tronque = texte[:8000] if len(texte) > 8000 else texte
 
         try:
-            reponse = client.chat.complete(
-                model="mistral-small-latest", 
-                messages=[
-                    {"role": "system", "content": system_prompt},
-                    {"role": "user",   "content": f"Analyse ce texte :\n\n{texte_tronque}"}
-                ],
-                temperature=0.0,
-                max_tokens=800,
-            )
-            clean_json_str = reponse.choices[0].message.content.replace("```json", "").replace("```", "").strip()
+            prompt_complet = f"{system_prompt}\n\nAnalyse ce texte :\n\n{texte_tronque}"
+            reponse = model.generate_content(prompt_complet)
+            
+            clean_json_str = reponse.text.replace("```json", "").replace("```", "").strip()
             analyse_json = json.loads(clean_json_str)
             analyse_json["copie_id"] = copie_id
             resultats_globaux.append(analyse_json)
@@ -63,7 +60,7 @@ def outil_detection_ia(chemin_fichier: str) -> str:
         except Exception as e:
             print(f"   [!] Erreur sur {copie_id}: {str(e)}")
             resultats_globaux.append({
-                "copie_id": copie_id, "score_ia": 0, "niveau_risque": "erreur", "synthese": "Échec."
+                "copie_id": copie_id, "score_ia": 0, "niveau_risque": "erreur", "synthese": f"Échec : {str(e)}"
             })
 
     print("[Outil NLP] ✅ Analyse terminée.\n")

@@ -1,40 +1,110 @@
 {
-  "nb_copies": 5,
+  "nb_copies": 15,
   "copies": [
     {
       "copie_id": "C01",
-      "fichier": "testocr.jpeg",
+      "fichier": "test.jpeg",
       "texte_complet": "",
       "nb_chars": 0,
-      "duree_sec": 0.33
+      "duree_sec": 0.15
     },
     {
       "copie_id": "C02",
-      "fichier": "WhatsApp Image 2026-03-25 at 18.26.25 (1).jpeg",
+      "fichier": "test1.jpeg",
       "texte_complet": "",
       "nb_chars": 0,
-      "duree_sec": 0.19
+      "duree_sec": 0.0
     },
     {
       "copie_id": "C03",
-      "fichier": "WhatsApp Image 2026-03-25 at 18.26.25 (2).jpeg",
+      "fichier": "test1.jpg",
       "texte_complet": "",
       "nb_chars": 0,
-      "duree_sec": 0.21
+      "duree_sec": 0.0
     },
     {
       "copie_id": "C04",
-      "fichier": "WhatsApp Image 2026-03-25 at 18.26.25.jpeg",
+      "fichier": "test2.jpeg",
       "texte_complet": "",
       "nb_chars": 0,
-      "duree_sec": 0.2
+      "duree_sec": 0.0
     },
     {
       "copie_id": "C05",
+      "fichier": "test_1.jpeg",
+      "texte_complet": "",
+      "nb_chars": 0,
+      "duree_sec": 0.0
+    },
+    {
+      "copie_id": "C06",
+      "fichier": "test_2.jpeg",
+      "texte_complet": "",
+      "nb_chars": 0,
+      "duree_sec": 0.0
+    },
+    {
+      "copie_id": "C07",
+      "fichier": "test_ocr_save.jpeg",
+      "texte_complet": "",
+      "nb_chars": 0,
+      "duree_sec": 0.0
+    },
+    {
+      "copie_id": "C08",
+      "fichier": "test_ocr_save_1.jpeg",
+      "texte_complet": "",
+      "nb_chars": 0,
+      "duree_sec": 0.0
+    },
+    {
+      "copie_id": "C09",
+      "fichier": "test_ocr_save_2.jpeg",
+      "texte_complet": "",
+      "nb_chars": 0,
+      "duree_sec": 0.0
+    },
+    {
+      "copie_id": "C10",
+      "fichier": "test_valid.jpg",
+      "texte_complet": "",
+      "nb_chars": 0,
+      "duree_sec": 0.0
+    },
+    {
+      "copie_id": "C11",
+      "fichier": "testocr.jpeg",
+      "texte_complet": "",
+      "nb_chars": 0,
+      "duree_sec": 0.0
+    },
+    {
+      "copie_id": "C12",
+      "fichier": "WhatsApp Image 2026-03-25 at 18.26.25 (1).jpeg",
+      "texte_complet": "",
+      "nb_chars": 0,
+      "duree_sec": 0.0
+    },
+    {
+      "copie_id": "C13",
+      "fichier": "WhatsApp Image 2026-03-25 at 18.26.25 (2).jpeg",
+      "texte_complet": "",
+      "nb_chars": 0,
+      "duree_sec": 0.0
+    },
+    {
+      "copie_id": "C14",
+      "fichier": "WhatsApp Image 2026-03-25 at 18.26.25.jpeg",
+      "texte_complet": "",
+      "nb_chars": 0,
+      "duree_sec": 0.0
+    },
+    {
+      "copie_id": "C15",
       "fichier": "WhatsApp Image 2026-04-05 at 00.46.25.jpeg",
       "texte_complet": "",
       "nb_chars": 0,
-      "duree_sec": 0.2
+      "duree_sec": 0.0
     }
   ]
 }

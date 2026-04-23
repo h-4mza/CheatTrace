@@ -15,9 +15,11 @@ load_dotenv()
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev_key_123')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(os.path.abspath(os.path.dirname(__file__)), 'forensique_web.db')
+# Utilisation de PostgreSQL via la variable d'environnement
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['UPLOAD_FOLDER'] = os.path.join(os.path.abspath(os.path.dirname(os.path.dirname(__file__))), 'data', 'uploads')
+# Dossier de stockage externe
+app.config['UPLOAD_FOLDER'] = r'C:\Forensic_Storage'
 
 db.init_app(app)
 login_manager = LoginManager(app)
@@ -112,6 +114,23 @@ def modules_new():
         return redirect(url_for('modules_list'))
     return render_template('modules/new.html')
 
+@app.route('/modules/<int:id>/delete', methods=['POST'])
+@login_required
+def modules_delete(id):
+    module = Module.query.get_or_404(id)
+    # Check ownership
+    if current_user.role != 'admin' and module.professor_id != current_user.id:
+        abort(403)
+        
+    if module.investigations:
+        flash('Impossible de supprimer un module contenant des investigations.', 'danger')
+        return redirect(url_for('modules_list'))
+
+    db.session.delete(module)
+    db.session.commit()
+    flash('Module supprimé avec succès.', 'success')
+    return redirect(url_for('modules_list'))
+
 # --- INVESTIGATIONS ---
 
 @app.route('/investigations')
@@ -135,14 +154,23 @@ def investigations_new():
 
     if request.method == 'POST':
         selected_module_id = request.form.get('module_id')
+        type_investigation = request.form.get('type_investigation', 'complete')
         files = request.files.getlist('files')
         
         if not selected_module_id or not files or files[0].filename == '':
             flash('Veuillez sélectionner un module et au moins un fichier.', 'danger')
             return redirect(url_for('investigations_new', module_id=module_id))
+            
+        # Validation du nombre de fichiers
+        if type_investigation == 'singuliere' and len(files) != 1:
+            flash('L\'investigation singulière nécessite exactement 1 copie.', 'danger')
+            return redirect(url_for('investigations_new', module_id=module_id))
+        elif type_investigation in ['collaborative', 'complete'] and len(files) < 5:
+            flash(f'L\'investigation {type_investigation} nécessite au minimum 5 copies.', 'danger')
+            return redirect(url_for('investigations_new', module_id=module_id))
 
         # Create investigation record
-        inv = Investigation(module_id=selected_module_id, status='pending')
+        inv = Investigation(module_id=selected_module_id, status='pending', type_investigation=type_investigation)
         db.session.add(inv)
         db.session.commit()
 
@@ -208,20 +236,46 @@ def api_investigation_status(id):
 def investigation_callback():
     """
     Called by n8n when the forensic analysis is completed.
-    Payload: { "investigation_id": X, "status": "completed/failed", "report_content": "Markdown text" }
+    Payload: { 
+        "investigation_id": X, 
+        "status": "completed/failed", 
+        "report_content": "Markdown text",
+        "ocr_results": [ {"fichier": "nom.jpg", "texte": "..."}, ... ] 
+    }
     """
     data = request.json
     inv_id = data.get('investigation_id')
     status = data.get('status', 'completed')
     report_content = data.get('report_content', '')
+    ocr_results = data.get('ocr_results', [])
 
     inv = Investigation.query.get(inv_id)
     if not inv:
         return jsonify({"error": "Investigation not found"}), 404
 
     inv.status = status
+    
+    # Mise à jour du texte OCR pour chaque copie si disponible
+    if ocr_results:
+        for res in ocr_results:
+            filename = res.get('fichier')
+            text = res.get('texte')
+            if filename and text:
+                # On cherche la copie par son nom de fichier original ou stocké
+                from models import ExamCopy
+                copy = ExamCopy.query.filter(
+                    (ExamCopy.investigation_id == inv_id) & 
+                    ((ExamCopy.original_filename == filename) | (ExamCopy.stored_path.contains(filename)))
+                ).first()
+                if copy:
+                    copy.ocr_text = text
+
     if status == 'completed':
         report_dir = os.path.join(os.path.dirname(app.config['UPLOAD_FOLDER']), 'reports')
+        # Si C:\Forensic_Storage est utilisé, on crée un dossier reports à côté
+        if not os.path.exists(report_dir):
+             report_dir = os.path.join(app.config['UPLOAD_FOLDER'], 'reports')
+             
         os.makedirs(report_dir, exist_ok=True)
         report_path = os.path.join(report_dir, f"investigation_{inv_id}.md")
         
@@ -232,7 +286,37 @@ def investigation_callback():
         inv.completed_at = datetime.utcnow()
         
     db.session.commit()
-    return jsonify({"message": "Callback processed successfully"}), 200
+    return jsonify({"message": "Callback processed successfully (OCR text saved)"}), 200
+
+@app.route('/investigations/<int:id>/delete', methods=['POST'])
+@login_required
+def investigations_delete(id):
+    inv = Investigation.query.get_or_404(id)
+    # Check ownership
+    if current_user.role != 'admin' and inv.module.professor_id != current_user.id:
+        abort(403)
+        
+    # Remove files from disk
+    try:
+        if inv.report_path and os.path.exists(inv.report_path):
+            os.remove(inv.report_path)
+            
+        inv_dir = os.path.join(app.config['UPLOAD_FOLDER'], 'investigations', str(inv.id))
+        if os.path.exists(inv_dir):
+            import shutil
+            shutil.rmtree(inv_dir)
+    except Exception as e:
+        print(f"Error removing files for investigation {id}: {e}")
+
+    # Remove ExamCopies from DB
+    for copy in inv.exam_copies:
+        db.session.delete(copy)
+        
+    db.session.delete(inv)
+    db.session.commit()
+    
+    flash('L\'investigation a été supprimée définitivement.', 'success')
+    return redirect(url_for('investigations_list'))
 
 # --- ADMIN ---
 
@@ -247,8 +331,30 @@ def admin_dashboard():
         "investigations": Investigation.query.count(),
         "pending": Investigation.query.filter(Investigation.status.in_(['pending', 'processing'])).count()
     }
+    
+    # Data for charts
+    status_counts = db.session.query(Investigation.status, db.func.count(Investigation.id)).group_by(Investigation.status).all()
+    chart_status_labels = [s[0] for s in status_counts]
+    chart_status_data = [s[1] for s in status_counts]
+    
+    # Recent investigations daily (last 7 days)
+    from datetime import timedelta
+    seven_days_ago = datetime.utcnow() - timedelta(days=7)
+    daily_stats = db.session.query(db.func.date(Investigation.created_at), db.func.count(Investigation.id)).\
+        filter(Investigation.created_at >= seven_days_ago).\
+        group_by(db.func.date(Investigation.created_at)).all()
+    
+    chart_daily_labels = [str(d[0]) for d in daily_stats]
+    chart_daily_data = [d[1] for d in daily_stats]
+
     recent_investigations = Investigation.query.order_by(Investigation.created_at.desc()).limit(10).all()
-    return render_template('admin/dashboard.html', stats=stats, investigations=recent_investigations)
+    return render_template('admin/dashboard.html', 
+                           stats=stats, 
+                           investigations=recent_investigations,
+                           chart_status_labels=chart_status_labels,
+                           chart_status_data=chart_status_data,
+                           chart_daily_labels=chart_daily_labels,
+                           chart_daily_data=chart_daily_data)
 
 @app.route('/admin/users', methods=['GET', 'POST'])
 @login_required

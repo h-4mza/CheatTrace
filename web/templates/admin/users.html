@@ -1,71 +1,102 @@
 {% extends "base.html" %}
-{% block title %}Gestion des Utilisateurs{% endblock %}
+{% block title %}Gestion des Utilisateurs — ENSAJ{% endblock %}
+{% block header_title %}Gestion des Utilisateurs{% endblock %}
+
 {% block content %}
-<div class="row mb-4">
-    <div class="col-md-8">
-        <h2>Gestion des Utilisateurs</h2>
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+    <div>
+        <h2 class="text-2xl font-black text-slate-900">Utilisateurs Système</h2>
+        <p class="text-sm text-slate-500 font-medium">Gérez les accès des professeurs et administrateurs.</p>
     </div>
-    <div class="col-md-4 text-end">
-        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#addUserForm">
-            + Ajouter un Utilisateur
-        </button>
-    </div>
+    <button onclick="document.getElementById('addUserForm').classList.toggle('hidden')" class="btn-ethic-primary flex items-center gap-2 shadow-lg shadow-ethical-600/20">
+        <i class="bi bi-person-plus-fill"></i> Nouvel Utilisateur
+    </button>
 </div>
 
-<div class="collapse mb-4" id="addUserForm">
-    <div class="card card-body shadow border-0">
-        <h5>Nouvel Utilisateur</h5>
-        <form method="POST" class="row g-3">
-            <div class="col-md-3">
-                <input type="text" name="username" class="form-control" placeholder="Nom d'utilisateur" required>
+<!-- ADD USER FORM -->
+<div id="addUserForm" class="hidden mb-10 animate-in fade-in slide-in-from-top-4 duration-300">
+    <div class="card-ethic p-8 bg-white">
+        <h3 class="text-lg font-bold text-slate-900 mb-6">Enregistrer un nouveau collaborateur</h3>
+        <form method="POST" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+            <div class="space-y-1">
+                <label class="text-[10px] font-black text-slate-400 uppercase ml-1">Nom d'utilisateur</label>
+                <input type="text" name="username" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-ethical-600 focus:ring-4 focus:ring-ethical-50 outline-none transition-all" placeholder="ex: jdoe" required>
             </div>
-            <div class="col-md-3">
-                <input type="email" name="email" class="form-control" placeholder="Email" required>
+            <div class="space-y-1">
+                <label class="text-[10px] font-black text-slate-400 uppercase ml-1">Email académique</label>
+                <input type="email" name="email" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-ethical-600 focus:ring-4 focus:ring-ethical-50 outline-none transition-all" placeholder="ex: j.doe@ensaj.ma" required>
             </div>
-            <div class="col-md-3">
-                <input type="password" name="password" class="form-control" placeholder="Mot de passe" required>
+            <div class="space-y-1">
+                <label class="text-[10px] font-black text-slate-400 uppercase ml-1">Mot de passe</label>
+                <input type="password" name="password" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-ethical-600 focus:ring-4 focus:ring-ethical-50 outline-none transition-all" placeholder="••••••••" required>
             </div>
-            <div class="col-md-2">
-                <select name="role" class="form-select">
+            <div class="space-y-1">
+                <label class="text-[10px] font-black text-slate-400 uppercase ml-1">Rôle</label>
+                <select name="role" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-ethical-600 focus:ring-4 focus:ring-ethical-50 outline-none transition-all bg-white">
                     <option value="prof">Professeur</option>
                     <option value="admin">Administrateur</option>
                 </select>
             </div>
-            <div class="col-md-1 text-end">
-                <button type="submit" class="btn btn-success">OK</button>
+            <div class="flex items-end">
+                <button type="submit" class="w-full bg-slate-900 text-white font-bold py-3 rounded-xl hover:bg-slate-800 transition-all">
+                    Confirmer
+                </button>
             </div>
         </form>
     </div>
 </div>
 
-<div class="card shadow">
-    <div class="card-body">
-        <table class="table table-striped align-middle">
-            <thead class="table-dark">
-                <tr>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Rôle</th>
-                    <th>Date d'inscription</th>
-                    <th class="text-end">Actions</th>
+<!-- USERS LIST -->
+<div class="card-ethic overflow-hidden">
+    <div class="overflow-x-auto">
+        <table class="w-full text-left">
+            <thead>
+                <tr class="text-[11px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-100 bg-slate-50/50">
+                    <th class="px-8 py-5">Collaborateur</th>
+                    <th class="px-8 py-5">Contact</th>
+                    <th class="px-8 py-5">Privilèges</th>
+                    <th class="px-8 py-5">Date d'adhésion</th>
+                    <th class="px-8 py-5 text-right">Actions</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="divide-y divide-slate-100">
                 {% for user in users %}
-                <tr>
-                    <td><strong>{{ user.username }}</strong></td>
-                    <td>{{ user.email }}</td>
-                    <td>
-                        <span class="badge {% if user.role == 'admin' %}bg-dark{% else %}bg-info text-dark{% endif %}">
-                            {{ user.role | upper }}
+                <tr class="hover:bg-slate-50/30 transition-colors">
+                    <td class="px-8 py-5">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-2xl bg-ethical-50 text-ethical-700 flex items-center justify-center font-black text-lg shadow-sm">
+                                {{ user.username[:2].upper() }}
+                            </div>
+                            <div>
+                                <p class="font-bold text-slate-900">{{ user.username }}</p>
+                                <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">ID: #USR-{{ user.id }}</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-8 py-5">
+                        <span class="text-sm font-medium text-slate-600 flex items-center gap-2">
+                            <i class="bi bi-envelope text-slate-400"></i> {{ user.email }}
                         </span>
                     </td>
-                    <td>{{ user.created_at.strftime('%d/%m/%Y') }}</td>
-                    <td class="text-end">
-                        {% if user.id != current_user.id %}
-                        <a href="/admin/users/delete/{{ user.id }}" class="btn btn-outline-danger btn-sm" onclick="return confirm('Supprimer cet utilisateur ?')">Supprimer</a>
+                    <td class="px-8 py-5">
+                        {% if user.role == 'admin' %}
+                            <span class="px-3 py-1 rounded-lg bg-slate-900 text-white text-[10px] font-black uppercase tracking-tighter">Administrateur</span>
                         {% else %}
-                        <span class="badge bg-secondary">Vous</span>
+                            <span class="px-3 py-1 rounded-lg bg-ethical-100 text-ethical-700 text-[10px] font-black uppercase tracking-tighter">Professeur</span>
+                        {% endif %}
+                    </td>
+                    <td class="px-8 py-5">
+                        <span class="text-sm text-slate-500 font-medium">{{ user.created_at.strftime('%d %B %Y') }}</span>
+                    </td>
+                    <td class="px-8 py-5 text-right">
+                        {% if user.id != current_user.id %}
+                        <a href="/admin/users/delete/{{ user.id }}" 
+                           class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-red-600 hover:bg-red-50 transition-all font-bold text-sm" 
+                           onclick="return confirm('Êtes-vous sûr de vouloir révoquer cet accès ? Cette action est irréversible.')">
+                            <i class="bi bi-trash3"></i> Révoquer
+                        </a>
+                        {% else %}
+                        <span class="px-4 py-2 rounded-xl bg-slate-100 text-slate-400 text-sm font-bold italic">Session active</span>
                         {% endif %}
                     </td>
                 </tr>

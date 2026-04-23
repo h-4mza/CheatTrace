@@ -1,106 +1,124 @@
 {% extends "base.html" %}
 {% block title %}Tableau de Bord — ENSAJ{% endblock %}
+{% block header_title %}Tableau de Bord Personnel{% endblock %}
+
 {% block content %}
-<div class="mb-8">
-    <h1 class="text-3xl font-bold text-white">Bonjour, Prof. {{ current_user.username }}</h1>
-    <p class="text-slate-400 mt-2">Vue d'ensemble de vos analyses et modules.</p>
+<div class="mb-10">
+    <h1 class="text-3xl font-black text-slate-900 tracking-tight">Bonjour, Prof. {{ current_user.username }}</h1>
+    <p class="text-slate-500 mt-2 font-medium">Voici l'état actuel de vos modules et de vos investigations forensiques.</p>
 </div>
 
 <!-- STATS CARDS -->
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-    <div class="bg-dark-lighter p-6 rounded-2xl border border-slate-700 shadow-xl">
-        <div class="flex items-center justify-between mb-4">
-            <div class="p-3 bg-blue-500/10 rounded-xl text-blue-400">
-                <i class="bi bi-journal-bookmark text-2xl"></i>
-            </div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+    <div class="card-ethic p-6 flex items-center gap-5 border-l-4 border-ethical-600">
+        <div class="w-14 h-14 rounded-2xl bg-ethical-50 text-ethical-600 flex items-center justify-center text-2xl shadow-sm">
+            <i class="bi bi-journal-bookmark-fill"></i>
         </div>
-        <p class="text-slate-400 text-sm font-medium">Modules actifs</p>
-        <h3 class="text-3xl font-bold text-white mt-1">{{ modules_count }}</h3>
+        <div>
+            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Modules actifs</p>
+            <h3 class="text-3xl font-black text-slate-900 mt-0.5">{{ modules_count }}</h3>
+        </div>
     </div>
 
-    <div class="bg-dark-lighter p-6 rounded-2xl border border-slate-700 shadow-xl">
-        <div class="flex items-center justify-between mb-4">
-            <div class="p-3 bg-purple-500/10 rounded-xl text-purple-400">
-                <i class="bi bi-search text-2xl"></i>
-            </div>
+    <div class="card-ethic p-6 flex items-center gap-5 border-l-4 border-trust-600">
+        <div class="w-14 h-14 rounded-2xl bg-trust-50 text-trust-600 flex items-center justify-center text-2xl shadow-sm">
+            <i class="bi bi-shield-shaded"></i>
         </div>
-        <p class="text-slate-400 text-sm font-medium">Analyses totales</p>
-        <h3 class="text-3xl font-bold text-white mt-1">{{ total_inv }}</h3>
+        <div>
+            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Investigations</p>
+            <h3 class="text-3xl font-black text-slate-900 mt-0.5">{{ total_inv }}</h3>
+        </div>
     </div>
 
-    <div class="bg-dark-lighter p-6 rounded-2xl border border-slate-700 shadow-xl">
-        <div class="flex items-center justify-between mb-4">
-            <div class="p-3 bg-yellow-500/10 rounded-xl text-yellow-400">
-                <i class="bi bi-clock-history text-2xl"></i>
-            </div>
+    <div class="card-ethic p-6 flex items-center gap-5 border-l-4 border-amber-500">
+        <div class="w-14 h-14 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-2xl shadow-sm">
+            <i class="bi bi-hourglass-split"></i>
         </div>
-        <p class="text-slate-400 text-sm font-medium">En cours d'analyse</p>
-        <h3 class="text-3xl font-bold text-white mt-1">{{ pending_inv }}</h3>
+        <div>
+            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">En traitement</p>
+            <h3 class="text-3xl font-black text-slate-900 mt-0.5">{{ pending_inv }}</h3>
+        </div>
     </div>
 
-    <a href="/investigations/new" class="bg-dark-accent hover:bg-blue-600 p-6 rounded-2xl shadow-xl flex flex-col items-center justify-center transition-all group">
-        <div class="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center text-white mb-2 group-hover:scale-110 transition-transform">
-            <i class="bi bi-plus-lg text-xl"></i>
+    <a href="/investigations/new" class="bg-slate-900 hover:bg-slate-800 p-6 rounded-2xl shadow-xl shadow-slate-900/20 flex flex-col items-center justify-center transition-all group border border-slate-800">
+        <div class="w-12 h-12 rounded-full bg-ethical-600 flex items-center justify-center text-white mb-2 group-hover:scale-110 transition-transform">
+            <i class="bi bi-plus-lg text-xl font-black"></i>
         </div>
-        <p class="text-white font-bold">Nouvelle Analyse</p>
+        <p class="text-white font-bold uppercase text-xs tracking-widest">Nouvelle Analyse</p>
     </a>
 </div>
 
 <!-- RECENT ACTIVITY -->
-<div class="bg-dark-lighter rounded-2xl border border-slate-700 shadow-xl overflow-hidden">
-    <div class="p-6 border-b border-slate-700 flex items-center justify-between">
-        <h3 class="text-lg font-bold text-white">Investigations Récentes</h3>
-        <a href="/investigations" class="text-sm text-dark-accent hover:underline">Voir l'historique complet</a>
+<div class="card-ethic overflow-hidden">
+    <div class="p-8 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
+        <div class="flex items-center gap-3">
+            <div class="w-1.5 h-6 bg-ethical-600 rounded-full"></div>
+            <h3 class="text-lg font-black text-slate-900">Investigations Récentes</h3>
+        </div>
+        <a href="/investigations" class="text-sm font-bold text-ethical-600 hover:text-ethical-700 transition-colors flex items-center gap-1">
+            Voir l'historique complet <i class="bi bi-chevron-right"></i>
+        </a>
     </div>
     <div class="overflow-x-auto">
         <table class="w-full text-left">
             <thead>
-                <tr class="text-[11px] uppercase tracking-widest text-slate-500 font-bold bg-slate-800/50">
-                    <th class="px-6 py-4">Module</th>
-                    <th class="px-6 py-4">Date de lancement</th>
-                    <th class="px-6 py-4">Statut</th>
-                    <th class="px-6 py-4 text-right">Action</th>
+                <tr class="text-[11px] uppercase tracking-[0.2em] text-slate-400 font-black bg-white border-b border-slate-50">
+                    <th class="px-8 py-5">Module d'Enseignement</th>
+                    <th class="px-8 py-5">Date & Heure</th>
+                    <th class="px-8 py-5">Statut de l'Analyse</th>
+                    <th class="px-8 py-5 text-right">Détails</th>
                 </tr>
             </thead>
-            <tbody class="divide-y divide-slate-700">
+            <tbody class="divide-y divide-slate-50">
                 {% for inv in investigations %}
-                <tr class="hover:bg-slate-800/30 transition-colors">
-                    <td class="px-6 py-4">
-                        <span class="font-semibold text-slate-200">{{ inv.module.name }}</span>
+                <tr class="hover:bg-slate-50/30 transition-colors group">
+                    <td class="px-8 py-6">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold">
+                                {{ inv.module.name[:1].upper() }}
+                            </div>
+                            <span class="font-bold text-slate-700 group-hover:text-ethical-600 transition-colors">{{ inv.module.name }}</span>
+                        </div>
+                        <div class="mt-2 text-[10px] text-slate-400 font-bold uppercase tracking-wider pl-11">
+                            Type: {{ inv.type_investigation }}
+                        </div>
                     </td>
-                    <td class="px-6 py-4 text-slate-400 text-sm">
-                        {{ inv.created_at.strftime('%d %b %Y, %H:%M') }}
+                    <td class="px-8 py-6 text-slate-500 text-sm font-medium">
+                        <i class="bi bi-calendar-event mr-1.5 opacity-50"></i> {{ inv.created_at.strftime('%d %b %Y, %H:%M') }}
                     </td>
-                    <td class="px-6 py-4">
+                    <td class="px-8 py-6">
                         {% if inv.status == 'pending' %}
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-500/10 text-yellow-400 border border-yellow-500/20">
-                                En attente
+                            <span class="inline-flex items-center px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider bg-amber-50 text-amber-600 border border-amber-100">
+                                <span class="w-1.5 h-1.5 bg-amber-600 rounded-full mr-2"></span> En attente
                             </span>
                         {% elif inv.status == 'processing' %}
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-500/10 text-blue-400 border border-blue-500/20 animate-processing">
-                                Analyse en cours...
+                            <span class="inline-flex items-center px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider bg-trust-50 text-trust-600 border border-trust-100 animate-pulse">
+                                <span class="w-1.5 h-1.5 bg-trust-600 rounded-full mr-2"></span> Analyse en cours
                             </span>
                         {% elif inv.status == 'completed' %}
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-500/10 text-green-400 border border-green-500/20">
-                                Terminée
+                            <span class="inline-flex items-center px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider bg-ethical-50 text-ethical-600 border border-ethical-100">
+                                <span class="w-1.5 h-1.5 bg-ethical-600 rounded-full mr-2"></span> Terminée
                             </span>
                         {% else %}
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-500/10 text-red-400 border border-red-500/20">
-                                Échec
+                            <span class="inline-flex items-center px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider bg-red-50 text-red-600 border border-red-100">
+                                <span class="w-1.5 h-1.5 bg-red-600 rounded-full mr-2"></span> Échec
                             </span>
                         {% endif %}
                     </td>
-                    <td class="px-6 py-4 text-right">
-                        <a href="/investigations/{{ inv.id }}" class="text-dark-accent hover:text-white transition-colors">
-                            <i class="bi bi-arrow-right-circle text-xl"></i>
+                    <td class="px-8 py-6 text-right">
+                        <a href="/investigations/{{ inv.id }}" class="inline-flex items-center justify-center w-10 h-10 rounded-xl text-slate-400 hover:bg-ethical-600 hover:text-white transition-all shadow-sm">
+                            <i class="bi bi-arrow-right-short text-2xl"></i>
                         </a>
                     </td>
                 </tr>
                 {% endfor %}
                 {% if not investigations %}
                 <tr>
-                    <td colspan="4" class="px-6 py-10 text-center text-slate-500 italic">
-                        Aucune investigation lancée pour le moment.
+                    <td colspan="4" class="px-8 py-16 text-center">
+                        <div class="flex flex-col items-center opacity-40">
+                            <i class="bi bi-inbox text-5xl mb-4"></i>
+                            <p class="font-bold uppercase tracking-widest text-xs">Aucune investigation récente</p>
+                        </div>
                     </td>
                 </tr>
                 {% endif %}

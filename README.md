@@ -1,6 +1,6 @@
 # 🔍 Plateforme de Confiance Numérique — ENSAJ
 
-Système forensique avancé pour la détection de fraude académique (IA & Plagiat) utilisant **CrewAI**, **Mistral AI** et **n8n**.
+Système forensique avancé pour la détection de fraude académique (IA & Plagiat) utilisant **CrewAI**, **Google Gemini (AI Studio)** et **n8n**.
 
 ---
 
@@ -8,7 +8,7 @@ Système forensique avancé pour la détection de fraude académique (IA & Plagi
 - **Dashboard Moderne** : Interface sombre (Dark Mode) responsive avec TailwindCSS.
 - **Gestion de Rôles** : Accès différenciés pour Administrateurs et Professeurs.
 - **Pipeline Forensique** :
-    - OCR via API Mistral (Pixtral) pour une extraction textuelle haute précision.
+    - OCR via Google Gemini 1.5 Flash pour une extraction textuelle haute précision.
     - Analyse par agents IA spécialisés (Expert NLP, Juge Forensique).
 - **Intégration n8n** : Workflow externe pour le traitement asynchrone des copies.
 - **Rapports Automatisés** : Génération de rapports Markdown détaillés avec score de risque.
@@ -37,9 +37,9 @@ pip install -r requirements.txt
 ```
 
 ### 4. Configuration (.env)
-Créez un fichier `.env` à la racine et ajoutez votre clé Mistral :
+Créez un fichier `.env` à la racine et ajoutez votre clé Gemini :
 ```env
-MISTRAL_API_KEY="votre_cle_mistral_ici"
+GEMINI_API_KEY="votre_cle_gemini_ici"
 SECRET_KEY="une_cle_secrete_aleatoire"
 ```
 

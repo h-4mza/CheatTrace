@@ -1,61 +1,119 @@
 {% extends "base.html" %}
 {% block title %}Nouvelle Analyse — ENSAJ{% endblock %}
+{% block header_title %}Lancer une Investigation{% endblock %}
+
 {% block content %}
-<div class="max-w-3xl mx-auto">
-    <div class="mb-8">
-        <a href="/dashboard" class="text-sm text-slate-400 hover:text-dark-accent transition-colors">
-            <i class="bi bi-arrow-left"></i> Retour au tableau de bord
+<div class="max-w-4xl mx-auto">
+    <div class="mb-10">
+        <a href="/dashboard" class="inline-flex items-center gap-2 text-sm font-bold text-slate-400 hover:text-ethical-600 transition-colors group">
+            <i class="bi bi-arrow-left transition-transform group-hover:-translate-x-1"></i> Retour au tableau de bord
         </a>
-        <h1 class="text-3xl font-bold text-white mt-4">Lancer une nouvelle investigation</h1>
-        <p class="text-slate-400 mt-2">Uploadez les copies d'examen pour lancer l'analyse forensique par IA.</p>
+        <h1 class="text-3xl font-black text-slate-900 mt-4 tracking-tight">Configuration de l'Analyse</h1>
+        <p class="text-slate-500 mt-2 font-medium">Uploadez les copies d'examen pour déclencher le pipeline forensique multi-agents.</p>
     </div>
 
-    <form method="POST" enctype="multipart/form-data" class="space-y-6">
+    <form method="POST" enctype="multipart/form-data" class="space-y-8">
+        
+        <!-- INVESTIGATION TYPE -->
+        <div class="card-ethic p-8 relative overflow-hidden">
+            <div class="absolute top-0 right-0 p-4 opacity-5">
+                <i class="bi bi-funnel text-6xl text-slate-900"></i>
+            </div>
+            <label class="block text-xs font-black text-slate-400 uppercase tracking-[0.2em] mb-4">1. Type d'Investigation</label>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <label class="relative flex flex-col p-5 bg-white border-2 border-slate-200 rounded-2xl cursor-pointer hover:border-ethical-200 transition-colors">
+                    <input type="radio" name="type_investigation" value="singuliere" class="peer sr-only">
+                    <div class="absolute inset-0 rounded-2xl border-2 border-transparent peer-checked:border-ethical-600 pointer-events-none transition-colors"></div>
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="w-8 h-8 rounded-lg bg-ethical-50 text-ethical-600 flex items-center justify-center font-bold">
+                            <i class="bi bi-person"></i>
+                        </div>
+                        <span class="font-bold text-slate-900">Singulière</span>
+                    </div>
+                    <p class="text-xs text-slate-500 font-medium">Analyse d'une seule copie. Exécute uniquement l'Expert NLP (Stylométrie).</p>
+                </label>
+                
+                <label class="relative flex flex-col p-5 bg-white border-2 border-slate-200 rounded-2xl cursor-pointer hover:border-ethical-200 transition-colors">
+                    <input type="radio" name="type_investigation" value="collaborative" class="peer sr-only">
+                    <div class="absolute inset-0 rounded-2xl border-2 border-transparent peer-checked:border-ethical-600 pointer-events-none transition-colors"></div>
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="w-8 h-8 rounded-lg bg-trust-50 text-trust-600 flex items-center justify-center font-bold">
+                            <i class="bi bi-people"></i>
+                        </div>
+                        <span class="font-bold text-slate-900">Collaborative</span>
+                    </div>
+                    <p class="text-xs text-slate-500 font-medium">Analyse de plusieurs copies. Exécute uniquement l'Analyste Fraude (Similarité).</p>
+                </label>
+
+                <label class="relative flex flex-col p-5 bg-white border-2 border-slate-200 rounded-2xl cursor-pointer hover:border-ethical-200 transition-colors">
+                    <input type="radio" name="type_investigation" value="complete" class="peer sr-only" checked>
+                    <div class="absolute inset-0 rounded-2xl border-2 border-transparent peer-checked:border-ethical-600 pointer-events-none transition-colors"></div>
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="w-8 h-8 rounded-lg bg-slate-900 text-white flex items-center justify-center font-bold">
+                            <i class="bi bi-shield-check"></i>
+                        </div>
+                        <span class="font-bold text-slate-900">Complète</span>
+                    </div>
+                    <p class="text-xs text-slate-500 font-medium">L'investigation totale. Exécute le pipeline NLP, Similarité, et le Juge Forensique.</p>
+                </label>
+            </div>
+        </div>
+
         <!-- MODULE SELECTION -->
-        <div class="bg-dark-lighter p-8 rounded-2xl border border-slate-700 shadow-xl">
-            <label class="block text-sm font-bold text-slate-300 mb-3">1. Sélectionner le module</label>
+        <div class="card-ethic p-8 relative overflow-hidden">
+            <div class="absolute top-0 right-0 p-4 opacity-5">
+                <i class="bi bi-journal-bookmark text-6xl text-slate-900"></i>
+            </div>
+            <label class="block text-xs font-black text-slate-400 uppercase tracking-[0.2em] mb-4">2. Périmètre de l'Investigation</label>
             <div class="relative">
-                <select name="module_id" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-slate-200 focus:outline-none focus:border-dark-accent appearance-none cursor-pointer" required>
-                    <option value="">-- Choisir un module --</option>
+                <select name="module_id" class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-slate-900 font-bold focus:outline-none focus:ring-4 focus:ring-ethical-50 focus:border-ethical-600 appearance-none cursor-pointer transition-all" required>
+                    <option value="">-- Sélectionner le module concerné --</option>
                     {% for module in modules %}
                     <option value="{{ module.id }}" {% if module.id == selected_module_id %}selected{% endif %}>
                         {{ module.name }}
                     </option>
                     {% endfor %}
                 </select>
-                <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none text-slate-500">
-                    <i class="bi bi-chevron-down"></i>
+                <div class="absolute inset-y-0 right-5 flex items-center pointer-events-none text-slate-400">
+                    <i class="bi bi-chevron-down text-lg"></i>
                 </div>
             </div>
             {% if not modules %}
-            <p class="mt-3 text-xs text-yellow-500/80">
-                <i class="bi bi-exclamation-triangle"></i> Vous n'avez pas encore créé de module. 
-                <a href="/modules/new" class="underline">Créer un module</a> d'abord.
+            <p class="mt-4 text-sm text-amber-600 font-bold flex items-center gap-2 bg-amber-50 p-3 rounded-xl border border-amber-100">
+                <i class="bi bi-exclamation-triangle-fill"></i> Aucun module configuré. 
+                <a href="/modules/new" class="underline decoration-2 underline-offset-4">Créer un module maintenant</a>.
             </p>
             {% endif %}
         </div>
 
         <!-- UPLOAD ZONE -->
-        <div class="bg-dark-lighter p-8 rounded-2xl border border-slate-700 shadow-xl">
-            <label class="block text-sm font-bold text-slate-300 mb-3">2. Téléverser les copies d'examen</label>
+        <div class="card-ethic p-8 relative overflow-hidden">
+             <div class="absolute top-0 right-0 p-4 opacity-5">
+                <i class="bi bi-cloud-arrow-up text-6xl text-slate-900"></i>
+            </div>
+            <label class="block text-xs font-black text-slate-400 uppercase tracking-[0.2em] mb-4">2. Collecte des Évidences Numériques</label>
             
-            <div id="drop-zone" class="border-2 border-dashed border-slate-700 hover:border-dark-accent rounded-2xl p-10 text-center transition-all cursor-pointer bg-slate-900/50 group">
+            <div id="drop-zone" class="border-2 border-dashed border-slate-200 hover:border-ethical-600 rounded-3xl p-12 text-center transition-all cursor-pointer bg-slate-50/50 group">
                 <input type="file" name="files" id="file-input" class="hidden" multiple required accept=".jpg,.jpeg,.png,.pdf">
                 
-                <div class="space-y-4">
-                    <div class="w-16 h-16 bg-dark-accent/10 text-dark-accent rounded-full flex items-center justify-center mx-auto group-hover:scale-110 transition-transform">
-                        <i class="bi bi-cloud-arrow-up text-3xl"></i>
+                <div class="space-y-5">
+                    <div class="w-20 h-20 bg-ethical-50 text-ethical-600 rounded-3xl flex items-center justify-center mx-auto group-hover:scale-110 group-hover:bg-ethical-600 group-hover:text-white transition-all duration-300 shadow-sm">
+                        <i class="bi bi-file-earmark-arrow-up text-4xl"></i>
                     </div>
                     <div>
-                        <p class="text-lg font-semibold text-slate-200">Cliquez ou glissez-déposez ici</p>
-                        <p class="text-sm text-slate-500 mt-1">Images JPG, PNG ou fichiers PDF uniquement</p>
+                        <p class="text-xl font-black text-slate-900">Déposez les copies ici</p>
+                        <p class="text-sm text-slate-500 mt-2 font-medium">Formats acceptés : <span class="bg-white px-2 py-0.5 rounded border border-slate-200">JPG</span> <span class="bg-white px-2 py-0.5 rounded border border-slate-200">PNG</span> <span class="bg-white px-2 py-0.5 rounded border border-slate-200">PDF</span></p>
                     </div>
                 </div>
             </div>
 
             <!-- PREVIEW LIST -->
-            <div id="file-preview-container" class="mt-6 space-y-3 hidden">
-                <p class="text-[10px] uppercase font-bold text-slate-500 tracking-widest px-1">Fichiers sélectionnés</p>
+            <div id="file-preview-container" class="mt-8 space-y-4 hidden animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <div class="flex items-center justify-between px-2">
+                    <p class="text-[10px] uppercase font-black text-slate-400 tracking-widest">Fichiers en attente d'envoi</p>
+                    <span id="file-count-badge" class="bg-ethical-600 text-white text-[10px] font-black px-2 py-0.5 rounded-full">0</span>
+                </div>
+                <div id="validation-message" class="hidden text-xs font-bold px-3 py-2 rounded-lg"></div>
                 <div id="file-list" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <!-- Dynamic items -->
                 </div>
@@ -63,13 +121,17 @@
         </div>
 
         <!-- SUBMIT -->
-        <div class="pt-4">
-            <button type="submit" class="w-full btn-primary text-white font-bold py-4 rounded-2xl shadow-lg shadow-blue-500/20 flex items-center justify-center gap-2">
-                <i class="bi bi-lightning-charge-fill"></i> Démarrer l'Analyse Forensique
+        <div class="pt-6">
+            <button type="submit" id="submit-btn" class="w-full bg-slate-900 text-white font-black py-5 rounded-3xl shadow-2xl shadow-slate-900/20 flex items-center justify-center gap-3 hover:bg-slate-800 hover:-translate-y-1 transition-all duration-300">
+                <i class="bi bi-shield-lock-fill text-xl"></i> Démarrer l'Analyse Forensique Globale
             </button>
-            <p class="text-[10px] text-center text-slate-500 mt-4 uppercase tracking-tighter">
-                En lançant l'analyse, nos agents IA consomment des ressources de calcul intensives.
-            </p>
+            <div class="flex items-center justify-center gap-4 mt-6 opacity-50 grayscale">
+                <span class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Traitement GPU</span>
+                <div class="w-1 h-1 bg-slate-300 rounded-full"></div>
+                <span class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Agents Gemini 1.5</span>
+                <div class="w-1 h-1 bg-slate-300 rounded-full"></div>
+                <span class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Stylométrie Avancée</span>
+            </div>
         </div>
     </form>
 </div>
@@ -79,51 +141,124 @@
     const fileInput = document.getElementById('file-input');
     const fileList = document.getElementById('file-list');
     const previewContainer = document.getElementById('file-preview-container');
+    const fileCountBadge = document.getElementById('file-count-badge');
+    const submitBtn = document.getElementById('submit-btn');
+    const validationMsg = document.getElementById('validation-message');
+    const radioButtons = document.querySelectorAll('input[name="type_investigation"]');
+    
+    // Maintain a state of files for easy removal
+    let dt = new DataTransfer();
 
-    dropZone.onclick = () => fileInput.click();
+    function validateSelection() {
+        const filesCount = fileInput.files.length;
+        const selectedType = document.querySelector('input[name="type_investigation"]:checked').value;
+        let isValid = true;
+        let message = "";
+
+        if (filesCount === 0) {
+             isValid = false;
+        } else if (selectedType === 'singuliere' && filesCount !== 1) {
+            isValid = false;
+            message = "Une investigation singulière requiert exactement 1 copie.";
+        } else if ((selectedType === 'collaborative' || selectedType === 'complete') && filesCount < 5) {
+            isValid = false;
+            message = `L'investigation ${selectedType} requiert au minimum 5 copies (Actuellement: ${filesCount}).`;
+        }
+
+        if (filesCount > 0 && !isValid) {
+            validationMsg.textContent = message;
+            validationMsg.className = "text-xs font-bold px-3 py-2 rounded-lg bg-red-50 text-red-600 border border-red-100 block";
+            submitBtn.disabled = true;
+            submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
+        } else if (filesCount > 0 && isValid) {
+            validationMsg.className = "hidden";
+            submitBtn.disabled = false;
+            submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            
+            if (selectedType === 'singuliere') {
+                submitBtn.innerHTML = '<i class="bi bi-shield-lock-fill text-xl"></i> Démarrer l\'Analyse Singulière';
+            } else if (selectedType === 'collaborative') {
+                submitBtn.innerHTML = '<i class="bi bi-shield-lock-fill text-xl"></i> Démarrer l\'Analyse Collaborative';
+            } else {
+                submitBtn.innerHTML = '<i class="bi bi-shield-lock-fill text-xl"></i> Démarrer l\'Analyse Forensique Globale';
+            }
+        }
+    }
+
+    radioButtons.forEach(radio => {
+        radio.addEventListener('change', validateSelection);
+    });
+
+    dropZone.onclick = (e) => {
+        // Prevent click if we are clicking a delete button
+        if(e.target.closest('button')) return;
+        fileInput.click();
+    };
 
     dropZone.ondragover = (e) => {
         e.preventDefault();
-        dropZone.classList.add('border-dark-accent', 'bg-dark-accent/5');
+        dropZone.classList.add('border-ethical-600', 'bg-ethical-50/50', 'scale-[0.99]');
     };
 
     dropZone.ondragleave = () => {
-        dropZone.classList.remove('border-dark-accent', 'bg-dark-accent/5');
+        dropZone.classList.remove('border-ethical-600', 'bg-ethical-50/50', 'scale-[0.99]');
     };
 
     dropZone.ondrop = (e) => {
         e.preventDefault();
-        dropZone.classList.remove('border-dark-accent', 'bg-dark-accent/5');
-        fileInput.files = e.dataTransfer.files;
-        handleFiles();
+        dropZone.classList.remove('border-ethical-600', 'bg-ethical-50/50', 'scale-[0.99]');
+        addFiles(e.dataTransfer.files);
     };
 
-    fileInput.onchange = handleFiles;
+    fileInput.onchange = (e) => {
+        addFiles(e.target.files);
+    };
 
-    function handleFiles() {
+    function addFiles(files) {
+        for (let i = 0; i < files.length; i++) {
+            dt.items.add(files[i]);
+        }
+        fileInput.files = dt.files;
+        renderFiles();
+    }
+
+    function removeFile(index) {
+        dt.items.remove(index);
+        fileInput.files = dt.files;
+        renderFiles();
+    }
+
+    function renderFiles() {
         const files = Array.from(fileInput.files);
         fileList.innerHTML = '';
+        fileCountBadge.innerText = files.length;
         
         if (files.length > 0) {
             previewContainer.classList.remove('hidden');
-            files.forEach(file => {
+            files.forEach((file, index) => {
                 const isImage = file.type.startsWith('image/');
                 const div = document.createElement('div');
-                div.className = 'bg-slate-800 p-3 rounded-xl border border-slate-700 flex items-center gap-3 overflow-hidden';
+                div.className = 'bg-white p-4 rounded-2xl border border-slate-100 flex items-center justify-between gap-3 shadow-sm hover:border-ethical-200 transition-colors group';
                 div.innerHTML = `
-                    <div class="w-10 h-10 bg-slate-700 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <i class="bi ${isImage ? 'bi-image' : 'bi-file-earmark-pdf'} text-slate-400"></i>
+                    <div class="flex items-center gap-3 overflow-hidden">
+                        <div class="w-10 h-10 bg-slate-50 text-slate-400 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <i class="bi ${isImage ? 'bi-image' : 'bi-file-earmark-pdf'} text-xl"></i>
+                        </div>
+                        <div class="min-w-0">
+                            <p class="text-xs font-bold text-slate-700 truncate">${file.name}</p>
+                            <p class="text-[10px] text-slate-400 font-bold uppercase tracking-tighter">${(file.size / 1024).toFixed(1)} KB</p>
+                        </div>
                     </div>
-                    <div class="min-w-0">
-                        <p class="text-xs font-semibold text-slate-200 truncate">${file.name}</p>
-                        <p class="text-[10px] text-slate-500">${(file.size / 1024).toFixed(1)} KB</p>
-                    </div>
+                    <button type="button" onclick="removeFile(${index})" class="text-slate-400 hover:text-red-500 hover:bg-red-50 p-2 rounded-lg transition-colors flex-shrink-0">
+                        <i class="bi bi-trash-fill"></i>
+                    </button>
                 `;
                 fileList.appendChild(div);
             });
         } else {
             previewContainer.classList.add('hidden');
         }
+        validateSelection();
     }
 </script>
 {% endblock %}

@@ -5,7 +5,7 @@ werkzeug>=3.0.0
 python-dotenv>=1.0.0
 requests>=2.31.0
 markdown>=3.5.0
-mistralai>=1.0.0
+google-generativeai
 crewai>=0.80.0
 crewai-tools>=0.14.0
 sentence-transformers>=2.2.0

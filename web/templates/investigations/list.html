@@ -1,42 +1,83 @@
 {% extends "base.html" %}
-{% block title %}Historique des Investigations{% endblock %}
+{% block title %}Historique des Investigations — ENSAJ{% endblock %}
+{% block header_title %}Historique des Analyses{% endblock %}
+
 {% block content %}
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h2>Historique des Investigations</h2>
-    <a href="/investigations/new" class="btn btn-primary">+ Nouvelle Analyse</a>
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-10">
+    <div>
+        <h2 class="text-2xl font-black text-slate-900">Registre Forensique</h2>
+        <p class="text-sm text-slate-500 font-medium">Consultez l'historique complet des investigations menées sur la plateforme.</p>
+    </div>
+    <a href="/investigations/new" class="btn-ethic-primary flex items-center gap-2 shadow-lg shadow-ethical-600/20">
+        <i class="bi bi-shield-plus text-lg"></i> Nouvelle Investigation
+    </a>
 </div>
 
-<div class="card shadow">
-    <div class="card-body">
-        <table class="table table-hover">
-            <thead class="table-light">
-                <tr>
-                    <th>Module</th>
-                    <th>Date</th>
-                    <th>Copies</th>
-                    <th>Statut</th>
-                    <th class="text-end">Actions</th>
+<div class="card-ethic overflow-hidden">
+    <div class="overflow-x-auto">
+        <table class="w-full text-left">
+            <thead>
+                <tr class="text-[11px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-100 bg-slate-50/50">
+                    <th class="px-8 py-5">Module & Sujet</th>
+                    <th class="px-8 py-5">Date d'Analyse</th>
+                    <th class="px-8 py-5 text-center">Volume</th>
+                    <th class="px-8 py-5">Statut Forensique</th>
+                    <th class="px-8 py-5 text-right">Action</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="divide-y divide-slate-100">
                 {% for inv in investigations %}
-                <tr>
-                    <td><strong>{{ inv.module.name }}</strong></td>
-                    <td>{{ inv.created_at.strftime('%d/%m/%Y %H:%M') }}</td>
-                    <td>{{ inv.exam_copies|length }}</td>
-                    <td>
+                <tr class="hover:bg-slate-50/30 transition-colors group">
+                    <td class="px-8 py-6">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center font-bold shadow-sm">
+                                {{ inv.module.name[:1].upper() }}
+                            </div>
+                            <div>
+                                <p class="font-bold text-slate-900 group-hover:text-ethical-600 transition-colors">{{ inv.module.name }}</p>
+                                <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Type: {{ inv.type_investigation }}</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-8 py-6">
+                        <div class="flex flex-col">
+                            <span class="text-sm font-bold text-slate-700">{{ inv.created_at.strftime('%d %B %Y') }}</span>
+                            <span class="text-[10px] text-slate-400 font-medium">{{ inv.created_at.strftime('%H:%M') }}</span>
+                        </div>
+                    </td>
+                    <td class="px-8 py-6 text-center">
+                        <span class="inline-flex items-center justify-center px-3 py-1 rounded-full bg-slate-100 text-slate-600 text-xs font-black">
+                            {{ inv.exam_copies|length }} copies
+                        </span>
+                    </td>
+                    <td class="px-8 py-6">
                         {% if inv.status == 'pending' %}
-                            <span class="badge bg-secondary">En attente</span>
+                            <span class="px-3 py-1.5 rounded-lg bg-amber-50 text-amber-600 text-[10px] font-black uppercase border border-amber-100 flex items-center w-fit gap-2">
+                                <span class="w-1.5 h-1.5 bg-amber-600 rounded-full"></span> En attente
+                            </span>
                         {% elif inv.status == 'processing' %}
-                            <span class="badge bg-info">Analyse...</span>
+                            <span class="px-3 py-1.5 rounded-lg bg-trust-50 text-trust-600 text-[10px] font-black uppercase border border-trust-100 flex items-center w-fit gap-2 animate-pulse">
+                                <span class="w-1.5 h-1.5 bg-trust-600 rounded-full"></span> Analyse...
+                            </span>
                         {% elif inv.status == 'completed' %}
-                            <span class="badge bg-success">Terminée</span>
+                            <span class="px-3 py-1.5 rounded-lg bg-ethical-50 text-ethical-600 text-[10px] font-black uppercase border border-ethical-100 flex items-center w-fit gap-2">
+                                <span class="w-1.5 h-1.5 bg-ethical-600 rounded-full"></span> Terminée
+                            </span>
                         {% else %}
-                            <span class="badge bg-danger">Échec</span>
+                            <span class="px-3 py-1.5 rounded-lg bg-red-50 text-red-600 text-[10px] font-black uppercase border border-red-100 flex items-center w-fit gap-2">
+                                <span class="w-1.5 h-1.5 bg-red-600 rounded-full"></span> Échec
+                            </span>
                         {% endif %}
                     </td>
-                    <td class="text-end">
-                        <a href="/investigations/{{ inv.id }}" class="btn btn-outline-primary btn-sm">Détails</a>
+                    <td class="px-8 py-6 text-right flex justify-end gap-2">
+                        <a href="/investigations/{{ inv.id }}" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 font-bold text-sm hover:border-ethical-600 hover:text-ethical-600 transition-all shadow-sm">
+                            <i class="bi bi-eye"></i> Consulter
+                        </a>
+                        <form action="/investigations/{{ inv.id }}/delete" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette investigation ? Toutes les copies et le rapport associé seront supprimés définitivement.');">
+                            <button type="submit" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-400 font-bold text-sm hover:border-red-500 hover:text-red-500 transition-all shadow-sm" title="Supprimer">
+                                <i class="bi bi-trash3"></i>
+                            </button>
+                        </form>
                     </td>
                 </tr>
                 {% endfor %}

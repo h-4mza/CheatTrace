@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr" class="dark">
+<html lang="fr" class="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <script>
         tailwind.config = {
@@ -16,11 +17,22 @@
             theme: {
                 extend: {
                     colors: {
-                        dark: {
-                            DEFAULT: '#0F172A',
-                            lighter: '#1E293B',
-                            accent: '#3B82F6',
-                            purple: '#8B5CF6'
+                        ethical: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            600: '#16a34a', // Emerald Green - Growth/Ethics
+                            700: '#15803d',
+                            800: '#166534'
+                        },
+                        trust: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            600: '#0284c7', // Professional Blue - Trust
+                            900: '#0c4a6e'
+                        },
+                        slate: {
+                            900: '#0f172a'
                         }
                     }
                 }
@@ -28,75 +40,76 @@
         }
     </script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #0F172A; color: #F1F5F9; }
-        .sidebar-active { width: 260px; }
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; color: #0f172a; }
+        .sidebar-active { width: 280px; }
         .sidebar-inactive { width: 0px; overflow: hidden; }
-        .glass { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); }
-        .btn-primary { background-color: #3B82F6; transition: 0.3s; }
-        .btn-primary:hover { background-color: #2563EB; transform: translateY(-1px); }
-        .animate-processing { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .5; } }
+        .glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(226, 232, 240, 1); }
+        .card-ethic { background: white; border-radius: 16px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); transition: all 0.3s ease; }
+        .card-ethic:hover { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); transform: translateY(-2px); }
+        .btn-ethic-primary { background-color: #16a34a; color: white; padding: 0.5rem 1.25rem; border-radius: 10px; font-weight: 600; transition: all 0.2s; }
+        .btn-ethic-primary:hover { background-color: #15803d; transform: scale(1.02); }
+        .sidebar-item-active { background-color: #f0fdf4; color: #16a34a; border-right: 4px solid #16a34a; }
     </style>
 </head>
 <body class="flex min-h-screen">
 
     <!-- MOBILE OVERLAY -->
-    <div id="mobile-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
+    <div id="mobile-overlay" class="fixed inset-0 bg-black bg-opacity-30 z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
 
     <!-- SIDEBAR -->
-    <aside id="sidebar" class="fixed lg:static inset-y-0 left-0 z-50 bg-dark-lighter border-r border-slate-700 transition-all duration-300 sidebar-active flex flex-col">
-        <div class="p-6 border-b border-slate-700">
-            <h2 class="text-xl font-bold text-white flex items-center gap-2">
-                <span class="text-dark-accent">🔍</span> ENSAJ
+    <aside id="sidebar" class="fixed lg:static inset-y-0 left-0 z-50 bg-white border-r border-slate-200 transition-all duration-300 sidebar-active flex flex-col">
+        <div class="p-8">
+            <h2 class="text-2xl font-extrabold text-slate-900 flex items-center gap-2">
+                <span class="bg-ethical-600 text-white p-1.5 rounded-lg">🔍</span> ENSAJ
             </h2>
-            <p class="text-[10px] text-slate-400 mt-1 uppercase tracking-widest font-semibold">Forensique Numérique</p>
+            <p class="text-[11px] text-slate-500 mt-2 uppercase tracking-[0.2em] font-bold">Confiance Numérique</p>
         </div>
 
-        <nav class="flex-1 p-4 space-y-2 mt-4">
+        <nav class="flex-1 px-4 space-y-1 mt-2">
             {% if current_user.is_authenticated %}
-                <a href="/dashboard" class="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-700 transition-colors {% if request.path == '/dashboard' %}bg-dark-accent text-white{% else %}text-slate-400{% endif %}">
-                    <i class="bi bi-grid-1x2"></i> Tableau de bord
+                <a href="/dashboard" class="flex items-center gap-3 p-3.5 rounded-xl transition-all hover:bg-slate-50 group {% if request.path == '/dashboard' %}sidebar-item-active{% else %}text-slate-600{% endif %}">
+                    <i class="bi bi-grid-1x2 text-lg"></i> <span class="font-semibold">Tableau de bord</span>
                 </a>
-                <a href="/investigations" class="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-700 transition-colors {% if '/investigations' in request.path %}bg-dark-accent text-white{% else %}text-slate-400{% endif %}">
-                    <i class="bi bi-search"></i> Investigations
+                <a href="/investigations" class="flex items-center gap-3 p-3.5 rounded-xl transition-all hover:bg-slate-50 group {% if '/investigations' in request.path and '/admin' not in request.path %}sidebar-item-active{% else %}text-slate-600{% endif %}">
+                    <i class="bi bi-shield-check text-lg"></i> <span class="font-semibold">Investigations</span>
                 </a>
-                <a href="/modules" class="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-700 transition-colors {% if '/modules' in request.path %}bg-dark-accent text-white{% else %}text-slate-400{% endif %}">
-                    <i class="bi bi-journal-text"></i> Mes Modules
+                <a href="/modules" class="flex items-center gap-3 p-3.5 rounded-xl transition-all hover:bg-slate-50 group {% if '/modules' in request.path %}sidebar-item-active{% else %}text-slate-600{% endif %}">
+                    <i class="bi bi-journal-bookmark text-lg"></i> <span class="font-semibold">Mes Modules</span>
                 </a>
                 
                 {% if current_user.role == 'admin' %}
-                <div class="pt-6 pb-2 px-3">
-                    <p class="text-[10px] text-slate-500 uppercase font-bold tracking-widest">Administration</p>
+                <div class="pt-8 pb-3 px-4">
+                    <p class="text-[10px] text-slate-400 uppercase font-black tracking-widest">Administration</p>
                 </div>
-                <a href="/admin/dashboard" class="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-700 transition-colors {% if '/admin/dashboard' in request.path %}bg-dark-purple text-white{% else %}text-slate-400{% endif %}">
-                    <i class="bi bi-cpu"></i> Console Admin
+                <a href="/admin/dashboard" class="flex items-center gap-3 p-3.5 rounded-xl transition-all hover:bg-slate-50 group {% if '/admin/dashboard' in request.path %}sidebar-item-active{% else %}text-slate-600{% endif %}">
+                    <i class="bi bi-speedometer2 text-lg"></i> <span class="font-semibold">Console Admin</span>
                 </a>
-                <a href="/admin/users" class="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-700 transition-colors {% if '/admin/users' in request.path %}bg-dark-purple text-white{% else %}text-slate-400{% endif %}">
-                    <i class="bi bi-people"></i> Utilisateurs
+                <a href="/admin/users" class="flex items-center gap-3 p-3.5 rounded-xl transition-all hover:bg-slate-50 group {% if '/admin/users' in request.path %}sidebar-item-active{% else %}text-slate-600{% endif %}">
+                    <i class="bi bi-people text-lg"></i> <span class="font-semibold">Utilisateurs</span>
                 </a>
                 {% endif %}
             {% else %}
-                <a href="/login" class="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-700 text-slate-400 transition-colors">
-                    <i class="bi bi-box-arrow-in-right"></i> Connexion
+                <a href="/login" class="flex items-center gap-3 p-3.5 rounded-xl hover:bg-slate-50 text-slate-600 transition-all font-semibold">
+                    <i class="bi bi-box-arrow-in-right text-lg"></i> Connexion
                 </a>
             {% endif %}
         </nav>
 
-        <div class="p-4 border-t border-slate-700">
+        <div class="p-6 border-t border-slate-100 bg-slate-50/50">
             {% if current_user.is_authenticated %}
             <div class="flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                    <div class="w-8 h-8 rounded-full bg-dark-accent flex items-center justify-center text-xs font-bold">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-trust-600 text-white flex items-center justify-center font-bold shadow-lg shadow-trust-600/20">
                         {{ current_user.username[:2].upper() }}
                     </div>
                     <div class="overflow-hidden">
-                        <p class="text-xs font-semibold truncate">{{ current_user.username }}</p>
-                        <p class="text-[10px] text-slate-400 truncate">{{ current_user.role | upper }}</p>
+                        <p class="text-sm font-bold text-slate-900 truncate">{{ current_user.username }}</p>
+                        <p class="text-[10px] text-ethical-600 font-bold uppercase tracking-wider">{{ current_user.role }}</p>
                     </div>
                 </div>
-                <a href="/logout" class="text-slate-400 hover:text-red-400" title="Déconnexion">
-                    <i class="bi bi-power"></i>
+                <a href="/logout" class="text-slate-400 hover:text-red-500 transition-colors p-2" title="Déconnexion">
+                    <i class="bi bi-power text-xl"></i>
                 </a>
             </div>
             {% endif %}
@@ -106,22 +119,28 @@
     <!-- MAIN CONTENT -->
     <main class="flex-1 flex flex-col transition-all duration-300">
         <!-- TOPBAR -->
-        <header class="h-16 border-b border-slate-700 glass flex items-center justify-between px-6 sticky top-0 z-30">
+        <header class="h-20 glass flex items-center justify-between px-8 sticky top-0 z-30">
             <div class="flex items-center gap-4">
-                <button onclick="toggleSidebar()" class="lg:hidden text-2xl text-slate-400">
+                <button onclick="toggleSidebar()" class="lg:hidden text-2xl text-slate-600">
                     <i class="bi bi-list"></i>
                 </button>
-                <h1 class="text-sm font-medium text-slate-300">🔍 Plateforme de Confiance Numérique — ENSAJ</h1>
+                <div class="flex flex-col">
+                    <h1 class="text-lg font-bold text-slate-900">{% block header_title %}Bienvenue{% endblock %}</h1>
+                    <p class="text-xs text-slate-500 font-medium">Plateforme d'Intégrité Académique</p>
+                </div>
             </div>
-            <div class="flex items-center gap-3">
-                <span class="text-xs px-2 py-1 bg-green-500/10 text-green-400 rounded-full border border-green-500/20 font-medium">
-                    <span class="w-2 h-2 bg-green-500 rounded-full inline-block mr-1"></span> Système Actif
-                </span>
+            <div class="flex items-center gap-4">
+                <div class="hidden md:flex flex-col items-end mr-2">
+                    <span class="text-[10px] font-bold text-slate-400 uppercase">Statut Système</span>
+                    <span class="text-xs font-bold text-ethical-600 flex items-center gap-1.5">
+                        <span class="w-2 h-2 bg-ethical-600 rounded-full animate-pulse"></span> Sécurisé & Actif
+                    </span>
+                </div>
             </div>
         </header>
 
         <!-- CONTENT -->
-        <div class="p-6 lg:p-10 max-w-7xl mx-auto w-full">
+        <div class="p-8 lg:p-12 max-w-[1600px] mx-auto w-full">
             {% block content %}{% endblock %}
         </div>
     </main>
@@ -151,9 +170,10 @@
                 icon: '{{ "error" if category == "danger" else "success" if category == "success" else "info" }}',
                 title: '{{ message }}',
                 showConfirmButton: false,
-                timer: 3000,
-                background: '#1E293B',
-                color: '#F1F5F9'
+                timer: 4000,
+                background: '#ffffff',
+                color: '#0f172a',
+                iconColor: '{{ "#ef4444" if category == "danger" else "#16a34a" if category == "success" else "#0284c7" }}'
               });
             {% endfor %}
           {% endif %}
