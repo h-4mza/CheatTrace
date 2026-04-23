@@ -56,11 +56,12 @@ def main():
     parser = argparse.ArgumentParser(description="OCR via Gemini sur un dossier d'images")
     parser.add_argument("--dossier", required=True, help="Dossier contenant les images")
     parser.add_argument("--sortie",  required=True, help="Fichier JSON de sortie")
+    parser.add_argument("--question", required=False, default="", help="Question de l'examen")
     args = parser.parse_args()
 
     dossier = Path(args.dossier)
-    if not dossier.exists():
-        print(f"[ERREUR] Dossier introuvable : {dossier}", file=sys.stderr)
+    if not dossier.exists() or not dossier.is_dir():
+        print(f"[ERREUR] Le dossier {dossier} n'existe pas.", file=sys.stderr)
         sys.exit(1)
 
     EXTENSIONS = {".jpg", ".jpeg", ".png", ".bmp", ".tiff", ".webp"}
@@ -74,22 +75,22 @@ def main():
         sys.exit(0)
 
     print(f"[OCR API] {len(images)} image(s) trouvée(s). Envoi vers Gemini...")
-
     copies = []
-    for i, image in enumerate(images, 1):
-        copie_id = f"C{i:02d}"
-        print(f"[{i}/{len(images)}] Appel API pour {image.name}...")
-        debut = time.time()
 
-        texte = extraire_texte_api_gemini(str(image))
-        duree = round(time.time() - debut, 2)
+    for idx, image_path in enumerate(images, start=1):
+        print(f"[{idx}/{len(images)}] Appel API pour {image_path.name}...")
+
+        t0 = time.time()
+        texte = extraire_texte_api_gemini(str(image_path))
+        duree = round(time.time() - t0, 2)
 
         copies.append({
-            "copie_id":      copie_id,
-            "fichier":       image.name,
-            "texte_complet": texte.strip(),
+            "copie_id":      f"C{idx:02d}",
+            "fichier":       image_path.name,
+            "texte_complet": texte,
             "nb_chars":      len(texte.strip()),
             "duree_sec":     duree,
+            "question":      args.question,
         })
 
     sortie = {

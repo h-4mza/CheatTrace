@@ -31,6 +31,7 @@ class Investigation(db.Model):
     module_id = db.Column(db.Integer, db.ForeignKey('modules.id'), nullable=False)
     status = db.Column(db.String(20), default='pending') # 'pending', 'processing', 'completed', 'failed'
     type_investigation = db.Column(db.String(20), default='complete') # 'singuliere', 'collaborative', 'complete'
+    exam_question = db.Column(db.Text)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     completed_at = db.Column(db.DateTime)
     report_path = db.Column(db.String(500))

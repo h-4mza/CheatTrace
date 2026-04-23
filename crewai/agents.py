@@ -4,7 +4,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# Utilisation de Google Gemini (AI Studio)
 llm_gemini = LLM(
     model="gemini/gemini-3.1-flash-lite-preview",
     api_key=os.environ.get("GEMINI_API_KEY"),
@@ -21,9 +20,8 @@ def creer_agents() -> dict:
         backstory=(
             "Tu es un linguiste computationnel de renommée mondiale, spécialisé dans "
             "la détection de textes générés par intelligence artificielle. Tu sais "
-            "faire la différence entre une rédaction humaine (imparfaite, avec une variance syntaxique) "
-            "et une rédaction IA (trop lisse, parfaite, sans bruit humain). Tu ne te laisses "
-            "jamais tromper par de simples fautes d'orthographe rajoutées artificiellement."
+            "faire la différence entre une rédaction humaine, hybride et une rédaction IA. "
+            "Tu ne te laisses pas tromper par de simples fautes d'orthographe rajoutées artificiellement."
         ),
         llm=llm_gemini,
         verbose=True,
@@ -40,7 +38,8 @@ def creer_agents() -> dict:
             "Tu es un analyste forensique redoutable en milieu académique. "
             "Tu utilises des algorithmes mathématiques avancés (SBERT, MinHash) pour débusquer "
             "les étudiants qui se partagent les réponses. Tu sais que si deux étudiants ont "
-            "les mêmes idées formulées différemment, c'est une fraude. Tu te bases uniquement sur les mathématiques."
+            "les mêmes idées formulées différemment, cela peut indiquer une collusion. "
+            "Tu te bases sur les outils et sur les preuves quantitatives."
         ),
         llm=llm_gemini,
         verbose=True,
@@ -56,8 +55,8 @@ def creer_agents() -> dict:
         backstory=(
             "Tu es le responsable final de cette investigation. Tu reçois les "
             "rapports des experts. Ton rôle est de croiser les preuves : si l'expert NLP "
-            "dit 'IA' et l'Analyste dit 'Collusion', tu tranches. Tu es froid, impartial, "
-            "et tu exiges des preuves convergentes avant d'accuser un étudiant. "
+            "signale une suspicion IA et l'Analyste signale une collusion, tu tranches avec prudence. "
+            "Tu es froid, impartial et tu exiges des preuves convergentes avant d'accuser un étudiant. "
             "Tu formates toujours tes conclusions dans un JSON strict pour les systèmes informatiques."
         ),
         llm=llm_gemini,
@@ -66,7 +65,7 @@ def creer_agents() -> dict:
     )
 
     return {
-        "expert_nlp":       expert_nlp,
-        "analyste_fraude":  analyste_fraude,
-        "juge_forensique":  juge_forensique,
+        "expert_nlp": expert_nlp,
+        "analyste_fraude": analyste_fraude,
+        "juge_forensique": juge_forensique,
     }

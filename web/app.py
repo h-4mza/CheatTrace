@@ -155,6 +155,7 @@ def investigations_new():
     if request.method == 'POST':
         selected_module_id = request.form.get('module_id')
         type_investigation = request.form.get('type_investigation', 'complete')
+        exam_question = request.form.get('exam_question', '')
         files = request.files.getlist('files')
         
         if not selected_module_id or not files or files[0].filename == '':
@@ -170,7 +171,7 @@ def investigations_new():
             return redirect(url_for('investigations_new', module_id=module_id))
 
         # Create investigation record
-        inv = Investigation(module_id=selected_module_id, status='pending', type_investigation=type_investigation)
+        inv = Investigation(module_id=selected_module_id, status='pending', type_investigation=type_investigation, exam_question=exam_question)
         db.session.add(inv)
         db.session.commit()
 

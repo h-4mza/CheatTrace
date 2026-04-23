@@ -43,6 +43,7 @@ def run_investigation_pipeline(investigation_id, professor_email):
                 "investigation_id": investigation_id,
                 "email": professor_email,
                 "type_investigation": inv.type_investigation,
+                "exam_question": inv.exam_question or "",
                 "callback_url": "http://localhost:5001/api/investigation/callback"
             }
 
