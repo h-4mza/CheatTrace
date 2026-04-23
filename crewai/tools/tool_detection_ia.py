@@ -408,8 +408,7 @@ class ClientGeminiForensique:
                 response = self.model.generate_content(
                     prompt_complet,
                     generation_config=genai.types.GenerationConfig(
-                        temperature=0.1,
-                        response_mime_type="application/json"
+                        temperature=0.1
                     )
                 )
                 return extraire_json(response.text)
