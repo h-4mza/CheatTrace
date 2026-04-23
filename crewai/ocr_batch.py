@@ -74,6 +74,15 @@ def main():
             json.dump(sortie, f, ensure_ascii=False, indent=2)
         sys.exit(0)
 
+    question_text = args.question
+    question_file = dossier / "question.txt"
+    if question_file.exists():
+        try:
+            with open(question_file, "r", encoding="utf-8") as f:
+                question_text = f.read().strip()
+        except Exception:
+            pass
+
     print(f"[OCR API] {len(images)} image(s) trouvée(s). Envoi vers Gemini...")
     copies = []
 
@@ -90,7 +99,7 @@ def main():
             "texte_complet": texte,
             "nb_chars":      len(texte.strip()),
             "duree_sec":     duree,
-            "question":      args.question,
+            "question":      question_text,
         })
 
     sortie = {
