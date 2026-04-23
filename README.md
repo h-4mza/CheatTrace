@@ -37,11 +37,16 @@ pip install -r requirements.txt
 ```
 
 ### 4. Configuration (.env)
-Créez un fichier `.env` à la racine et ajoutez votre clé Gemini :
+Créez un fichier `.env` à la racine et configurez vos clés et la base de données :
 ```env
 GEMINI_API_KEY="votre_cle_gemini_ici"
+DATABASE_URL="postgresql://postgres:votre_pass@localhost:5432/forensique_db"
 SECRET_KEY="une_cle_secrete_aleatoire"
 ```
+
+### 5. Stockage Externe
+Créez le dossier suivant sur votre disque C: pour le stockage des copies d'examen :
+`C:\Forensic_Storage`
 
 ---
 
