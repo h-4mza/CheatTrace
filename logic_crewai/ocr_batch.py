@@ -59,24 +59,62 @@ def main():
     parser.add_argument("--question", required=False, default="", help="Question de l'examen")
     args = parser.parse_args()
 
-    # MOCK MODE FOR N8N TEST
-    mock_file = Path("C:/Users/HP/Downloads/prjt_fixed2/entree_detection_ia.json")
-    if mock_file.exists():
-        with open(mock_file, "r", encoding="utf-8") as f:
-            mock_data = json.load(f)
-        
-        # Inject the question into the mock data if not already there, just in case
-        for copie in mock_data.get('copies', []):
-            if not copie.get('question'):
-                copie['question'] = args.question
-        
-        mock_data['nb_copies'] = len(mock_data.get('copies', []))
-        
-        Path(args.sortie).parent.mkdir(parents=True, exist_ok=True)
+    dossier = Path(args.dossier)
+    if not dossier.exists() or not dossier.is_dir():
+        print(f"[ERREUR] Le dossier {dossier} n'existe pas.", file=sys.stderr)
+        sys.exit(1)
+
+    EXTENSIONS = {".jpg", ".jpeg", ".png", ".bmp", ".tiff", ".webp"}
+    images = sorted([f for f in dossier.iterdir() if f.name != "question.txt" and f.suffix.lower() in EXTENSIONS])
+
+    if not images:
+        print(f"[ERREUR] Aucune image trouvée dans {dossier}", file=sys.stderr)
+        # On crée un fichier vide pour ne pas bloquer n8n
+        sortie = {"nb_copies": 0, "copies": []}
         with open(args.sortie, "w", encoding="utf-8") as f:
-            json.dump(mock_data, f, ensure_ascii=False, indent=2)
-        print(f"[OCR API MOCK] Terminé. Copies simulées injectées.")
+            json.dump(sortie, f, ensure_ascii=False, indent=2)
         sys.exit(0)
+
+    # Récupération de la question (depuis argument ou fichier)
+    question_text = args.question
+    question_file = dossier / "question.txt"
+    if question_file.exists():
+        try:
+            with open(question_file, "r", encoding="utf-8") as f:
+                question_text = f.read().strip()
+        except Exception:
+            pass
+
+    print(f"[OCR API] {len(images)} image(s) trouvée(s). Envoi vers Gemini...")
+    copies = []
+    
+    for idx, image_path in enumerate(images, start=1):
+        print(f"[{idx}/{len(images)}] Appel API pour {image_path.name}...")
+        
+        t0 = time.time()
+        texte = extraire_texte_api_gemini(str(image_path))
+        duree = round(time.time() - t0, 2)
+        
+        copies.append({
+            "copie_id":      f"C{idx:02d}",
+            "fichier":       image_path.name,
+            "texte_complet": texte,
+            "nb_chars":      len(texte.strip()),
+            "duree_sec":     duree,
+            "question":      question_text,
+        })
+
+    sortie = {
+        "nb_copies": len(copies),
+        "copies":    copies,
+    }
+
+    # Sauvegarde finale
+    Path(args.sortie).parent.mkdir(parents=True, exist_ok=True)
+    with open(args.sortie, "w", encoding="utf-8") as f:
+        json.dump(sortie, f, ensure_ascii=False, indent=2)
+
+    print(f"\n[OCR API] Terminé. {len(copies)} copies traitées via l'API.")
 
 
 if __name__ == "__main__":
