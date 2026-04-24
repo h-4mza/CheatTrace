@@ -43,27 +43,35 @@
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; color: #0f172a; }
         .sidebar-active { width: 280px; }
-        .sidebar-inactive { width: 0px; overflow: hidden; }
+        .sidebar-inactive { width: 0px; overflow: hidden; border-right: none; }
         .glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(226, 232, 240, 1); }
         .card-ethic { background: white; border-radius: 16px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); transition: all 0.3s ease; }
         .card-ethic:hover { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); transform: translateY(-2px); }
         .btn-ethic-primary { background-color: #16a34a; color: white; padding: 0.5rem 1.25rem; border-radius: 10px; font-weight: 600; transition: all 0.2s; }
         .btn-ethic-primary:hover { background-color: #15803d; transform: scale(1.02); }
         .sidebar-item-active { background-color: #f0fdf4; color: #16a34a; border-right: 4px solid #16a34a; }
+        
+        /* Smooth transitions */
+        #sidebar, main { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
     </style>
 </head>
 <body class="flex min-h-screen">
 
     <!-- MOBILE OVERLAY -->
-    <div id="mobile-overlay" class="fixed inset-0 bg-black bg-opacity-30 z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
+    <div id="mobile-overlay" class="fixed inset-0 bg-black bg-opacity-30 z-40 hidden" onclick="toggleSidebar()"></div>
 
     <!-- SIDEBAR -->
-    <aside id="sidebar" class="fixed lg:static inset-y-0 left-0 z-50 bg-white border-r border-slate-200 transition-all duration-300 sidebar-active flex flex-col">
-        <div class="p-8">
-            <h2 class="text-2xl font-extrabold text-slate-900 flex items-center gap-2">
-                <span class="bg-ethical-600 text-white p-1.5 rounded-lg">🔍</span> ENSAJ
-            </h2>
-            <p class="text-[11px] text-slate-500 mt-2 uppercase tracking-[0.2em] font-bold">Confiance Numérique</p>
+    <aside id="sidebar" class="fixed lg:static inset-y-0 left-0 z-50 bg-white border-r border-slate-200 sidebar-active flex flex-col">
+        <div class="p-8 flex items-center justify-between">
+            <div>
+                <h2 class="text-2xl font-extrabold text-slate-900 flex items-center gap-2">
+                    <span class="bg-ethical-600 text-white p-1.5 rounded-lg">🔍</span> ENSAJ
+                </h2>
+                <p class="text-[11px] text-slate-500 mt-2 uppercase tracking-[0.2em] font-bold">Confiance Numérique</p>
+            </div>
+            <button onclick="toggleSidebar()" class="lg:hidden text-slate-400 hover:text-slate-600">
+                <i class="bi bi-x-lg text-xl"></i>
+            </button>
         </div>
 
         <nav class="flex-1 px-4 space-y-1 mt-2">
@@ -121,7 +129,7 @@
         <!-- TOPBAR -->
         <header class="h-20 glass flex items-center justify-between px-8 sticky top-0 z-30">
             <div class="flex items-center gap-4">
-                <button onclick="toggleSidebar()" class="lg:hidden text-2xl text-slate-600">
+                <button onclick="toggleSidebar()" class="text-2xl text-slate-600 hover:bg-slate-100 p-2 rounded-xl transition-colors">
                     <i class="bi bi-list"></i>
                 </button>
                 <div class="flex flex-col">
