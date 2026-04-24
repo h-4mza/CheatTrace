@@ -114,9 +114,27 @@ def main():
     resultat_brut = crew.kickoff()
     resultat_json = extraire_json_verdict(str(resultat_brut))
     
-    # Si le résultat de l'outil est imbriqué sous "resultats_stylometrie"
-    if "resultats_stylometrie" in resultat_json:
-        resultat_json = resultat_json["resultats_stylometrie"]
+    # Correction : Si le résultat est une liste ou imbriqué, on normalise en dictionnaire
+    if isinstance(resultat_json, dict) and "resultats_stylometrie" in resultat_json:
+        inner_data = resultat_json["resultats_stylometrie"]
+        if isinstance(inner_data, list):
+            resultat_json = {
+                "nb_copies": len(inner_data),
+                "nb_suspects": sum(1 for x in inner_data if x.get('classification') != 'HUMAIN'),
+                "resultats": inner_data
+            }
+        else:
+            resultat_json = inner_data
+    elif isinstance(resultat_json, list):
+        resultat_json = {
+            "nb_copies": len(resultat_json),
+            "nb_suspects": sum(1 for x in resultat_json if x.get('classification') != 'HUMAIN'),
+            "resultats": resultat_json
+        }
+
+    # S'assurer que c'est un dictionnaire pour la suite
+    if not isinstance(resultat_json, dict):
+        resultat_json = {"resultats": [], "erreur": "Format de sortie invalide"}
 
     # Sauvegarder le résultat NLP
     chemin_sortie = os.path.abspath(os.path.join(script_dir, "..", "data", "resultats_nlp.json"))
