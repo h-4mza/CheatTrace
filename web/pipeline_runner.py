@@ -59,12 +59,35 @@ def run_investigation_pipeline(investigation_id, professor_email):
                 print(f"[PIPELINE #{investigation_id}] n8n trigger SUCCESS.")
                 try:
                     result = response.json()
-                    status = "completed" if result.get("statut") == "termine" else "failed"
+                    
+                    # Same logic as app.py callback
+                    status_n8n = result.get('status') or result.get('statut', 'completed')
+                    if status_n8n == 'termine' or status_n8n == 'ocr_ok':
+                        status = 'completed'
+                    elif 'erreur' in status_n8n.lower():
+                        status = 'failed'
+                    else:
+                        status = 'completed'
+                        
                     report_content = result.get("output", "")
+                    ocr_results = result.get("ocr_results", [])
                     
                     inv.status = status
+                    
+                    if ocr_results:
+                        for res in ocr_results:
+                            filename = res.get('fichier')
+                            text = res.get('texte')
+                            if filename and text:
+                                copy = ExamCopy.query.filter(
+                                    (ExamCopy.investigation_id == investigation_id) & 
+                                    ((ExamCopy.original_filename == filename) | (ExamCopy.stored_path.contains(filename)))
+                                ).first()
+                                if copy:
+                                    copy.ocr_text = text
+
                     if status == "completed":
-                        report_dir = os.path.join(os.path.dirname(app.config['UPLOAD_FOLDER']), 'reports')
+                        report_dir = os.path.join(app.config['UPLOAD_FOLDER'], 'reports')
                         os.makedirs(report_dir, exist_ok=True)
                         report_path = os.path.join(report_dir, f"investigation_{investigation_id}.md")
                         
