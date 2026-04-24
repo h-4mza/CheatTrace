@@ -160,27 +160,31 @@ def main():
             md += "- Aucune analyse détaillée n'a pu être extraite.\n\n"
         else:
             for s in resultats:
-                # Titre de la copie avec icône selon le risque
-                classification = s.get('classification', 'INCONNU')
+                # Si les détails sont imbriqués
+                details = s.get('details_complets', s)
+                
+                classification = s.get('classification', details.get('classification_finale', 'INCONNU'))
+                score = s.get('score_ia', details.get('score_recalcule', 0))
+                
                 icon = "🔴" if classification == "PROBABLEMENT_IA" else "🟠" if classification == "HYBRIDE" else "🟢"
-                md += f"## {icon} Copie {s.get('copie_id','?')} — {classification} (Score : {s.get('score_suspicion', 0)}/100)\n\n"
+                md += f"## {icon} Copie {s.get('copie_id','?')} — {classification} (Score : {score}/100)\n\n"
                 
-                # Résumé Exécutif
-                md += f"**Résumé Exécutif :**\n{s.get('resume_executif', 'N/A')}\n\n"
+                md += f"**Résumé Exécutif :**\n{details.get('resume_executif', s.get('synthese', 'N/A'))}\n\n"
                 
-                # Dimensions Analysées
                 md += "### 📊 Analyse Multidimensionnelle\n"
-                dimensions = s.get('dimensions', {})
-                for dim_key, dim_data in dimensions.items():
-                    name = dim_key.replace('_', ' ').title()
-                    note = dim_data.get('note', 0)
-                    obs = dim_data.get('observation', '')
-                    md += f"- **{name} ({note}/10) :** {obs}\n"
+                dimensions = details.get('dimensions', {})
+                if dimensions:
+                    for dim_key, dim_data in dimensions.items():
+                        name = dim_key.replace('_', ' ').title()
+                        note = dim_data.get('note', 0)
+                        obs = dim_data.get('observation', '')
+                        md += f"- **{name} ({note}/10) :** {obs}\n"
+                else:
+                    md += "- Détails des dimensions non disponibles.\n"
                 md += "\n"
                 
-                # Indices Linguistiques
                 md += "### 🔎 Indices Linguistiques Relevés\n"
-                indices = s.get('indices_linguistiques', [])
+                indices = details.get('indices_linguistiques', s.get('preuves_ia', []))
                 if indices:
                     for ind in indices:
                         md += f"- {ind}\n"
@@ -188,20 +192,19 @@ def main():
                     md += "- Aucun indice spécifique relevé.\n"
                 md += "\n"
                 
-                # Prompts Plausibles
-                prompts = s.get('prompts_plausibles', {})
+                prompts = details.get('prompts_plausibles', {})
                 if prompts:
                     md += "### 🤖 Prompts Plausibles (Hypothèses)\n"
-                    md += f"*{prompts.get('avertissement', '')}*\n"
-                    for p in prompts.get('liste', []):
-                        md += f"- `{p}`\n"
+                    if isinstance(prompts, dict):
+                        md += f"*{prompts.get('avertissement', '')}*\n"
+                        for p in prompts.get('liste', []):
+                            md += f"- `{p}`\n"
                     md += "\n"
                 
-                # Conclusion et Risque Faux Positif
                 md += "### ⚖️ Conclusion & Risque de Faux Positif\n"
-                md += f"**Conclusion :** {s.get('conclusion', 'N/A')}\n\n"
-                md += f"**Risque de Faux Positif :** `{s.get('faux_positif_risque', 'INCONNU')}`\n"
-                md += f"**Raison :** {s.get('faux_positif_raison', 'N/A')}\n\n"
+                md += f"**Conclusion :** {details.get('conclusion', 'N/A')}\n\n"
+                md += f"**Risque de Faux Positif :** `{details.get('faux_positif_risque', 'INCONNU')}`\n"
+                md += f"**Raison :** {details.get('faux_positif_raison', 'N/A')}\n\n"
                 md += "---\n\n"
 
         with open(chemin_rapport, "w", encoding="utf-8") as f:
