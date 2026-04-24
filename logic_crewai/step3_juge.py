@@ -94,7 +94,7 @@ def main():
             "4. Appelle l'outil 'Outil de Generation de Rapport Forensique' avec ton JSON final.\n\n"
             "Tu DOIS retourner UNIQUEMENT un JSON avec la structure exacte suivante :\n"
             "{\n"
-            '  "nb_copies_analysees": 20,\n'
+            '  "nb_copies_analysees": X (le nombre réel de copies),\n'
             '  "nb_suspects": X,\n'
             '  "copies_suspectes": [\n'
             "    {\n"
