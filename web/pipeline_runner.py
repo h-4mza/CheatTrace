@@ -60,11 +60,29 @@ def run_investigation_pipeline(investigation_id, professor_email):
                 try:
                     result = response.json()
                     
-                    # Same logic as app.py callback
                     status_n8n = result.get('status') or result.get('statut', 'completed')
+                    
+                    # FALLBACK ROBUSTE : Si n8n a eu du mal à lire le gros JSON via la console Windows,
+                    # on va lire directement le fichier généré sur le disque dur.
+                    if status_n8n == 'erreur_parsing':
+                        print(f"[PIPELINE #{investigation_id}] Erreur de parsing n8n détectée. Tentative de lecture directe sur le disque...")
+                        import json
+                        script_dir = os.path.dirname(os.path.abspath(__file__))
+                        # On cherche d'abord le verdict final (investigation complète), sinon le NLP (singulière)
+                        for file_name in ["verdict_final.json", "resultats_nlp.json"]:
+                            chemin_json = os.path.abspath(os.path.join(script_dir, "..", "data", file_name))
+                            if os.path.exists(chemin_json):
+                                with open(chemin_json, "r", encoding="utf-8") as f:
+                                    local_result = json.load(f)
+                                    if str(local_result.get("session_id")) == str(investigation_id):
+                                        result = local_result
+                                        status_n8n = result.get('statut', 'termine')
+                                        print(f"[PIPELINE #{investigation_id}] Succès de la récupération directe depuis {file_name}")
+                                        break
+                                        
                     if status_n8n == 'termine' or status_n8n == 'ocr_ok':
                         status = 'completed'
-                    elif 'erreur' in status_n8n.lower():
+                    elif 'erreur' in status_n8n.lower() and status_n8n != 'erreur_parsing':
                         status = 'failed'
                     else:
                         status = 'completed'
