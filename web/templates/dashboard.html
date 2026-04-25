@@ -3,15 +3,20 @@
 {% block header_title %}Tableau de Bord Personnel{% endblock %}
 
 {% block content %}
-<div class="mb-10">
-    <h1 class="text-3xl font-black text-slate-900 tracking-tight">Bonjour, Prof. {{ current_user.username }}</h1>
-    <p class="text-slate-500 mt-2 font-medium">Voici l'état actuel de vos modules et de vos investigations forensiques.</p>
+<div class="mb-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+    <div>
+        <h1 class="text-3xl font-black text-slate-900 tracking-tight">Bonjour, Prof. {{ current_user.username }}</h1>
+        <p class="text-slate-500 mt-2 font-medium">Voici l'état actuel de vos modules et de vos investigations forensiques.</p>
+    </div>
+    <a href="/investigations/new" class="btn-ethic-primary flex items-center gap-2 shadow-lg shadow-ethical-600/20">
+        <i class="bi bi-plus-lg text-lg"></i> Nouvelle Analyse
+    </a>
 </div>
 
 <!-- STATS CARDS -->
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-    <div class="card-ethic p-6 flex items-center gap-5 border-l-4 border-ethical-600">
-        <div class="w-14 h-14 rounded-2xl bg-ethical-50 text-ethical-600 flex items-center justify-center text-2xl shadow-sm">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <div class="card-ethic p-6 flex items-center gap-5 border-l-4 border-slate-800">
+        <div class="w-14 h-14 rounded-2xl bg-slate-100 text-slate-700 flex items-center justify-center text-2xl shadow-sm">
             <i class="bi bi-journal-bookmark-fill"></i>
         </div>
         <div>
@@ -40,90 +45,114 @@
         </div>
     </div>
 
-    <a href="/investigations/new" class="bg-slate-900 hover:bg-slate-800 p-6 rounded-2xl shadow-xl shadow-slate-900/20 flex flex-col items-center justify-center transition-all group border border-slate-800">
-        <div class="w-12 h-12 rounded-full bg-ethical-600 flex items-center justify-center text-white mb-2 group-hover:scale-110 transition-transform">
-            <i class="bi bi-plus-lg text-xl font-black"></i>
+    <div class="card-ethic p-6 flex items-center gap-5 border-l-4 border-red-500 relative overflow-hidden group">
+        <div class="w-14 h-14 rounded-2xl bg-red-50 text-red-600 flex items-center justify-center text-2xl shadow-sm relative z-10">
+            <i class="bi bi-exclamation-triangle-fill"></i>
         </div>
-        <p class="text-white font-bold uppercase text-xs tracking-widest">Nouvelle Analyse</p>
-    </a>
+        <div class="relative z-10">
+            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Taux de Fraude</p>
+            <div class="flex items-end gap-2 mt-0.5">
+                <h3 class="text-3xl font-black text-red-600">{{ taux_fraude }}<span class="text-xl">%</span></h3>
+            </div>
+        </div>
+        <!-- Progress bar background effect -->
+        <div class="absolute bottom-0 left-0 h-1 bg-red-100 w-full">
+            <div class="h-full bg-red-500" style="width: {{ taux_fraude }}%"></div>
+        </div>
+    </div>
 </div>
 
-<!-- RECENT ACTIVITY -->
-<div class="card-ethic overflow-hidden">
-    <div class="p-8 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
-        <div class="flex items-center gap-3">
-            <div class="w-1.5 h-6 bg-ethical-600 rounded-full"></div>
-            <h3 class="text-lg font-black text-slate-900">Investigations Récentes</h3>
+<!-- DETAILED STATS (New Section) -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12">
+    <div class="card-ethic p-8 lg:col-span-1 flex flex-col justify-center bg-slate-900 text-white relative overflow-hidden">
+        <div class="absolute -right-10 -top-10 opacity-5">
+            <i class="bi bi-graph-up-arrow text-9xl"></i>
         </div>
-        <a href="/investigations" class="text-sm font-bold text-ethical-600 hover:text-ethical-700 transition-colors flex items-center gap-1">
-            Voir l'historique complet <i class="bi bi-chevron-right"></i>
-        </a>
+        <h3 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-2 relative z-10">Bilan des 20 dernières analyses</h3>
+        <div class="flex items-end gap-4 mb-6 relative z-10">
+            <span class="text-6xl font-black">{{ total_suspects }}</span>
+            <span class="text-lg text-slate-400 font-medium mb-1">suspects détectés</span>
+        </div>
+        <p class="text-sm text-slate-300 font-medium relative z-10">Sur un total de <strong class="text-white">{{ total_copies }}</strong> copies d'examen analysées par l'Intelligence Artificielle.</p>
+        
+        <div class="mt-8 relative z-10">
+            <div class="flex justify-between text-xs font-bold mb-2">
+                <span class="text-slate-400">Intégrité académique</span>
+                <span class="text-ethical-400">{{ 100 - taux_fraude }}% saines</span>
+            </div>
+            <div class="w-full bg-slate-800 rounded-full h-3 overflow-hidden flex">
+                <div class="bg-ethical-500 h-3" style="width: {{ 100 - taux_fraude }}%"></div>
+                <div class="bg-red-500 h-3" style="width: {{ taux_fraude }}%"></div>
+            </div>
+        </div>
     </div>
-    <div class="overflow-x-auto">
-        <table class="w-full text-left">
-            <thead>
-                <tr class="text-[11px] uppercase tracking-[0.2em] text-slate-400 font-black bg-white border-b border-slate-50">
-                    <th class="px-8 py-5">Module d'Enseignement</th>
-                    <th class="px-8 py-5">Date & Heure</th>
-                    <th class="px-8 py-5">Statut de l'Analyse</th>
-                    <th class="px-8 py-5 text-right">Détails</th>
-                </tr>
-            </thead>
-            <tbody class="divide-y divide-slate-50">
-                {% for inv in investigations %}
-                <tr class="hover:bg-slate-50/30 transition-colors group">
-                    <td class="px-8 py-6">
-                        <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-xs font-bold">
-                                {{ inv.module.name[:1].upper() }}
+
+    <div class="card-ethic p-0 lg:col-span-2 overflow-hidden flex flex-col h-full">
+        <div class="p-6 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
+            <div class="flex items-center gap-3">
+                <div class="w-1.5 h-6 bg-trust-600 rounded-full"></div>
+                <h3 class="text-lg font-black text-slate-900">Investigations Récentes</h3>
+            </div>
+            <a href="/investigations" class="text-sm font-bold text-trust-600 hover:text-trust-700 transition-colors flex items-center gap-1">
+                Voir l'historique <i class="bi bi-chevron-right"></i>
+            </a>
+        </div>
+        <div class="overflow-x-auto flex-1">
+            <table class="w-full text-left h-full">
+                <thead>
+                    <tr class="text-[10px] uppercase tracking-[0.2em] text-slate-400 font-black bg-white border-b border-slate-50">
+                        <th class="px-6 py-4">Module</th>
+                        <th class="px-6 py-4">Type</th>
+                        <th class="px-6 py-4">Date</th>
+                        <th class="px-6 py-4">Statut</th>
+                        <th class="px-6 py-4 text-right">Détails</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-50">
+                    {% for inv in investigations %}
+                    <tr class="hover:bg-slate-50/30 transition-colors group">
+                        <td class="px-6 py-4">
+                            <span class="font-bold text-slate-700">{{ inv.module.name }}</span>
+                        </td>
+                        <td class="px-6 py-4">
+                            <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider bg-slate-100 px-2 py-1 rounded">
+                                {{ inv.type_investigation }}
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 text-slate-500 text-xs font-medium">
+                            {{ inv.created_at.strftime('%d %b %Y') }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {% if inv.status == 'pending' %}
+                                <span class="inline-flex items-center px-2 py-1 rounded text-[9px] font-black uppercase tracking-wider bg-amber-50 text-amber-600 border border-amber-100">En attente</span>
+                            {% elif inv.status == 'processing' %}
+                                <span class="inline-flex items-center px-2 py-1 rounded text-[9px] font-black uppercase tracking-wider bg-trust-50 text-trust-600 border border-trust-100 animate-pulse">En cours</span>
+                            {% elif inv.status == 'completed' %}
+                                <span class="inline-flex items-center px-2 py-1 rounded text-[9px] font-black uppercase tracking-wider bg-ethical-50 text-ethical-600 border border-ethical-100">Terminée</span>
+                            {% else %}
+                                <span class="inline-flex items-center px-2 py-1 rounded text-[9px] font-black uppercase tracking-wider bg-red-50 text-red-600 border border-red-100">Échec</span>
+                            {% endif %}
+                        </td>
+                        <td class="px-6 py-4 text-right">
+                            <a href="/investigations/{{ inv.id }}" class="inline-flex items-center justify-center w-8 h-8 rounded-lg text-slate-400 hover:bg-slate-900 hover:text-white transition-all shadow-sm">
+                                <i class="bi bi-arrow-right-short text-xl"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% if not investigations %}
+                    <tr>
+                        <td colspan="5" class="px-6 py-12 text-center">
+                            <div class="flex flex-col items-center opacity-40">
+                                <i class="bi bi-inbox text-4xl mb-3"></i>
+                                <p class="font-bold uppercase tracking-widest text-[10px]">Aucune investigation</p>
                             </div>
-                            <span class="font-bold text-slate-700 group-hover:text-ethical-600 transition-colors">{{ inv.module.name }}</span>
-                        </div>
-                        <div class="mt-2 text-[10px] text-slate-400 font-bold uppercase tracking-wider pl-11">
-                            Type: {{ inv.type_investigation }}
-                        </div>
-                    </td>
-                    <td class="px-8 py-6 text-slate-500 text-sm font-medium">
-                        <i class="bi bi-calendar-event mr-1.5 opacity-50"></i> {{ inv.created_at.strftime('%d %b %Y, %H:%M') }}
-                    </td>
-                    <td class="px-8 py-6">
-                        {% if inv.status == 'pending' %}
-                            <span class="inline-flex items-center px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider bg-amber-50 text-amber-600 border border-amber-100">
-                                <span class="w-1.5 h-1.5 bg-amber-600 rounded-full mr-2"></span> En attente
-                            </span>
-                        {% elif inv.status == 'processing' %}
-                            <span class="inline-flex items-center px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider bg-trust-50 text-trust-600 border border-trust-100 animate-pulse">
-                                <span class="w-1.5 h-1.5 bg-trust-600 rounded-full mr-2"></span> Analyse en cours
-                            </span>
-                        {% elif inv.status == 'completed' %}
-                            <span class="inline-flex items-center px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider bg-ethical-50 text-ethical-600 border border-ethical-100">
-                                <span class="w-1.5 h-1.5 bg-ethical-600 rounded-full mr-2"></span> Terminée
-                            </span>
-                        {% else %}
-                            <span class="inline-flex items-center px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider bg-red-50 text-red-600 border border-red-100">
-                                <span class="w-1.5 h-1.5 bg-red-600 rounded-full mr-2"></span> Échec
-                            </span>
-                        {% endif %}
-                    </td>
-                    <td class="px-8 py-6 text-right">
-                        <a href="/investigations/{{ inv.id }}" class="inline-flex items-center justify-center w-10 h-10 rounded-xl text-slate-400 hover:bg-ethical-600 hover:text-white transition-all shadow-sm">
-                            <i class="bi bi-arrow-right-short text-2xl"></i>
-                        </a>
-                    </td>
-                </tr>
-                {% endfor %}
-                {% if not investigations %}
-                <tr>
-                    <td colspan="4" class="px-8 py-16 text-center">
-                        <div class="flex flex-col items-center opacity-40">
-                            <i class="bi bi-inbox text-5xl mb-4"></i>
-                            <p class="font-bold uppercase tracking-widest text-xs">Aucune investigation récente</p>
-                        </div>
-                    </td>
-                </tr>
-                {% endif %}
-            </tbody>
-        </table>
+                        </td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 {% endblock %}

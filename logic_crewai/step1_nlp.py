@@ -150,70 +150,93 @@ def main():
         os.makedirs(chemin_dashboard, exist_ok=True)
         chemin_rapport = os.path.join(chemin_dashboard, "rapport_officiel.md")
 
-        md  = "# 🕵️ Rapport Forensique Détaillé (Détection IA)\n\n"
-        md += f"- **Copies analysées :** {resultat_json.get('nb_copies', 1)}\n"
-        md += f"- **Nombre de suspects :** {resultat_json.get('nb_suspects', 0)}\n\n"
+        md  = "# 🕵️ Rapport Forensique : Analyse Stylométrique\n\n"
+        md += f"**Copies analysées :** `{resultat_json.get('nb_copies', 1)}` &nbsp; | &nbsp; "
+        md += f"**Alerte Suspects :** `{resultat_json.get('nb_suspects', 0)}`\n\n"
         md += "---\n\n"
 
         resultats = resultat_json.get("resultats", [])
         if not resultats:
-            md += "- Aucune analyse détaillée n'a pu être extraite.\n\n"
+            md += "⚠️ *Aucune analyse détaillée n'a pu être extraite.*\n\n"
         else:
             for s in resultats:
-                # Si les détails sont imbriqués
                 details = s.get('details_complets', s)
-                
                 classification = s.get('classification', details.get('classification_finale', 'INCONNU'))
                 score = s.get('score_ia', details.get('score_recalcule', 0))
                 
                 icon = "🔴" if classification == "PROBABLEMENT_IA" else "🟠" if classification == "HYBRIDE" else "🟢"
-                md += f"## {icon} Copie {s.get('copie_id','?')} — {classification} (Score : {score}/100)\n\n"
+                color_class = "text-red-600" if classification == "PROBABLEMENT_IA" else "text-amber-600" if classification == "HYBRIDE" else "text-green-600"
                 
-                md += f"**Résumé Exécutif :**\n{details.get('resume_executif', s.get('synthese', 'N/A'))}\n\n"
+                md += f"## {icon} Fiche Copie : **{s.get('copie_id','?')}**\n\n"
                 
-                md += "### 📊 Analyse Multidimensionnelle\n"
+                # --- VERDICT EXÉCUTIF ---
+                md += "### 📋 Synthèse Exécutive\n"
+                md += f"> **Classification :** <strong class=\"{color_class}\">{classification}</strong> (Indice de certitude : **{score}%**)\n> \n"
+                md += f"> **Conclusion du modèle :** *{details.get('resume_executif', s.get('synthese', 'N/A'))}*\n\n"
+                
+                # --- EXTRAITS SUSPECTS (Preuves matérielles) ---
+                extraits = details.get('extraits_suspects', [])
+                if extraits:
+                    md += "### 🚨 Pièces à Conviction (Extraits générés par IA)\n"
+                    for ext in extraits:
+                        texte = ext.get('texte', '')
+                        justif = ext.get('justification', '')
+                        if texte:
+                            md += f"<div class=\"bg-red-50 border-l-4 border-red-500 p-4 my-2 rounded\">\n"
+                            md += f"  <p class=\"font-mono text-sm text-slate-800 mb-2\">« {texte} »</p>\n"
+                            md += f"  <p class=\"text-xs text-red-700 font-medium\"><strong>Motif :</strong> {justif}</p>\n"
+                            md += f"</div>\n"
+                    md += "\n"
+
+                # --- TABLEAU DES DIMENSIONS ---
+                md += "### 📊 Profil Dimensionnel\n\n"
+                md += "| Dimension Analysée | Score IA | Observation |\n"
+                md += "| :--- | :---: | :--- |\n"
                 dimensions = details.get('dimensions', {})
                 if dimensions:
                     for dim_key, dim_data in dimensions.items():
                         name = dim_key.replace('_', ' ').title()
                         note = dim_data.get('note', 0)
-                        obs = dim_data.get('observation', '')
-                        md += f"- **{name} ({note}/10) :** {obs}\n"
+                        obs = dim_data.get('observation', '').replace('\n', ' ')
+                        md += f"| **{name}** | `{note}/10` | {obs} |\n"
                 else:
-                    md += "- Détails des dimensions non disponibles.\n"
+                    md += "| N/A | N/A | Détails non disponibles |\n"
                 md += "\n"
                 
-                md += "### 🔎 Indices Linguistiques Relevés\n"
+                # --- INDICES & HYPOTHÈSES ---
+                md += "<div class=\"grid grid-cols-1 md:grid-cols-2 gap-4 my-4\">\n"
+                
+                md += "<div class=\"bg-slate-50 p-4 rounded-xl border border-slate-100\">\n"
+                md += "<h4 class=\"text-sm font-bold mb-2\">🔎 Indices Linguistiques</h4>\n"
+                md += "<ul class=\"text-xs space-y-1 text-slate-600 list-disc list-inside ml-2\">\n"
                 indices = details.get('indices_linguistiques', s.get('preuves_ia', []))
                 if indices:
                     for ind in indices:
-                        md += f"- {ind}\n"
+                        md += f"<li>{ind}</li>\n"
                 else:
-                    md += "- Aucun indice spécifique relevé.\n"
-                md += "\n"
+                    md += "<li>Aucun indicateur marquant</li>\n"
+                md += "</ul>\n</div>\n"
                 
-                extraits = details.get('extraits_suspects', [])
-                if extraits:
-                    md += "### 🚨 Extraits Suspects (Générés par IA)\n"
-                    for ext in extraits:
-                        texte = ext.get('texte', '')
-                        justif = ext.get('justification', '')
-                        if texte:
-                            md += f"> <mark class=\"bg-red-100 text-red-900 px-1 rounded\">\"{texte}\"</mark>\n> \n> **Justification :** *{justif}*\n\n"
-
+                md += "<div class=\"bg-slate-50 p-4 rounded-xl border border-slate-100\">\n"
+                md += "<h4 class=\"text-sm font-bold mb-2\">🤖 Prompts Hypothétiques</h4>\n"
+                md += "<ul class=\"text-xs space-y-1 text-slate-600 list-disc list-inside ml-2\">\n"
                 prompts = details.get('prompts_plausibles', {})
-                if prompts:
-                    md += "### 🤖 Prompts Plausibles (Hypothèses)\n"
-                    if isinstance(prompts, dict):
-                        md += f"*{prompts.get('avertissement', '')}*\n"
-                        for p in prompts.get('liste', []):
-                            md += f"- `{p}`\n"
-                    md += "\n"
+                if prompts and isinstance(prompts, dict):
+                    for p in prompts.get('liste', []):
+                        md += f"<li><code class=\"bg-white px-1 rounded border\">{p}</code></li>\n"
+                else:
+                    md += "<li>Non applicable</li>\n"
+                md += "</ul>\n</div>\n"
                 
-                md += "### ⚖️ Conclusion & Risque de Faux Positif\n"
-                md += f"**Conclusion :** {details.get('conclusion', 'N/A')}\n\n"
-                md += f"**Risque de Faux Positif :** `{details.get('faux_positif_risque', 'INCONNU')}`\n"
-                md += f"**Raison :** {details.get('faux_positif_raison', 'N/A')}\n\n"
+                md += "</div>\n\n"
+                
+                # --- FIABILITÉ ---
+                risque_fp = details.get('faux_positif_risque', 'INCONNU')
+                badge_color = "bg-green-100 text-green-800" if risque_fp == "FAIBLE" else "bg-amber-100 text-amber-800" if risque_fp == "MODERE" else "bg-red-100 text-red-800"
+                md += "### ⚖️ Tolérance aux Faux Positifs\n"
+                md += f"<p class=\"text-sm\">Risque de Faux Positif : <span class=\"px-2 py-0.5 rounded text-xs font-bold {badge_color}\">{risque_fp}</span><br>\n"
+                md += f"<span class=\"text-slate-500 italic\">{details.get('faux_positif_raison', 'Aucune raison spécifiée.')}</span></p>\n\n"
+                
                 md += "---\n\n"
 
         with open(chemin_rapport, "w", encoding="utf-8") as f:

@@ -51,18 +51,47 @@ def dashboard():
         modules_count = Module.query.count()
         investigations = Investigation.query.order_by(Investigation.created_at.desc()).limit(5).all()
         total_inv = Investigation.query.count()
+        all_completed = Investigation.query.filter_by(status='completed').order_by(Investigation.created_at.desc()).limit(20).all()
     else:
         modules_count = Module.query.filter_by(professor_id=current_user.id).count()
         investigations = Investigation.query.join(Module).filter(Module.professor_id == current_user.id).order_by(Investigation.created_at.desc()).limit(5).all()
         total_inv = Investigation.query.join(Module).filter(Module.professor_id == current_user.id).count()
+        all_completed = Investigation.query.join(Module).filter(Module.professor_id == current_user.id, Investigation.status == 'completed').order_by(Investigation.created_at.desc()).limit(20).all()
         
     pending_inv = Investigation.query.join(Module).filter(Module.professor_id == current_user.id, Investigation.status.in_(['pending', 'processing'])).count()
+    
+    # --- Calcul des Statistiques de Fraude ---
+    total_copies_recentes = 0
+    total_suspects_recents = 0
+    import json
+    
+    for inv in all_completed:
+        if inv.report_path:
+            json_path = inv.report_path.replace('.md', '.json')
+            if os.path.exists(json_path):
+                try:
+                    with open(json_path, 'r', encoding='utf-8') as f:
+                        data = json.load(f)
+                        total_copies_recentes += data.get('nb_copies', data.get('nb_copies_analysees', 0))
+                        total_suspects_recents += data.get('nb_suspects', 0)
+                except:
+                    pass
+
+    taux_fraude = 0
+    if total_copies_recentes > 0:
+        taux_fraude = round((total_suspects_recents / total_copies_recentes) * 100)
+        
+    # Stats pour le graphique (par exemple : répartition des types de triche ou évolution)
+    # Pour faire simple, on va passer le taux de fraude au template
     
     return render_template('dashboard.html', 
                            modules_count=modules_count, 
                            investigations=investigations,
                            total_inv=total_inv,
-                           pending_inv=pending_inv)
+                           pending_inv=pending_inv,
+                           taux_fraude=taux_fraude,
+                           total_copies=total_copies_recentes,
+                           total_suspects=total_suspects_recents)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -218,7 +247,7 @@ def investigations_detail(id):
     if inv.status == 'completed' and inv.report_path and os.path.exists(inv.report_path):
         import markdown
         with open(inv.report_path, 'r', encoding='utf-8') as f:
-            report_content = markdown.markdown(f.read())
+            report_content = markdown.markdown(f.read(), extensions=['tables', 'fenced_code'])
             
     return render_template('investigations/detail.html', investigation=inv, report_content=report_content)
 

@@ -1,250 +1,416 @@
-# 🕵️ Rapport Forensique Officiel (Analyse de Similarité)
+# 🕵️ Rapport Forensique : Analyse Stylométrique
 
-- **Copies analysées :** 6
-- **Nombre de suspects (Collusion) :** 4
-
-## 🕸️ Clusters de Fraude Collaborative
-
-- **Cluster Cluster_1** : C01, C04, C05, C06 — Risque : **modere**
----
-
-## 🔬 Détails de l'Analyse Stylométrique (NLP)
-
-### 🟠 Copie C01 — HYBRIDE (Score : 69/100)
-
-**Résumé Exécutif :**
-La réponse présente une structure équilibrée et une fluidité constante typique d'une synthèse assistée, tout en conservant une simplicité lexicale et une brièveté qui pourraient correspondre à une rédaction humaine sous contrainte de temps.
-
-#### 📊 Analyse Multidimensionnelle
-- **Adequation Semantique (6/10) :** Réponse pertinente mais très généraliste, survolant le sujet sans apporter d'exemples personnels ou originaux.
-- **Fluidite Coherence (6/10) :** Le texte est très fluide, sans aucune rupture de rythme ou hésitation syntaxique.
-- **Imperfections Humaines (5/10) :** Absence de fautes d'orthographe ou de syntaxe, mais le texte est très court, ce qui limite les opportunités d'erreurs.
-- **Regularite Stylistique (6/10) :** Le ton est neutre et homogène du début à la fin, sans variation de registre.
-- **Repetitions Redondances (5/10) :** Pas de répétitions excessives, mais une densité informationnelle faible.
-- **Richesse Lexicale (4/10) :** Vocabulaire fonctionnel et assez générique, manquant de précision terminologique ou d'analyse approfondie.
-- **Structure Argumentative (7/10) :** Plan très classique et symétrique (thèse/antithèse/synthèse) avec des connecteurs logiques standards (Cependant, En effet, En conclusion).
-
-#### 🔎 Indices Linguistiques Relevés
-- Utilisation de connecteurs logiques scolaires (Cependant, En effet, En conclusion)
-- Structure en trois paragraphes parfaitement délimités
-- Absence totale de marques de subjectivité ou de style personnel
-
-#### 🤖 Prompts Plausibles (Hypothèses)
-*Ces prompts sont des reconstructions hypothétiques. Aucun ne peut être considéré comme le prompt réellement utilisé.*
-- `Rédige un court texte argumenté sur l'impact positif et négatif des réseaux sociaux sur les relations humaines.`
-- `Fais une réponse courte et structurée sur les avantages et inconvénients des réseaux sociaux pour les relations entre les personnes.`
-- `Peux-tu rédiger une réponse d'examen sur l'influence des réseaux sociaux sur les relations sociales en utilisant un plan simple ?`
-
-#### ⚖️ Conclusion & Risque de Faux Positif
-**Conclusion :** Le texte présente des caractéristiques de structure et de fluidité qui rappellent les modèles de langage, mais sa brièveté et sa simplicité lexicale ne permettent pas d'exclure une rédaction humaine rapide. Il est classé comme hybride car il combine une forme très normée avec une absence de profondeur typique d'une réponse générique.
-
-**Risque de Faux Positif :** `MODERE`
-**Raison :** La brièveté du texte peut être le résultat d'un étudiant répondant de manière concise sous la pression d'un examen, ce qui imite naturellement la structure épurée d'un LLM.
+**Copies analysées :** `9` &nbsp; | &nbsp; **Alerte Suspects :** `5`
 
 ---
 
-### 🟢 Copie C02 — HUMAIN (Score : 27/100)
+## 🔴 Fiche Copie : **C01**
 
-**Résumé Exécutif :**
-La réponse présente des caractéristiques stylistiques et syntaxiques typiques d'une production humaine spontanée. Le texte est marqué par des maladresses syntaxiques, une structure simple et l'utilisation d'exemples personnels concrets, ce qui s'éloigne significativement des modèles de langage habituels.
+### 📋 Synthèse Exécutive
+> **Classification :** <strong class="text-red-600">PROBABLEMENT_IA</strong> (Indice de certitude : **87%**)
+> 
+> **Conclusion du modèle :** *La réponse présente une structure argumentative très rigide et une neutralité axiomatique typique des modèles de langage. Le texte manque de singularité, d'exemples concrets vécus ou de style personnel, se contentant d'une synthèse équilibrée et générique.*
 
-#### 📊 Analyse Multidimensionnelle
-- **Adequation Semantique (3/10) :** La réponse est directe et personnelle, loin de la généralisation encyclopédique typique des IA.
-- **Fluidite Coherence (3/10) :** La fluidité est naturelle mais présente des ruptures syntaxiques (ex: 'j'utilise pour parler').
-- **Imperfections Humaines (9/10) :** Présence de maladresses syntaxiques ('j'utilise pour parler' au lieu de 'je les utilise') et de tournures familières.
-- **Regularite Stylistique (2/10) :** Le style est homogène dans sa simplicité, sans la perfection formelle propre aux LLM.
-- **Repetitions Redondances (2/10) :** Pas de redondances artificielles, le texte est concis et va droit au but.
-- **Richesse Lexicale (1/10) :** Le vocabulaire est limité et courant, sans aucune trace de jargon ou de tournures sophistiquées.
-- **Structure Argumentative (2/10) :** La structure est rudimentaire, sans connecteurs logiques complexes ou plan académique formel.
+### 🚨 Pièces à Conviction (Extraits générés par IA)
+<div class="bg-red-50 border-l-4 border-red-500 p-4 my-2 rounded">
+  <p class="font-mono text-sm text-slate-800 mb-2">« Les réseaux sociaux occupent aujourd’hui une place importante dans la vie quotidienne des individus. »</p>
+  <p class="text-xs text-red-700 font-medium"><strong>Motif :</strong> Extrait capturé automatiquement. La structure globale et le ton de cette phrase reflètent la neutralité et la standardisation typiques relevées dans l'analyse.</p>
+</div>
 
-#### 🔎 Indices Linguistiques Relevés
-- Syntaxe orale ('j'utilise pour parler')
-- Usage de 'les gens' et 'les réseaux' de manière informelle
-- Exemple personnel concret et spécifique
-- Absence de connecteurs logiques structurants
+### 📊 Profil Dimensionnel
 
-#### 🤖 Prompts Plausibles (Hypothèses)
-*Ces prompts sont des reconstructions hypothétiques. Aucun ne peut être considéré comme le prompt réellement utilisé.*
-- `Rédige un court paragraphe sur l'impact des réseaux sociaux sur les relations humaines.`
-- `Donne ton avis sur les réseaux sociaux, est-ce positif ou négatif ?`
-- `Écris une réponse simple pour un examen sur les avantages et inconvénients des réseaux sociaux.`
+| Dimension Analysée | Score IA | Observation |
+| :--- | :---: | :--- |
+| **Adequation Semantique** | `8/10` | Réponse très généraliste, survole le sujet sans prise de position marquée. |
+| **Fluidite Coherence** | `9/10` | Fluidité parfaite, transitions mécaniques. |
+| **Imperfections Humaines** | `9/10` | Absence totale de coquilles ou de maladresses syntaxiques. |
+| **Regularite Stylistique** | `8/10` | Ton homogène et neutre du début à la fin. |
+| **Repetitions Redondances** | `7/10` | Structure répétitive dans l'articulation des paragraphes. |
+| **Richesse Lexicale** | `6/10` | Vocabulaire correct mais très commun, sans terme technique ou original. |
+| **Structure Argumentative** | `9/10` | Plan binaire classique (positif/négatif) très scolaire. |
 
-#### ⚖️ Conclusion & Risque de Faux Positif
-**Conclusion :** Le texte est très probablement le fruit d'une production humaine. Il manque de la densité, de la structure et de la précision lexicale qui caractérisent généralement les réponses générées par IA. Il est important de noter qu'un étudiant peut tout à fait produire un texte simple et direct sans aide technologique.
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
+<div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
+<h4 class="text-sm font-bold mb-2">🔎 Indices Linguistiques</h4>
+<ul class="text-xs space-y-1 text-slate-600 list-disc list-inside ml-2">
+<li>Utilisation de connecteurs logiques standards (Cependant, En effet, En conclusion).</li>
+<li>Absence de ponctuation expressive ou de variations rythmiques.</li>
+<li>Neutralité totale du point de vue.</li>
+</ul>
+</div>
+<div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
+<h4 class="text-sm font-bold mb-2">🤖 Prompts Hypothétiques</h4>
+<ul class="text-xs space-y-1 text-slate-600 list-disc list-inside ml-2">
+<li><code class="bg-white px-1 rounded border">Rédige une courte réponse sur l'impact positif et négatif des réseaux sociaux sur les relations humaines.</code></li>
+<li><code class="bg-white px-1 rounded border">Fais un paragraphe sur les avantages et les inconvénients des réseaux sociaux pour les relations sociales.</code></li>
+</ul>
+</div>
+</div>
 
-**Risque de Faux Positif :** `FAIBLE`
-**Raison :** La présence de maladresses syntaxiques et d'un style très personnel rend la probabilité d'une génération par IA extrêmement faible.
-
----
-
-### 🟢 Copie C03 — HUMAIN (Score : 14/100)
-
-**Résumé Exécutif :**
-La réponse présente des caractéristiques stylistiques et structurelles typiques d'une production humaine spontanée. Le texte est concis, utilise un registre de langue courant et présente une structure argumentative simple, dépourvue des marqueurs de complexité ou de la verbosité habituelle des modèles de langage.
-
-#### 📊 Analyse Multidimensionnelle
-- **Adequation Semantique (3/10) :** La réponse est directe et répond à la question sans chercher à généraliser ou à théoriser outre mesure.
-- **Fluidite Coherence (3/10) :** La fluidité est naturelle, avec des phrases courtes et une progression linéaire simple.
-- **Imperfections Humaines (2/10) :** Le texte est simple, sans erreurs manifestes, mais sa brièveté et son manque de développement complexe sont des indicateurs de production humaine sous contrainte de temps.
-- **Regularite Stylistique (2/10) :** Le style est homogène mais limité, reflétant une expression directe sans recherche de sophistication.
-- **Repetitions Redondances (2/10) :** Absence de redondances artificielles ou de remplissage textuel.
-- **Richesse Lexicale (1/10) :** Le vocabulaire est basique et fonctionnel, sans les termes techniques ou les tournures idiomatiques propres aux LLM.
-- **Structure Argumentative (2/10) :** La structure est rudimentaire, sans connecteurs logiques complexes ou plan académique formel.
-
-#### 🔎 Indices Linguistiques Relevés
-- Usage de 'À mon avis' en ouverture
-- Phrases courtes et syntaxe simple
-- Absence de connecteurs logiques sophistiqués
-- Ton personnel et direct
-
-#### 🤖 Prompts Plausibles (Hypothèses)
-*Ces prompts sont des reconstructions hypothétiques. Aucun ne peut être considéré comme le prompt réellement utilisé.*
-- `Rédige un court paragraphe sur les avantages et inconvénients des réseaux sociaux.`
-- `Est-ce que les réseaux sociaux sont bons pour les relations humaines ? Donne ton avis.`
-- `Fais une réponse courte sur l'impact des réseaux sociaux sur les relations.`
-
-#### ⚖️ Conclusion & Risque de Faux Positif
-**Conclusion :** Le texte présente une forte probabilité d'être une production humaine. Il manque de la densité, de la structure complexe et du vocabulaire soutenu qui caractérisent généralement les réponses générées par IA. Il est important de noter qu'un étudiant peut tout à fait produire un texte simple et direct par lui-même.
-
-**Risque de Faux Positif :** `FAIBLE`
-**Raison :** Le texte est trop court et trop simple pour présenter les marqueurs stylistiques distinctifs d'un LLM.
+### ⚖️ Tolérance aux Faux Positifs
+<p class="text-sm">Risque de Faux Positif : <span class="px-2 py-0.5 rounded text-xs font-bold bg-amber-100 text-amber-800">MODERE</span><br>
+<span class="text-slate-500 italic">Le texte est très court et traite d'un sujet commun ; un étudiant cherchant à être concis et scolaire pourrait produire une réponse similaire.</span></p>
 
 ---
 
-### 🔴 Copie C04 — PROBABLEMENT_IA (Score : 85/100)
+## 🟢 Fiche Copie : **C02**
 
-**Résumé Exécutif :**
-Le texte présente une structure hautement standardisée, typique des modèles de langage, caractérisée par une organisation tripartite équilibrée et une absence totale d'imperfections stylistiques ou de singularités rédactionnelles. La densité informationnelle est modérée et le ton reste neutre et impersonnel, ce qui renforce la probabilité d'une génération assistée.
+### 📋 Synthèse Exécutive
+> **Classification :** <strong class="text-green-600">HUMAIN</strong> (Indice de certitude : **1%**)
+> 
+> **Conclusion du modèle :** *La réponse présente des caractéristiques stylistiques et syntaxiques typiquement humaines, marquées par une simplicité de langage et des erreurs de construction grammaticale qui ne sont pas caractéristiques des modèles de langage actuels.*
 
-#### 📊 Analyse Multidimensionnelle
-- **Adequation Semantique (7/10) :** Réponse pertinente mais très généraliste, survolant le sujet sans profondeur critique.
-- **Fluidite Coherence (8/10) :** Fluidité parfaite, sans aucune rupture de rythme ou hésitation syntaxique.
-- **Imperfections Humaines (9/10) :** Absence totale de fautes, de maladresses ou de tics d'écriture propres à une rédaction sous pression.
-- **Regularite Stylistique (9/10) :** Style parfaitement homogène, sans variation de ton du début à la fin.
-- **Repetitions Redondances (6/10) :** Structure répétitive dans la construction des phrases (sujet-verbe-complément).
-- **Richesse Lexicale (6/10) :** Vocabulaire correct mais générique, manquant de nuances personnelles ou d'exemples vécus.
-- **Structure Argumentative (9/10) :** Plan scolaire classique (thèse, antithèse, synthèse) très rigide et prévisible.
+### 📊 Profil Dimensionnel
 
-#### 🔎 Indices Linguistiques Relevés
-- Utilisation de connecteurs logiques standards (Cependant, En effet, En conclusion).
-- Absence de ponctuation expressive ou de variations dans la longueur des phrases.
-- Neutralité excessive du ton.
-- Structure en trois paragraphes parfaitement délimités.
+| Dimension Analysée | Score IA | Observation |
+| :--- | :---: | :--- |
+| **Adequation Semantique** | `0/10` | Réponse directe, personnelle et ancrée dans le vécu de l'étudiant. |
+| **Fluidite Coherence** | `2/10` | Fluidité naturelle, avec des ruptures syntaxiques typiques d'une rédaction spontanée. |
+| **Imperfections Humaines** | `0/10` | Présence de maladresses syntaxiques et de tournures familières. |
+| **Regularite Stylistique** | `1/10` | Ton homogène mais très informel. |
+| **Repetitions Redondances** | `1/10` | Pas de remplissage artificiel, le texte est concis. |
+| **Richesse Lexicale** | `1/10` | Vocabulaire limité et répétitif. |
+| **Structure Argumentative** | `1/10` | Structure très simple, presque orale, sans connecteurs logiques complexes. |
 
-#### 🤖 Prompts Plausibles (Hypothèses)
-*Ces prompts sont des reconstructions hypothétiques. Aucun ne peut être considéré comme le prompt réellement utilisé.*
-- `Rédige un court texte argumenté sur l'impact positif et négatif des réseaux sociaux sur les relations humaines.`
-- `Peux-tu expliquer si les réseaux sociaux sont bénéfiques ou néfastes pour les relations sociales en quelques phrases ?`
-- `Analyse l'impact des réseaux sociaux sur les interactions humaines en adoptant un plan équilibré.`
-- `Donne ton avis sur les réseaux sociaux et les relations personnelles avec des arguments pour et contre.`
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
+<div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
+<h4 class="text-sm font-bold mb-2">🔎 Indices Linguistiques</h4>
+<ul class="text-xs space-y-1 text-slate-600 list-disc list-inside ml-2">
+<li>Utilisation de 'moi j'utilise' (oralité)</li>
+<li>Syntaxe incomplète ('j'utilise pour parler')</li>
+<li>Absence de connecteurs logiques formels</li>
+</ul>
+</div>
+<div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
+<h4 class="text-sm font-bold mb-2">🤖 Prompts Hypothétiques</h4>
+<ul class="text-xs space-y-1 text-slate-600 list-disc list-inside ml-2">
+</ul>
+</div>
+</div>
 
-#### ⚖️ Conclusion & Risque de Faux Positif
-**Conclusion :** Le texte présente des caractéristiques stylistiques et structurelles fortement corrélées aux productions des LLM. Bien qu'il soit possible qu'un étudiant ait rédigé ce texte de manière très scolaire, l'absence totale de marqueurs d'humanité (erreurs, style personnel, hésitations) rend l'hypothèse d'une assistance par IA très probable. Cette analyse reste un signal d'alerte et non une preuve.
-
-**Risque de Faux Positif :** `MODERE`
-**Raison :** Un étudiant très rigoureux, cherchant à produire un texte académique standard et concis, pourrait adopter une structure similaire par souci de clarté.
-
----
-
-### 🟢 Copie C05 — HUMAIN (Score : 30/100)
-
-**Résumé Exécutif :**
-La réponse présente des caractéristiques stylistiques et syntaxiques typiques d'une production humaine spontanée, marquée par des maladresses grammaticales et une structure informelle.
-
-#### 📊 Analyse Multidimensionnelle
-- **Adequation Semantique (4/10) :** La réponse traite le sujet mais de manière très personnelle et peu approfondie, sans la généralisation typique des LLM.
-- **Fluidite Coherence (3/10) :** La fluidité est entravée par des tournures syntaxiques approximatives et une ponctuation parfois hésitante.
-- **Imperfections Humaines (9/10) :** Présence marquée de fautes d'accord ('des bonnes ressources'), de fautes de syntaxe ('qu'est ce qui ce passe') et de maladresses ('sans se mêler des programmes chargés').
-- **Regularite Stylistique (2/10) :** Le style est irrégulier, avec un mélange de langage courant et de formulations maladroites.
-- **Repetitions Redondances (3/10) :** Quelques répétitions ('parler à', 'normal') qui témoignent d'une rédaction directe sans relecture structurée.
-- **Richesse Lexicale (2/10) :** Le vocabulaire est limité et répétitif, loin de la précision lexicale habituelle des modèles de langage.
-- **Structure Argumentative (2/10) :** La structure est rudimentaire, sans plan académique rigide ou connecteurs logiques sophistiqués.
-
-#### 🔎 Indices Linguistiques Relevés
-- Fautes d'orthographe grammaticale (ce/se)
-- Syntaxe orale et peu académique
-- Absence de connecteurs logiques complexes
-- Construction de phrases non standard
-
-#### 🤖 Prompts Plausibles (Hypothèses)
-*Ces prompts sont des reconstructions hypothétiques. Aucun ne peut être considéré comme le prompt réellement utilisé.*
-- `Donne ton avis sur les réseaux sociaux et les relations humaines.`
-- `Est-ce que les réseaux sociaux sont bons ou mauvais pour les relations ?`
-- `Rédige un court paragraphe sur l'impact des réseaux sociaux sur la communication.`
-
-#### ⚖️ Conclusion & Risque de Faux Positif
-**Conclusion :** Le texte présente des marqueurs clairs d'une production humaine, notamment des erreurs syntaxiques et une structure non formelle. Il est très peu probable que ce texte ait été généré par un LLM, car ces modèles produisent généralement une syntaxe correcte et une structure plus élaborée.
-
-**Risque de Faux Positif :** `FAIBLE`
-**Raison :** La présence de fautes de français élémentaires et d'une syntaxe orale est incompatible avec le fonctionnement standard des LLM actuels.
+### ⚖️ Tolérance aux Faux Positifs
+<p class="text-sm">Risque de Faux Positif : <span class="px-2 py-0.5 rounded text-xs font-bold bg-green-100 text-green-800">FAIBLE</span><br>
+<span class="text-slate-500 italic">Le style est trop simple et comporte des erreurs de syntaxe qu'un LLM ne produirait pas sans instruction spécifique de simuler un niveau de langue faible.</span></p>
 
 ---
 
-### 🟠 Copie C06 — HYBRIDE (Score : 65/100)
+## 🟢 Fiche Copie : **C03**
 
-**Résumé Exécutif :**
-Le texte présente une structure équilibrée et une fluidité constante typiques des modèles de langage, tout en restant relativement court et simple. L'absence d'erreurs manifestes couplée à une organisation très scolaire suggère une possible assistance ou une rédaction très formatée, bien que la brièveté empêche une certitude absolue.
+### 📋 Synthèse Exécutive
+> **Classification :** <strong class="text-green-600">HUMAIN</strong> (Indice de certitude : **4%**)
+> 
+> **Conclusion du modèle :** *La réponse présente des caractéristiques typiquement humaines, marquées par des erreurs syntaxiques, des fautes d'orthographe et une structure informelle. Il n'y a aucun signe de génération par IA.*
 
-#### 📊 Analyse Multidimensionnelle
-- **Adequation Semantique (5/10) :** Réponse pertinente mais très sur-généralisée, manquant d'exemples personnels ou d'analyse critique spécifique.
-- **Fluidite Coherence (6/10) :** La fluidité est très linéaire, sans aucune rupture de rythme ou hésitation syntaxique.
-- **Imperfections Humaines (4/10) :** Absence totale de fautes d'orthographe ou de syntaxe, ce qui est statistiquement rare dans une production manuscrite spontanée.
-- **Regularite Stylistique (6/10) :** Le ton est neutre et homogène du début à la fin, sans variation de registre.
-- **Repetitions Redondances (4/10) :** Pas de répétitions excessives, mais une densité informationnelle assez faible.
-- **Richesse Lexicale (5/10) :** Vocabulaire correct mais assez générique, sans marqueur de personnalité ou de réflexion approfondie.
-- **Structure Argumentative (7/10) :** Plan très classique et symétrique (Avantages/Inconvénients/Synthèse) avec des connecteurs logiques standards (Néanmoins, Ainsi).
+### 📊 Profil Dimensionnel
 
-#### 🔎 Indices Linguistiques Relevés
-- Utilisation de connecteurs logiques très scolaires (Néanmoins, Ainsi)
-- Structure en trois temps parfaitement équilibrée
-- Absence totale de scories ou d'hésitations rédactionnelles
-- Style neutre et impersonnel
+| Dimension Analysée | Score IA | Observation |
+| :--- | :---: | :--- |
+| **Adequation Semantique** | `1/10` | Réponse directe, sans neutralité artificielle. |
+| **Fluidite Coherence** | `2/10` | Phrases complexes mal maîtrisées, syntaxe hésitante. |
+| **Imperfections Humaines** | `0/10` | Nombreuses fautes d'orthographe, d'accord et de ponctuation. |
+| **Regularite Stylistique** | `1/10` | Ton très personnel et oralisé. |
+| **Repetitions Redondances** | `2/10` | Répétitions maladroites (ex: 'mais mais'). |
+| **Richesse Lexicale** | `2/10` | Vocabulaire restreint et répétitif. |
+| **Structure Argumentative** | `1/10` | Absence de plan structuré, développement linéaire et informel. |
 
-#### 🤖 Prompts Plausibles (Hypothèses)
-*Ces prompts sont des reconstructions hypothétiques. Aucun ne peut être considéré comme le prompt réellement utilisé.*
-- `Rédige un court paragraphe sur l'impact positif et négatif des réseaux sociaux sur les relations humaines.`
-- `Fais une réponse courte et structurée sur les avantages et inconvénients des réseaux sociaux pour les relations interpersonnelles.`
-- `Analyse l'impact des réseaux sociaux sur les relations entre les personnes en quelques phrases.`
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
+<div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
+<h4 class="text-sm font-bold mb-2">🔎 Indices Linguistiques</h4>
+<ul class="text-xs space-y-1 text-slate-600 list-disc list-inside ml-2">
+<li>Fautes d'accord ('les réseaux sociaux est')</li>
+<li>Syntaxe orale ('qu'est ce qui ce passe')</li>
+<li>Ponctuation erronée (espaces avant virgules)</li>
+<li>Répétitions de mots ('mais mais')</li>
+</ul>
+</div>
+<div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
+<h4 class="text-sm font-bold mb-2">🤖 Prompts Hypothétiques</h4>
+<ul class="text-xs space-y-1 text-slate-600 list-disc list-inside ml-2">
+</ul>
+</div>
+</div>
 
-#### ⚖️ Conclusion & Risque de Faux Positif
-**Conclusion :** Le texte présente des caractéristiques de structure et de fluidité qui s'alignent avec les productions de modèles de langage. Toutefois, sa brièveté et son caractère générique ne permettent pas d'exclure une rédaction humaine très appliquée. Il est classé comme hybride en raison de l'absence d'imperfections humaines notables et de la structure très normée.
-
-**Risque de Faux Positif :** `MODERE`
-**Raison :** La brièveté du texte peut correspondre à un étudiant ayant appris un plan type par cœur ou ayant rédigé de manière très concise sous contrainte de temps.
+### ⚖️ Tolérance aux Faux Positifs
+<p class="text-sm">Risque de Faux Positif : <span class="px-2 py-0.5 rounded text-xs font-bold bg-green-100 text-green-800">FAIBLE</span><br>
+<span class="text-slate-500 italic">Le texte contient trop d'erreurs de syntaxe et de grammaire pour être confondu avec une production d'IA.</span></p>
 
 ---
 
-### 🟠 Copie C07 — HYBRIDE (Score : 65/100)
+## 🟢 Fiche Copie : **C04**
 
-**Résumé Exécutif :**
-Le texte présente une structure équilibrée et une fluidité constante typique des modèles de langage, tout en conservant une brièveté et une simplicité lexicale qui pourraient correspondre à une rédaction humaine sous contrainte de temps. La présence d'une répétition syntaxique en fin de texte suggère une intervention humaine ou une relecture incomplète.
+### 📋 Synthèse Exécutive
+> **Classification :** <strong class="text-green-600">HUMAIN</strong> (Indice de certitude : **6%**)
+> 
+> **Conclusion du modèle :** *La réponse est courte, directe et dépourvue des marqueurs stylistiques complexes associés aux modèles de langage. Le style est simple, voire rudimentaire, ce qui est caractéristique d'une production humaine sous contrainte ou d'un niveau de maîtrise linguistique limité.*
 
-#### 📊 Analyse Multidimensionnelle
-- **Adequation Semantique (6/10) :** Réponse pertinente mais très générique, survolant le sujet sans apporter d'analyse critique approfondie.
-- **Fluidite Coherence (7/10) :** Le texte est parfaitement fluide, sans aucune rupture de rythme ou hésitation syntaxique.
-- **Imperfections Humaines (3/10) :** Présence d'une répétition maladroite ('relations aux relations humaines') qui constitue un indice d'imperfection humaine.
-- **Regularite Stylistique (5/10) :** Style homogène, mais le registre reste assez neutre et scolaire, sans marqueur de personnalité forte.
-- **Repetitions Redondances (5/10) :** La structure est répétitive dans sa construction, bien que le contenu soit concis.
-- **Richesse Lexicale (4/10) :** Vocabulaire fonctionnel et accessible, sans termes techniques ou sophistiqués.
-- **Structure Argumentative (6/10) :** Plan très classique et équilibré (thèse/antithèse/synthèse) avec des connecteurs logiques standards.
+### 📊 Profil Dimensionnel
 
-#### 🔎 Indices Linguistiques Relevés
-- Utilisation de connecteurs logiques standards (Cependant, Pour conclure).
-- Structure en trois paragraphes très équilibrés.
-- Répétition lexicale en fin de texte ('relations aux relations').
-- Absence de ponctuation expressive ou de variations de longueur de phrase.
+| Dimension Analysée | Score IA | Observation |
+| :--- | :---: | :--- |
+| **Adequation Semantique** | `1/10` | Réponse directe à la question, sans le survol généraliste typique des IA. |
+| **Fluidite Coherence** | `2/10` | Fluidité naturelle mais limitée par la brièveté des phrases. |
+| **Imperfections Humaines** | `2/10` | Absence de fautes flagrantes, mais le style est trop simple pour être suspect. |
+| **Regularite Stylistique** | `1/10` | Ton homogène mais très basique. |
+| **Repetitions Redondances** | `1/10` | Pas de remplissage artificiel. |
+| **Richesse Lexicale** | `1/10` | Vocabulaire pauvre, répétitif et très courant. |
+| **Structure Argumentative** | `1/10` | Structure très simple, presque scolaire, sans les connecteurs logiques typiques des LLM. |
 
-#### 🤖 Prompts Plausibles (Hypothèses)
-*Ces prompts sont des reconstructions hypothétiques. Aucun ne peut être considéré comme le prompt réellement utilisé.*
-- `Rédige un court paragraphe sur l'impact positif et négatif des réseaux sociaux sur les relations humaines.`
-- `Fais une réponse courte et structurée sur les avantages et inconvénients des réseaux sociaux pour les relations entre les personnes.`
-- `Donne ton avis sur les réseaux sociaux et les relations humaines avec des exemples simples.`
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
+<div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
+<h4 class="text-sm font-bold mb-2">🔎 Indices Linguistiques</h4>
+<ul class="text-xs space-y-1 text-slate-600 list-disc list-inside ml-2">
+<li>Phrases courtes et syntaxe simple</li>
+<li>Absence de connecteurs logiques complexes</li>
+<li>Vocabulaire limité</li>
+</ul>
+</div>
+<div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
+<h4 class="text-sm font-bold mb-2">🤖 Prompts Hypothétiques</h4>
+<ul class="text-xs space-y-1 text-slate-600 list-disc list-inside ml-2">
+</ul>
+</div>
+</div>
 
-#### ⚖️ Conclusion & Risque de Faux Positif
-**Conclusion :** Le texte présente des caractéristiques hybrides : une structure formelle et une fluidité qui rappellent les modèles de langage, contrebalancées par une simplicité de ton et une erreur de répétition qui suggèrent une rédaction humaine ou une modification manuelle. Il est impossible d'affirmer une origine artificielle, car ce type de réponse est également typique d'un étudiant produisant un devoir scolaire standard et prudent.
+### ⚖️ Tolérance aux Faux Positifs
+<p class="text-sm">Risque de Faux Positif : <span class="px-2 py-0.5 rounded text-xs font-bold bg-green-100 text-green-800">FAIBLE</span><br>
+<span class="text-slate-500 italic">Le texte est trop simple et manque de la sophistication lexicale et structurelle propre aux LLM.</span></p>
 
-**Risque de Faux Positif :** `MODERE`
-**Raison :** La brièveté du texte et le vocabulaire simple sont très courants chez les étudiants en situation d'examen, ce qui rend la distinction avec une IA générative difficile.
+---
+
+## 🔴 Fiche Copie : **C05**
+
+### 📋 Synthèse Exécutive
+> **Classification :** <strong class="text-red-600">PROBABLEMENT_IA</strong> (Indice de certitude : **87%**)
+> 
+> **Conclusion du modèle :** *La réponse est une synthèse très superficielle et générique qui évite toute prise de position. L'absence totale d'exemples concrets, malgré la consigne explicite, et la structure circulaire suggèrent une génération automatique par un LLM.*
+
+### 🚨 Pièces à Conviction (Extraits générés par IA)
+<div class="bg-red-50 border-l-4 border-red-500 p-4 my-2 rounded">
+  <p class="font-mono text-sm text-slate-800 mb-2">« Les médias sociaux peuvent être utiles pour créer des liens lorsque nous ne pouvons pas nous rencontrer, mais ils peuvent aussi nous priver de temps de qualité lorsque nous le pouvons. »</p>
+  <p class="text-xs text-red-700 font-medium"><strong>Motif :</strong> Extrait capturé automatiquement. La structure globale et le ton de cette phrase reflètent la neutralité et la standardisation typiques relevées dans l'analyse.</p>
+</div>
+
+### 📊 Profil Dimensionnel
+
+| Dimension Analysée | Score IA | Observation |
+| :--- | :---: | :--- |
+| **Adequation Semantique** | `9/10` | Réponse survole le sujet sans répondre à la demande d'exemples. |
+| **Fluidite Coherence** | `8/10` | Fluidité parfaite mais vide de contenu substantiel. |
+| **Imperfections Humaines** | `9/10` | Absence totale de maladresses, de ratures ou de variations de ton. |
+| **Regularite Stylistique** | `9/10` | Ton neutre et constant, typique d'une réponse standardisée. |
+| **Repetitions Redondances** | `8/10` | L'idée que les réseaux sont 'utiles' et 'néfastes' est répétée trois fois sous des formes proches. |
+| **Richesse Lexicale** | `4/10` | Vocabulaire pauvre et répétitif, manque de profondeur terminologique. |
+| **Structure Argumentative** | `9/10` | Structure très scolaire, équilibrée artificiellement entre le positif et le négatif. |
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
+<div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
+<h4 class="text-sm font-bold mb-2">🔎 Indices Linguistiques</h4>
+<ul class="text-xs space-y-1 text-slate-600 list-disc list-inside ml-2">
+<li>Utilisation de connecteurs de neutralité (Bien que, à la fois, dans certains cas)</li>
+<li>Absence de marqueurs de subjectivité (Je pense, selon mon expérience)</li>
+<li>Structure en miroir</li>
+</ul>
+</div>
+<div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
+<h4 class="text-sm font-bold mb-2">🤖 Prompts Hypothétiques</h4>
+<ul class="text-xs space-y-1 text-slate-600 list-disc list-inside ml-2">
+<li><code class="bg-white px-1 rounded border">Rédige une réponse courte sur l'impact des réseaux sociaux sur les relations humaines en mentionnant les aspects positifs et négatifs.</code></li>
+<li><code class="bg-white px-1 rounded border">Donne un avis équilibré sur les réseaux sociaux et les relations personnelles.</code></li>
+</ul>
+</div>
+</div>
+
+### ⚖️ Tolérance aux Faux Positifs
+<p class="text-sm">Risque de Faux Positif : <span class="px-2 py-0.5 rounded text-xs font-bold bg-amber-100 text-amber-800">MODERE</span><br>
+<span class="text-slate-500 italic">La brièveté du texte pourrait aussi être le fait d'un étudiant ayant très peu de temps ou manquant d'inspiration, bien que le style reste très typé IA.</span></p>
+
+---
+
+## 🔴 Fiche Copie : **C06**
+
+### 📋 Synthèse Exécutive
+> **Classification :** <strong class="text-red-600">PROBABLEMENT_IA</strong> (Indice de certitude : **87%**)
+> 
+> **Conclusion du modèle :** *La réponse présente une structure hautement standardisée et une neutralité sémantique typique des modèles de langage. Bien que le texte soit cohérent, il manque de la subjectivité et de la densité informationnelle attendues d'une réflexion humaine sur un sujet sociétal.*
+
+### 🚨 Pièces à Conviction (Extraits générés par IA)
+<div class="bg-red-50 border-l-4 border-red-500 p-4 my-2 rounded">
+  <p class="font-mono text-sm text-slate-800 mb-2">« Les réseaux sociaux jouent un rôle majeur dans les relations entre les individus. »</p>
+  <p class="text-xs text-red-700 font-medium"><strong>Motif :</strong> Extrait capturé automatiquement. La structure globale et le ton de cette phrase reflètent la neutralité et la standardisation typiques relevées dans l'analyse.</p>
+</div>
+
+### 📊 Profil Dimensionnel
+
+| Dimension Analysée | Score IA | Observation |
+| :--- | :---: | :--- |
+| **Adequation Semantique** | `8/10` | Réponse survole le sujet sans prise de position forte, typique d'une IA cherchant l'équilibre. |
+| **Fluidite Coherence** | `8/10` | Fluidité parfaite, mais manque de liant organique entre les idées. |
+| **Imperfections Humaines** | `9/10` | Absence totale de fautes, de ratures ou de maladresses syntaxiques. |
+| **Regularite Stylistique** | `9/10` | Ton parfaitement homogène et neutre du début à la fin. |
+| **Repetitions Redondances** | `7/10` | Structure répétitive dans la construction des paragraphes. |
+| **Richesse Lexicale** | `6/10` | Vocabulaire correct mais très générique, sans terme spécifique ou original. |
+| **Structure Argumentative** | `9/10` | Plan binaire rigide et prévisible (Thèse/Antithèse/Synthèse). |
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
+<div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
+<h4 class="text-sm font-bold mb-2">🔎 Indices Linguistiques</h4>
+<ul class="text-xs space-y-1 text-slate-600 list-disc list-inside ml-2">
+<li>Utilisation de connecteurs logiques classiques (Cependant, En outre, Pour conclure).</li>
+<li>Neutralité axiomatique (effets mixtes).</li>
+<li>Absence de ponctuation expressive ou de variations de rythme.</li>
+</ul>
+</div>
+<div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
+<h4 class="text-sm font-bold mb-2">🤖 Prompts Hypothétiques</h4>
+<ul class="text-xs space-y-1 text-slate-600 list-disc list-inside ml-2">
+<li><code class="bg-white px-1 rounded border">Rédige une réponse courte sur l'impact des réseaux sociaux sur les relations humaines en présentant les points positifs et négatifs.</code></li>
+<li><code class="bg-white px-1 rounded border">Analyse l'impact des réseaux sociaux sur les relations interpersonnelles en 150 mots environ.</code></li>
+</ul>
+</div>
+</div>
+
+### ⚖️ Tolérance aux Faux Positifs
+<p class="text-sm">Risque de Faux Positif : <span class="px-2 py-0.5 rounded text-xs font-bold bg-amber-100 text-amber-800">MODERE</span><br>
+<span class="text-slate-500 italic">La brièveté de la réponse peut également correspondre à un étudiant ayant rédigé un brouillon très synthétique ou ayant manqué de temps.</span></p>
+
+---
+
+## 🟢 Fiche Copie : **C07**
+
+### 📋 Synthèse Exécutive
+> **Classification :** <strong class="text-green-600">HUMAIN</strong> (Indice de certitude : **3%**)
+> 
+> **Conclusion du modèle :** *La réponse présente des marqueurs stylistiques et syntaxiques typiquement humains. La brièveté, la simplicité du vocabulaire et l'absence de structure argumentative complexe indiquent une production personnelle plutôt qu'une génération par IA.*
+
+### 📊 Profil Dimensionnel
+
+| Dimension Analysée | Score IA | Observation |
+| :--- | :---: | :--- |
+| **Adequation Semantique** | `0/10` | Réponse directe, sans généralités creuses. |
+| **Fluidite Coherence** | `2/10` | Fluidité naturelle, avec des ruptures de ton simples. |
+| **Imperfections Humaines** | `1/10` | Phrases courtes, syntaxe orale, absence de polissage. |
+| **Regularite Stylistique** | `1/10` | Ton homogène mais très simple, sans recherche de style. |
+| **Repetitions Redondances** | `1/10` | Pas de redondance de type 'remplissage' IA. |
+| **Richesse Lexicale** | `1/10` | Vocabulaire limité et répétitif. |
+| **Structure Argumentative** | `1/10` | Structure très basique, sans connecteurs logiques sophistiqués. |
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
+<div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
+<h4 class="text-sm font-bold mb-2">🔎 Indices Linguistiques</h4>
+<ul class="text-xs space-y-1 text-slate-600 list-disc list-inside ml-2">
+<li>Syntaxe simple (sujet-verbe-complément)</li>
+<li>Absence de connecteurs logiques complexes</li>
+<li>Vocabulaire courant</li>
+</ul>
+</div>
+<div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
+<h4 class="text-sm font-bold mb-2">🤖 Prompts Hypothétiques</h4>
+<ul class="text-xs space-y-1 text-slate-600 list-disc list-inside ml-2">
+</ul>
+</div>
+</div>
+
+### ⚖️ Tolérance aux Faux Positifs
+<p class="text-sm">Risque de Faux Positif : <span class="px-2 py-0.5 rounded text-xs font-bold bg-green-100 text-green-800">FAIBLE</span><br>
+<span class="text-slate-500 italic">Le texte est trop simple et trop court pour être confondu avec une production de LLM, qui tendent naturellement vers une plus grande complexité syntaxique.</span></p>
+
+---
+
+## 🟠 Fiche Copie : **C08**
+
+### 📋 Synthèse Exécutive
+> **Classification :** <strong class="text-amber-600">HYBRIDE</strong> (Indice de certitude : **65%**)
+> 
+> **Conclusion du modèle :** *La réponse présente une structure très formelle et une neutralité sémantique typique des modèles de langage, bien que la brièveté et le manque de développement puissent également refléter une rédaction rapide ou un manque d'inspiration de l'étudiant.*
+
+### 🚨 Pièces à Conviction (Extraits générés par IA)
+<div class="bg-red-50 border-l-4 border-red-500 p-4 my-2 rounded">
+  <p class="font-mono text-sm text-slate-800 mb-2">« Les nouvelles technologies permettent et favorisent un lien entre les personnes avec une communication ludique, plus rapide et plus facile. »</p>
+  <p class="text-xs text-red-700 font-medium"><strong>Motif :</strong> Extrait capturé automatiquement. La structure globale et le ton de cette phrase reflètent la neutralité et la standardisation typiques relevées dans l'analyse.</p>
+</div>
+
+### 📊 Profil Dimensionnel
+
+| Dimension Analysée | Score IA | Observation |
+| :--- | :---: | :--- |
+| **Adequation Semantique** | `9/10` | Réponse très généraliste, survole le sujet sans prendre de position personnelle. |
+| **Fluidite Coherence** | `7/10` | Très fluide, mais manque de profondeur argumentative. |
+| **Imperfections Humaines** | `2/10` | Absence de fautes, mais le texte est trop court pour juger de la présence d'erreurs typiques. |
+| **Regularite Stylistique** | `8/10` | Ton constant, très neutre et académique. |
+| **Repetitions Redondances** | `7/10` | Structure répétitive dans l'énumération des points. |
+| **Richesse Lexicale** | `6/10` | Vocabulaire correct mais répétitif (utilisation récurrente de 'permettent'). |
+| **Structure Argumentative** | `8/10` | Plan très rigide et scolaire, typique des modèles de langage. |
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
+<div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
+<h4 class="text-sm font-bold mb-2">🔎 Indices Linguistiques</h4>
+<ul class="text-xs space-y-1 text-slate-600 list-disc list-inside ml-2">
+<li>Utilisation de connecteurs logiques standards (Toutefois, Parmi les TIC)</li>
+<li>Neutralité axiomatique</li>
+<li>Absence d'exemples personnels ou d'anecdotes</li>
+</ul>
+</div>
+<div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
+<h4 class="text-sm font-bold mb-2">🤖 Prompts Hypothétiques</h4>
+<ul class="text-xs space-y-1 text-slate-600 list-disc list-inside ml-2">
+<li><code class="bg-white px-1 rounded border">Rédige une réponse courte sur l'impact des réseaux sociaux sur les relations humaines, en abordant les aspects positifs et les dangers pour les familles.</code></li>
+<li><code class="bg-white px-1 rounded border">Analyse les effets des réseaux sociaux sur la dynamique familiale en 4 paragraphes.</code></li>
+</ul>
+</div>
+</div>
+
+### ⚖️ Tolérance aux Faux Positifs
+<p class="text-sm">Risque de Faux Positif : <span class="px-2 py-0.5 rounded text-xs font-bold bg-amber-100 text-amber-800">MODERE</span><br>
+<span class="text-slate-500 italic">La brièveté du texte peut être le résultat d'un étudiant pressé ou peu inspiré, ce qui imite parfois le style concis et neutre des LLM.</span></p>
+
+---
+
+## 🔴 Fiche Copie : **C09**
+
+### 📋 Synthèse Exécutive
+> **Classification :** <strong class="text-red-600">PROBABLEMENT_IA</strong> (Indice de certitude : **94%**)
+> 
+> **Conclusion du modèle :** *La réponse présente une structure hautement prévisible et une neutralité axiomatique caractéristique des modèles de langage. L'absence totale d'exemples concrets, malgré la consigne explicite de la question, renforce l'hypothèse d'une génération synthétique.*
+
+### 🚨 Pièces à Conviction (Extraits générés par IA)
+<div class="bg-red-50 border-l-4 border-red-500 p-4 my-2 rounded">
+  <p class="font-mono text-sm text-slate-800 mb-2">« De nos jours, les réseaux sociaux sont devenus incontournables dans notre société. »</p>
+  <p class="text-xs text-red-700 font-medium"><strong>Motif :</strong> Extrait capturé automatiquement. La structure globale et le ton de cette phrase reflètent la neutralité et la standardisation typiques relevées dans l'analyse.</p>
+</div>
+
+### 📊 Profil Dimensionnel
+
+| Dimension Analysée | Score IA | Observation |
+| :--- | :---: | :--- |
+| **Adequation Semantique** | `9/10` | Réponse survole le sujet sans prendre de position réelle, malgré la demande de justification. |
+| **Fluidite Coherence** | `9/10` | Fluidité parfaite, transitions mécaniques ('Néanmoins', 'Ainsi'). |
+| **Imperfections Humaines** | `10/10` | Absence totale d'erreurs ou de maladresses stylistiques. |
+| **Regularite Stylistique** | `9/10` | Ton parfaitement homogène et neutre du début à la fin. |
+| **Repetitions Redondances** | `8/10` | La conclusion reformule simplement les idées précédentes sans apport informationnel. |
+| **Richesse Lexicale** | `7/10` | Vocabulaire standard, sans termes techniques ou personnels. |
+| **Structure Argumentative** | `9/10` | Plan scolaire rigide en trois paragraphes (Introduction, Antithèse, Conclusion). |
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
+<div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
+<h4 class="text-sm font-bold mb-2">🔎 Indices Linguistiques</h4>
+<ul class="text-xs space-y-1 text-slate-600 list-disc list-inside ml-2">
+<li>Utilisation de connecteurs logiques standards (De nos jours, Néanmoins, Ainsi).</li>
+<li>Absence de marqueurs de subjectivité (je, selon moi, mon expérience).</li>
+<li>Structure de paragraphe équilibrée et symétrique.</li>
+</ul>
+</div>
+<div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
+<h4 class="text-sm font-bold mb-2">🤖 Prompts Hypothétiques</h4>
+<ul class="text-xs space-y-1 text-slate-600 list-disc list-inside ml-2">
+<li><code class="bg-white px-1 rounded border">Rédige un court texte sur l'impact positif et négatif des réseaux sociaux sur les relations humaines.</code></li>
+<li><code class="bg-white px-1 rounded border">Fais une dissertation courte sur les réseaux sociaux et les relations interpersonnelles en utilisant un plan thèse-antithèse.</code></li>
+</ul>
+</div>
+</div>
+
+### ⚖️ Tolérance aux Faux Positifs
+<p class="text-sm">Risque de Faux Positif : <span class="px-2 py-0.5 rounded text-xs font-bold bg-green-100 text-green-800">FAIBLE</span><br>
+<span class="text-slate-500 italic">Bien qu'un étudiant puisse écrire de manière scolaire, l'absence totale d'exemples concrets demandés par la consigne rend l'hypothèse humaine peu probable.</span></p>
 
 ---
 

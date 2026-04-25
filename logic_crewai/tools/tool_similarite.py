@@ -9,15 +9,16 @@ def get_sbert_model():
     global _sbert_model
     if _sbert_model is None:
         from sentence_transformers import SentenceTransformer
-        _sbert_model = SentenceTransformer("all-MiniLM-L6-v2")
+        # Utilisation d'un modèle multilingue performant pour le Français
+        _sbert_model = SentenceTransformer("paraphrase-multilingual-MiniLM-L12-v2")
     return _sbert_model
 
-@tool("Outil de Calcul de Similarite SBERT et MinHash")
+@tool("Outil de Calcul de Similarite SBERT et TF-IDF")
 def outil_similarite_sbert(chemin_fichier: str) -> str:
     """
     Outil mathématique avancé pour calculer la similarité entre un lot de copies.
     Input : Le chemin absolu vers le fichier JSON des copies.
-    Action : Lit le fichier et calcule une distance sémantique (SBERT) et lexicale (TF-IDF) avec pénalité de disparité.
+    Action : Lit le fichier et calcule une distance sémantique (SBERT Multilingue) et lexicale (TF-IDF) avec pénalité de disparité.
     Output : Un JSON listant les paires de copies suspectes.
     """
     from sklearn.metrics.pairwise import cosine_similarity
@@ -39,7 +40,7 @@ def outil_similarite_sbert(chemin_fichier: str) -> str:
     if n < 2:
         return '{"paires_suspectes": []}'
 
-    # 2. COUCHE SÉMANTIQUE (SBERT)
+    # 2. COUCHE SÉMANTIQUE (SBERT Multilingue)
     try:
         model = get_sbert_model()
         embeds = model.encode(textes, show_progress_bar=False)
@@ -49,9 +50,10 @@ def outil_similarite_sbert(chemin_fichier: str) -> str:
         print(f"Attention: Erreur SBERT ({e}).")
         mat_sbert = np.zeros((n, n))
 
-    # 3. COUCHE LEXICALE (TF-IDF - Remplace MinHash)
+    # 3. COUCHE LEXICALE (TF-IDF - Ajusté pour le Français)
     try:
-        vectorizer = TfidfVectorizer(ngram_range=(1, 3), stop_words='english', max_df=0.95, min_df=1)
+        # Suppression de stop_words='english' car nous analysons des copies en français
+        vectorizer = TfidfVectorizer(ngram_range=(1, 3), max_df=0.95, min_df=1)
         tfidf_matrix = vectorizer.fit_transform(textes)
         mat_tfidf = cosine_similarity(tfidf_matrix)
         np.fill_diagonal(mat_tfidf, 0)

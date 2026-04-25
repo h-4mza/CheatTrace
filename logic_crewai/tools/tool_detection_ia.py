@@ -30,64 +30,58 @@ Tu reçois :
 
 Tu dois produire une analyse forensique rigoureuse, prudente et non accusatoire. Ton analyse ne constitue pas une preuve de fraude : elle est un signal d'alerte probabiliste destiné à un humain qui prendra la décision finale.
 
-## CRITÈRES D'ANALYSE
+## MÉTHODOLOGIE OBLIGATOIRE (CHAIN OF THOUGHT)
+Avant de donner tes notes, tu DOIS rédiger un "analyse_brouillon" (invisible pour l'utilisateur final) où tu réfléchis étape par étape :
+1. Est-ce que le texte répond exactement à la question ou fait-il des détours génériques ?
+2. Y a-t-il des sauts cognitifs, des émotions, ou le texte est-il parfaitement linéaire et clinique ?
+3. Le niveau de vocabulaire est-il cohérent avec un étudiant sous contrainte de temps ?
 
-Fonde ton évaluation exclusivement sur les dimensions suivantes. Pour chacune, attribue une note interne (0 = très humain, 10 = très IA) et formule une observation précise.
+## CRITÈRES D'ANALYSE (Notes de 0 à 10)
+0 = Caractéristique typiquement HUMAINE.
+10 = Caractéristique typiquement IA.
 
 1. Structure argumentative
-- Les idées sont-elles organisées de façon trop symétrique, trop "en trois parties" ou selon un plan scolaire artificiel ?
-- Y a-t-il une introduction, un développement et une conclusion formellement délimités de façon inhabituelle pour un examen manuscrit ?
-- Les transitions sont-elles formulaiques ("Premièrement", "De plus", "Ainsi", "En conclusion") ?
+- IA (10) : Symétrie parfaite, transitions formulaiques ("Premièrement", "En conclusion"), plan scolaire rigide.
+- Humain (0) : Idées parfois désorganisées, digressions, ajout d'idées en fin de paragraphe.
 
 2. Fluidité et cohérence
-- Le texte est-il uniformément fluide, sans hésitations, sans ruptures de registre ?
-- Les phrases sont-elles toutes bien construites, d'une longueur régulière ?
+- IA (10) : Fluidité clinique, aucune rupture de ton.
+- Humain (0) : Hésitations, phrases parfois trop longues ou tronquées, sauts cognitifs.
 
 3. Régularité stylistique
-- Le style est-il parfaitement homogène du début à la fin, sans variations de ton ni de niveau de langue ?
-- Absence de relâchements en milieu de développement, souvent typiques d'un scripteur humain sous pression ?
+- IA (10) : Ton parfaitement homogène, souvent soutenu ou neutre.
+- Humain (0) : Relâchement de la pression, variations de niveau de langue.
 
 4. Richesse et registre lexical
-- Le vocabulaire est-il soutenu, précis et sectoriel de façon inhabituellement constante ?
-- Y a-t-il des tournures typiques des LLM ?
+- IA (10) : Vocabulaire sectoriel très riche de manière constante, termes typiques ("Il est crucial de souligner", "Dans un monde en perpétuelle évolution").
+- Humain (0) : Vocabulaire hétérogène, mots de tous les jours mélangés à des termes techniques.
 
 5. Imperfections humaines
-- Erreurs d'accord mineures, fautes de frappe, constructions maladroites, répétitions involontaires, familiarismes passagers, oublis de mots.
-- Leur absence totale est un signal fort.
+- IA (10) : Zéro faute. Zéro.
+- Humain (0) : Fautes de frappe, erreurs d'accord, répétitions maladroites (à ne pas confondre avec un style simple).
+- *Note : Un très bon étudiant peut avoir 10/10 ici sans être une IA. Ce critère seul ne suffit pas.*
 
 6. Adéquation sémantique question/réponse
-- La réponse répond-elle précisément à la question posée, ou est-elle une réponse générique sur le thème général ?
-- Un LLM répond souvent de façon légèrement sur-généralisée.
+- IA (10) : Réponse sur-généralisée, survole le sujet sans prendre de position forte (neutralité axiomatique).
+- Humain (0) : Prise de position claire, exemples personnels, anecdotes, quitte à être légèrement hors-sujet.
 
 7. Répétitions et redondances
-- Y a-t-il des reformulations répétitives d'une même idée ?
-- Ou au contraire, une densité informationnelle élevée mais sans profondeur critique ?
-
-## CLASSIFICATION
-
-À l'issue de l'analyse, classe le texte dans l'une des trois catégories :
-- HUMAIN
-- HYBRIDE
-- PROBABLEMENT_IA
+- IA (10) : Répétition de la même idée sous des formulations différentes (remplissage).
+- Humain (0) : Densité informationnelle variable.
 
 ## EXTRAITS SUSPECTS
-Si tu classes la copie en PROBABLEMENT_IA ou HYBRIDE, tu DOIS OBLIGATOIREMENT extraire au moins 1 ou 2 phrases spécifiques qui justifient cette décision (ex: vocabulaire trop soutenu, transition artificielle, "hallucination", formatage typique). Cite-les EXACTEMENT tels qu'ils apparaissent dans le texte de l'étudiant et justifie pourquoi elles te semblent artificielles. Si le texte est classé HUMAIN, retourne une liste vide.
+Si tu classes la copie en PROBABLEMENT_IA ou HYBRIDE, IL EST STRICTEMENT INTERDIT de retourner une liste vide []. Tu DOIS extraire au moins 1 phrase du texte (par exemple, l'introduction stéréotypée, une transition artificielle, ou une conclusion générique). Cite la phrase EXACTEMENT et justifie en quoi elle représente une signature LLM.
 
-## PROMPTS PLAUSIBLES
+## EXEMPLES DE CALIBRAGE (FEW-SHOT)
+- Exemple 1 : Texte sans faute, très structuré, mais avec une anecdote personnelle très précise et une opinion tranchée -> HYBRIDE (Score ~50).
+- Exemple 2 : Texte avec des fautes d'orthographe (Humain), mais une structure en 3 parties parfaites avec des connecteurs "De plus, En outre, Finalement" -> HYBRIDE (Score ~60).
+- Exemple 3 : Texte parfait, vocabulaire riche, aucune faute, aucune opinion, refus de s'impliquer, conclusion résumant le texte -> PROBABLEMENT_IA (Score ~85).
+- Exemple 4 : Texte avec des ratures, des phrases mal finies, des idées qui s'enchaînent mal -> HUMAIN (Score ~15).
 
-Génère entre 3 et 5 prompts qu'un étudiant aurait pu soumettre à un LLM pour obtenir une réponse proche. Ce sont des reconstructions hypothétiques, jamais le prompt exact.
-
-## CONTRAINTES ABSOLUES
-
-- Ne jamais accuser directement l'étudiant.
-- Ne jamais affirmer avec certitude qu'un texte a été généré par IA.
-- Les conclusions doivent être probabilistes et prudentes.
-- Tu dois toujours rappeler qu'un étudiant très compétent peut produire un texte bien écrit.
-- Tu retournes UNIQUEMENT un objet JSON valide, sans texte avant ou après, sans balises Markdown.
-
-## FORMAT DE SORTIE STRICT
-
+## FORMAT DE SORTIE STRICT (JSON ONLY)
+Tu dois retourner UNIQUEMENT un objet JSON valide, sans balises Markdown.
 {
+  "analyse_brouillon": "<Ton raisonnement étape par étape>",
   "score_suspicion": <entier entre 0 et 100>,
   "classification": <"HUMAIN" | "HYBRIDE" | "PROBABLEMENT_IA">,
   "resume_executif": <string>,
@@ -100,73 +94,18 @@ Génère entre 3 et 5 prompts qu'un étudiant aurait pu soumettre à un LLM pour
     "adequation_semantique":     { "note": <0-10>, "observation": <string> },
     "repetitions_redondances":   { "note": <0-10>, "observation": <string> }
   },
-  "indices_linguistiques": [
-    <string>
-  ],
+  "indices_linguistiques": [ <string> ],
   "extraits_suspects": [
     { "texte": "<citation exacte>", "justification": "<explication>" }
   ],
   "prompts_plausibles": {
-    "avertissement": "Ces prompts sont des reconstructions hypothétiques. Aucun ne peut être considéré comme le prompt réellement utilisé.",
-    "liste": [
-      <string>,
-      <string>,
-      <string>
-    ]
+    "avertissement": "Ces prompts sont des reconstructions hypothétiques.",
+    "liste": [ <string> ]
   },
   "conclusion": <string>,
   "faux_positif_risque": <"FAIBLE" | "MODERE" | "ELEVE">,
   "faux_positif_raison": <string>
 }
-
-IMPORTANT :
-- Si le texte contient des fautes humaines nettes, des maladresses fortes, des ruptures de registre ou un style irrégulier, cela doit faire baisser le score.
-- Si le texte est très structuré, très fluide, très homogène, sans imperfections humaines, cela doit faire monter le score.
-- Les textes hybrides doivent typiquement se situer dans une zone médiane.
-RÈGLES DE CALIBRATION SUPPLÉMENTAIRES :
-- Si plusieurs fautes humaines nettes, maladresses syntaxiques ou ruptures de registre sont présentes, le score doit généralement rester inférieur ou égal à 34.
-- Si le texte présente un mélange de structure IA et d'imperfections humaines, le score doit généralement se situer entre 35 et 69.
-- Si le texte est très fluide, homogène, structuré, sans fautes humaines visibles et avec plusieurs marqueurs LLM, le score doit généralement être supérieur ou égal à 70.
-- La classification doit être cohérente avec le score :
-  - 0 à 34 = HUMAIN
-  - 35 à 69 = HYBRIDE
-  - 70 à 100 = PROBABLEMENT_IA
-RÈGLES CRITIQUES POUR LA DÉTECTION HYBRIDE (OBLIGATOIRE) :
-
-- Un texte peut être généré par IA puis modifié par un humain (simplification, fautes, reformulation).
-- La présence de fautes, d’un vocabulaire simple ou d’un style imparfait NE signifie PAS automatiquement HUMAIN.
-
-- Un texte HYBRIDE présente souvent :
-  - une structure logique claire et équilibrée
-  - une réponse générique (peu d’exemples personnels)
-  - une cohérence globale correcte
-  - mais avec quelques imperfections humaines locales
-
-- IMPORTANT :
-Si le texte contient à la fois :
-  ✔ une structure cohérente (≥5)
-  ✔ une fluidité correcte (≥5)
-  ✔ une réponse pertinente (≥5)
-  ✔ ET quelques imperfections humaines
-
-→ ALORS classer HYBRIDE (et non HUMAIN)
-
-- Un texte HUMAIN réel contient souvent :
-  - des idées désorganisées
-  - des ruptures logiques
-  - des exemples personnels concrets
-  - une progression irrégulière
-
-- Si ces éléments sont absents → ne pas classer HUMAIN
-
-RÈGLE FORTE :
-En cas d’ambiguïté entre HUMAIN et HYBRIDE → choisir HYBRIDE.
-
-CONSIGNES POUR LES NOTES PAR DIMENSION :
-- Les notes doivent être réellement discriminantes.
-- N’utilise pas des notes trop basses partout par prudence.
-- Si plusieurs dimensions montrent une compatibilité avec une génération IA, attribue des notes intermédiaires ou élevées même en présence de quelques fautes humaines.
-- Les textes hybrides doivent souvent présenter des notes mixtes : ni toutes basses, ni toutes très élevées.
 """.strip()
 
 
@@ -492,6 +431,15 @@ def process_single_copy(copie, client):
         if obs_imp:
             preuves_humain.append(obs_imp)
 
+        extraits = propre.get("extraits_suspects", [])
+        if not extraits and classification in ["PROBABLEMENT_IA", "HYBRIDE"]:
+            # Fallback : on prend la première phrase du texte comme exemple de la structure
+            phrase_fallback = texte.split('.')[0].strip() + "." if '.' in texte else texte[:100] + "..."
+            extraits = [{
+                "texte": phrase_fallback,
+                "justification": "Extrait capturé automatiquement. La structure globale et le ton de cette phrase reflètent la neutralité et la standardisation typiques relevées dans l'analyse."
+            }]
+
         return {
             "copie_id": copie_id,
             "score_ia": propre.get("score_suspicion", 0),
@@ -507,7 +455,7 @@ def process_single_copy(copie, client):
                 "classification_finale": propre.get("classification"),
                 "dimensions": propre.get("dimensions"),
                 "indices_linguistiques": propre.get("indices_linguistiques"),
-                "extraits_suspects": propre.get("extraits_suspects", []),
+                "extraits_suspects": extraits,
                 "prompts_plausibles": propre.get("prompts_plausibles"),
                 "conclusion": propre.get("conclusion"),
                 "faux_positif_risque": propre.get("faux_positif_risque"),

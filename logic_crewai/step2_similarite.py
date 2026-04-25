@@ -79,7 +79,7 @@ def main():
             "Le fichier contenant les copies OCR se trouve à cette adresse absolue :\n"
             f"{chemin_absolu_ocr}\n\n"
             "Ta mission :\n"
-            "1. Appelle l'outil 'Outil de Calcul de Similarite SBERT et MinHash' en lui passant EXACTEMENT cette adresse.\n"
+            "1. Appelle l'outil 'Outil de Calcul de Similarite SBERT et TF-IDF' en lui passant EXACTEMENT cette adresse.\n"
             "2. Prends le JSON retourné et appelle 'Outil de Clustering de Fraude' avec.\n"
             "3. Rédige un rapport final qui formatte ces résultats.\n"
             "Tu DOIS retourner UNIQUEMENT un JSON avec la structure exacte suivante :\n"
@@ -101,7 +101,7 @@ def main():
             "Le fichier contenant les copies OCR se trouve à cette adresse absolue :\n"
             f"{chemin_absolu_ocr}\n\n"
             "Ta mission :\n"
-            "1. Appelle l'outil 'Outil de Calcul de Similarite SBERT et MinHash' en lui passant EXACTEMENT cette adresse.\n"
+            "1. Appelle l'outil 'Outil de Calcul de Similarite SBERT et TF-IDF' en lui passant EXACTEMENT cette adresse.\n"
             "2. Prends le JSON retourné et appelle 'Outil de Clustering de Fraude' avec.\n"
             "3. Retourne UNIQUEMENT le JSON brut final sans balises Markdown."
         )

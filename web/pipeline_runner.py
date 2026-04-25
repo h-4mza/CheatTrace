@@ -69,7 +69,12 @@ def run_investigation_pipeline(investigation_id, professor_email):
                         import json
                         script_dir = os.path.dirname(os.path.abspath(__file__))
                         # On cherche d'abord le verdict final (investigation complète), sinon le NLP (singulière)
-                        for file_name in ["verdict_final.json", "resultats_nlp.json"]:
+                        noms_fichiers = [
+                            f"verdict_final_{investigation_id}.json", 
+                            f"resultats_nlp_{investigation_id}.json",
+                            f"resultats_sim_{investigation_id}.json"
+                        ]
+                        for file_name in noms_fichiers:
                             chemin_json = os.path.abspath(os.path.join(script_dir, "..", "data", file_name))
                             if os.path.exists(chemin_json):
                                 with open(chemin_json, "r", encoding="utf-8") as f:
