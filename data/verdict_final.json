@@ -1,0 +1,54 @@
+{
+  "nb_copies_analysees": 7,
+  "nb_suspects": 4,
+  "copies_suspectes": [
+    {
+      "copie_id": "C01",
+      "niveau_risque": "eleve",
+      "preuves_ia": "Classification HYBRIDE, score IA 69, structure scolaire standard, absence de subjectivité.",
+      "preuves_collaboration": "Fait partie du cluster 1 (similarité élevée avec C04, C06, C07).",
+      "verdict_juge": "Convergence des indices : le style standardisé de l'IA combiné à une similarité textuelle avec d'autres copies suggère une utilisation concertée d'outils génératifs."
+    },
+    {
+      "copie_id": "C04",
+      "niveau_risque": "eleve",
+      "preuves_ia": "Classification PROBABLEMENT_IA, score IA 85, neutralité excessive, perfection formelle suspecte.",
+      "preuves_collaboration": "Fait partie du cluster 1 (similarité élevée avec C01, C06, C07).",
+      "verdict_juge": "Le score d'IA le plus élevé associé à une appartenance à un cluster de similarité confirme une fraude probable par usage d'IA générative dans un cadre de travail en groupe."
+    },
+    {
+      "copie_id": "C06",
+      "niveau_risque": "modere",
+      "preuves_ia": "Classification HYBRIDE, score IA 65, structure très normée, absence totale d'imperfections.",
+      "preuves_collaboration": "Fait partie du cluster 1 (similarité élevée avec C01, C04, C07).",
+      "verdict_juge": "Le formatage trop scolaire et la similarité textuelle avec le groupe suspect indiquent une probable assistance technologique coordonnée."
+    },
+    {
+      "copie_id": "C07",
+      "niveau_risque": "modere",
+      "preuves_ia": "Classification HYBRIDE, score IA 65, structure très équilibrée.",
+      "preuves_collaboration": "Fait partie du cluster 1 (similarité élevée avec C01, C04, C06).",
+      "verdict_juge": "Bien que présentant une erreur de répétition, l'appartenance au cluster de similarité et la structure rigide pointent vers une collaboration utilisant un modèle de langage."
+    }
+  ],
+  "clusters_fraude": [
+    {
+      "cluster_id": 1,
+      "copies": [
+        "C01",
+        "C04",
+        "C06",
+        "C07"
+      ],
+      "niveau_risque": "modere",
+      "score_moyen": 0.681
+    }
+  ],
+  "copies_normales": [
+    "C02",
+    "C03",
+    "C05"
+  ],
+  "session_id": "42",
+  "statut": "termine"
+}

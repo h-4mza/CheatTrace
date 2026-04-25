@@ -233,77 +233,6 @@ def api_investigation_status(id):
         "completed_at": inv.completed_at.isoformat() if inv.completed_at else None
     })
 
-@app.route('/api/investigation/callback', methods=['POST'])
-def investigation_callback():
-    """
-    Called by n8n when the forensic analysis is completed.
-    Payload: { 
-        "investigation_id": X, 
-        "status": "completed/failed", 
-        "report_content": "Markdown text",
-        "ocr_results": [ {"fichier": "nom.jpg", "texte": "..."}, ... ] 
-    }
-    """
-    data = request.json
-    
-    # Accepte les clés de l'ancien format ou du nouveau format n8n (session_id, statut, output)
-    inv_id = data.get('investigation_id') or data.get('session_id')
-    status = data.get('status') or data.get('statut', 'completed')
-    
-    # Mapping du statut n8n ('termine', 'ocr_ok', etc.) vers les statuts Flask
-    if status == 'termine' or status == 'ocr_ok':
-        status = 'completed'
-    elif 'erreur' in status.lower():
-        status = 'failed'
-        
-    report_content = data.get('report_content') or data.get('output', '')
-    ocr_results = data.get('ocr_results', [])
-
-    inv = Investigation.query.get(inv_id)
-    if not inv:
-        return jsonify({"error": f"Investigation {inv_id} not found"}), 404
-
-    inv.status = status
-    
-    # Mise à jour du texte OCR pour chaque copie si disponible
-    if ocr_results:
-        for res in ocr_results:
-            filename = res.get('fichier')
-            text = res.get('texte')
-            if filename and text:
-                # On cherche la copie par son nom de fichier original ou stocké
-                from models import ExamCopy
-                copy = ExamCopy.query.filter(
-                    (ExamCopy.investigation_id == inv_id) & 
-                    ((ExamCopy.original_filename == filename) | (ExamCopy.stored_path.contains(filename)))
-                ).first()
-                if copy:
-                    copy.ocr_text = text
-
-    if status == 'completed':
-        report_dir = os.path.join(os.path.dirname(app.config['UPLOAD_FOLDER']), 'reports')
-        # Si C:\Forensic_Storage est utilisé, on crée un dossier reports à côté
-        if not os.path.exists(report_dir):
-             report_dir = os.path.join(app.config['UPLOAD_FOLDER'], 'reports')
-             
-        os.makedirs(report_dir, exist_ok=True)
-        report_path = os.path.join(report_dir, f"investigation_{inv_id}.md")
-        
-        with open(report_path, 'w', encoding='utf-8') as f:
-            f.write(report_content)
-            
-        # Sauvegarde du JSON pour le graphe interactif
-        import json
-        json_path = os.path.join(report_dir, f"investigation_{inv_id}.json")
-        with open(json_path, 'w', encoding='utf-8') as f:
-            json.dump(data, f, ensure_ascii=False)
-            
-        inv.report_path = report_path
-        inv.completed_at = datetime.utcnow()
-        
-    db.session.commit()
-    return jsonify({"message": "Callback processed successfully (OCR text saved)"}), 200
-
 @app.route('/api/investigations/<int:id>/graph_data')
 @login_required
 def api_investigation_graph_data(id):
@@ -415,7 +344,7 @@ def admin_users():
     users = User.query.all()
     return render_template('admin/users.html', users=users)
 
-@app.route('/admin/users/delete/<int:id>')
+@app.route('/admin/users/delete/<int:id>', methods=['POST'])
 @login_required
 @admin_required
 def admin_user_delete(id):
@@ -448,6 +377,13 @@ def admin_investigations_all():
     
     return render_template('admin/investigations.html', 
                            investigations=investigations, 
+                           professors=professors,
+                           current_prof_id=prof_id,
+                           current_status=status)
+
+if __name__ == '__main__':
+    app.run(debug=True, port=5001)
+                       investigations=investigations, 
                            professors=professors,
                            current_prof_id=prof_id,
                            current_status=status)

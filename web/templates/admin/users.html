@@ -90,11 +90,11 @@
                     </td>
                     <td class="px-8 py-5 text-right">
                         {% if user.id != current_user.id %}
-                        <a href="/admin/users/delete/{{ user.id }}" 
-                           class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-red-600 hover:bg-red-50 transition-all font-bold text-sm" 
-                           onclick="return confirm('Êtes-vous sûr de vouloir révoquer cet accès ? Cette action est irréversible.')">
-                            <i class="bi bi-trash3"></i> Révoquer
-                        </a>
+                        <form action="/admin/users/delete/{{ user.id }}" method="POST" class="inline" onsubmit="return confirm('Êtes-vous sûr de vouloir révoquer cet accès ? Cette action est irréversible.')">
+                            <button type="submit" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-red-600 hover:bg-red-50 transition-all font-bold text-sm">
+                                <i class="bi bi-trash3"></i> Révoquer
+                            </button>
+                        </form>
                         {% else %}
                         <span class="px-4 py-2 rounded-xl bg-slate-100 text-slate-400 text-sm font-bold italic">Session active</span>
                         {% endif %}

@@ -128,8 +128,8 @@ def main():
     resultat_json["session_id"] = session_id
     resultat_json["statut"] = "termine"
 
-    # Sauvegarde du verdict final
-    chemin_sortie = os.path.abspath(os.path.join(script_dir, "..", "data", "verdict_final.json"))
+    # Sauvevegarde du verdict final
+    chemin_sortie = os.path.abspath(os.path.join(script_dir, "..", "data", f"verdict_final_{session_id}.json"))
     os.makedirs(os.path.dirname(chemin_sortie), exist_ok=True)
     with open(chemin_sortie, "w", encoding="utf-8") as f:
         json.dump(resultat_json, f, ensure_ascii=False, indent=2)

@@ -1,14 +1,488 @@
 {
-  "nb_copies_analysees": 1,
-  "nb_suspects": 1,
-  "copies_suspectes": [
+  "nb_copies": 7,
+  "nb_suspects": 4,
+  "resultats": [
     {
+      "classification": "HYBRIDE",
       "copie_id": "C01",
+      "details_complets": {
+        "classification_finale": "HYBRIDE",
+        "classification_modele": "HYBRIDE",
+        "conclusion": "Le texte présente des caractéristiques de structure et de fluidité qui rappellent les modèles de langage, mais sa brièveté et sa simplicité lexicale ne permettent pas d'exclure une rédaction humaine rapide. Il est classé comme hybride car il combine une forme très normée avec une absence de profondeur typique d'une réponse générique.",
+        "dimensions": {
+          "adequation_semantique": {
+            "note": 6,
+            "observation": "Réponse pertinente mais très généraliste, survolant le sujet sans apporter d'exemples personnels ou originaux."
+          },
+          "fluidite_coherence": {
+            "note": 6,
+            "observation": "Le texte est très fluide, sans aucune rupture de rythme ou hésitation syntaxique."
+          },
+          "imperfections_humaines": {
+            "note": 5,
+            "observation": "Absence de fautes d'orthographe ou de syntaxe, mais le texte est très court, ce qui limite les opportunités d'erreurs."
+          },
+          "regularite_stylistique": {
+            "note": 6,
+            "observation": "Le ton est neutre et homogène du début à la fin, sans variation de registre."
+          },
+          "repetitions_redondances": {
+            "note": 5,
+            "observation": "Pas de répétitions excessives, mais une densité informationnelle faible."
+          },
+          "richesse_lexicale": {
+            "note": 4,
+            "observation": "Vocabulaire fonctionnel et assez générique, manquant de précision terminologique ou d'analyse approfondie."
+          },
+          "structure_argumentative": {
+            "note": 7,
+            "observation": "Plan très classique et symétrique (thèse/antithèse/synthèse) avec des connecteurs logiques standards (Cependant, En effet, En conclusion)."
+          }
+        },
+        "faux_positif_raison": "La brièveté du texte peut être le résultat d'un étudiant répondant de manière concise sous la pression d'un examen, ce qui imite naturellement la structure épurée d'un LLM.",
+        "faux_positif_risque": "MODERE",
+        "indices_linguistiques": [
+          "Utilisation de connecteurs logiques scolaires (Cependant, En effet, En conclusion)",
+          "Structure en trois paragraphes parfaitement délimités",
+          "Absence totale de marques de subjectivité ou de style personnel"
+        ],
+        "prompts_plausibles": {
+          "avertissement": "Ces prompts sont des reconstructions hypothétiques. Aucun ne peut être considéré comme le prompt réellement utilisé.",
+          "liste": [
+            "Rédige un court texte argumenté sur l'impact positif et négatif des réseaux sociaux sur les relations humaines.",
+            "Fais une réponse courte et structurée sur les avantages et inconvénients des réseaux sociaux pour les relations entre les personnes.",
+            "Peux-tu rédiger une réponse d'examen sur l'influence des réseaux sociaux sur les relations sociales en utilisant un plan simple ?"
+          ]
+        },
+        "score_modele": 58,
+        "score_recalcule": 69
+      },
+      "niveau_risque": "modere",
+      "preuves_humain": [
+        "Absence de fautes d'orthographe ou de syntaxe, mais le texte est très court, ce qui limite les opportunités d'erreurs."
+      ],
+      "preuves_ia": [
+        "Utilisation de connecteurs logiques scolaires (Cependant, En effet, En conclusion)",
+        "Structure en trois paragraphes parfaitement délimités",
+        "Absence totale de marques de subjectivité ou de style personnel"
+      ],
+      "score_ia": 69,
+      "synthese": "La réponse présente une structure équilibrée et une fluidité constante typique d'une synthèse assistée, tout en conservant une simplicité lexicale et une brièveté qui pourraient correspondre à une rédaction humaine sous contrainte de temps."
+    },
+    {
+      "classification": "HUMAIN",
+      "copie_id": "C02",
+      "details_complets": {
+        "classification_finale": "HUMAIN",
+        "classification_modele": "HUMAIN",
+        "conclusion": "Le texte est très probablement le fruit d'une production humaine. Il manque de la densité, de la structure et de la précision lexicale qui caractérisent généralement les réponses générées par IA. Il est important de noter qu'un étudiant peut tout à fait produire un texte simple et direct sans aide technologique.",
+        "dimensions": {
+          "adequation_semantique": {
+            "note": 3,
+            "observation": "La réponse est directe et personnelle, loin de la généralisation encyclopédique typique des IA."
+          },
+          "fluidite_coherence": {
+            "note": 3,
+            "observation": "La fluidité est naturelle mais présente des ruptures syntaxiques (ex: 'j'utilise pour parler')."
+          },
+          "imperfections_humaines": {
+            "note": 9,
+            "observation": "Présence de maladresses syntaxiques ('j'utilise pour parler' au lieu de 'je les utilise') et de tournures familières."
+          },
+          "regularite_stylistique": {
+            "note": 2,
+            "observation": "Le style est homogène dans sa simplicité, sans la perfection formelle propre aux LLM."
+          },
+          "repetitions_redondances": {
+            "note": 2,
+            "observation": "Pas de redondances artificielles, le texte est concis et va droit au but."
+          },
+          "richesse_lexicale": {
+            "note": 1,
+            "observation": "Le vocabulaire est limité et courant, sans aucune trace de jargon ou de tournures sophistiquées."
+          },
+          "structure_argumentative": {
+            "note": 2,
+            "observation": "La structure est rudimentaire, sans connecteurs logiques complexes ou plan académique formel."
+          }
+        },
+        "faux_positif_raison": "La présence de maladresses syntaxiques et d'un style très personnel rend la probabilité d'une génération par IA extrêmement faible.",
+        "faux_positif_risque": "FAIBLE",
+        "indices_linguistiques": [
+          "Syntaxe orale ('j'utilise pour parler')",
+          "Usage de 'les gens' et 'les réseaux' de manière informelle",
+          "Exemple personnel concret et spécifique",
+          "Absence de connecteurs logiques structurants"
+        ],
+        "prompts_plausibles": {
+          "avertissement": "Ces prompts sont des reconstructions hypothétiques. Aucun ne peut être considéré comme le prompt réellement utilisé.",
+          "liste": [
+            "Rédige un court paragraphe sur l'impact des réseaux sociaux sur les relations humaines.",
+            "Donne ton avis sur les réseaux sociaux, est-ce positif ou négatif ?",
+            "Écris une réponse simple pour un examen sur les avantages et inconvénients des réseaux sociaux."
+          ]
+        },
+        "score_modele": 12,
+        "score_recalcule": 27
+      },
+      "niveau_risque": "faible",
+      "preuves_humain": [
+        "Présence de maladresses syntaxiques ('j'utilise pour parler' au lieu de 'je les utilise') et de tournures familières."
+      ],
+      "preuves_ia": [
+        "Syntaxe orale ('j'utilise pour parler')",
+        "Usage de 'les gens' et 'les réseaux' de manière informelle",
+        "Exemple personnel concret et spécifique",
+        "Absence de connecteurs logiques structurants"
+      ],
+      "score_ia": 27,
+      "synthese": "La réponse présente des caractéristiques stylistiques et syntaxiques typiques d'une production humaine spontanée. Le texte est marqué par des maladresses syntaxiques, une structure simple et l'utilisation d'exemples personnels concrets, ce qui s'éloigne significativement des modèles de langage habituels."
+    },
+    {
+      "classification": "HUMAIN",
+      "copie_id": "C03",
+      "details_complets": {
+        "classification_finale": "HUMAIN",
+        "classification_modele": "HUMAIN",
+        "conclusion": "Le texte présente une forte probabilité d'être une production humaine. Il manque de la densité, de la structure complexe et du vocabulaire soutenu qui caractérisent généralement les réponses générées par IA. Il est important de noter qu'un étudiant peut tout à fait produire un texte simple et direct par lui-même.",
+        "dimensions": {
+          "adequation_semantique": {
+            "note": 3,
+            "observation": "La réponse est directe et répond à la question sans chercher à généraliser ou à théoriser outre mesure."
+          },
+          "fluidite_coherence": {
+            "note": 3,
+            "observation": "La fluidité est naturelle, avec des phrases courtes et une progression linéaire simple."
+          },
+          "imperfections_humaines": {
+            "note": 2,
+            "observation": "Le texte est simple, sans erreurs manifestes, mais sa brièveté et son manque de développement complexe sont des indicateurs de production humaine sous contrainte de temps."
+          },
+          "regularite_stylistique": {
+            "note": 2,
+            "observation": "Le style est homogène mais limité, reflétant une expression directe sans recherche de sophistication."
+          },
+          "repetitions_redondances": {
+            "note": 2,
+            "observation": "Absence de redondances artificielles ou de remplissage textuel."
+          },
+          "richesse_lexicale": {
+            "note": 1,
+            "observation": "Le vocabulaire est basique et fonctionnel, sans les termes techniques ou les tournures idiomatiques propres aux LLM."
+          },
+          "structure_argumentative": {
+            "note": 2,
+            "observation": "La structure est rudimentaire, sans connecteurs logiques complexes ou plan académique formel."
+          }
+        },
+        "faux_positif_raison": "Le texte est trop court et trop simple pour présenter les marqueurs stylistiques distinctifs d'un LLM.",
+        "faux_positif_risque": "FAIBLE",
+        "indices_linguistiques": [
+          "Usage de 'À mon avis' en ouverture",
+          "Phrases courtes et syntaxe simple",
+          "Absence de connecteurs logiques sophistiqués",
+          "Ton personnel et direct"
+        ],
+        "prompts_plausibles": {
+          "avertissement": "Ces prompts sont des reconstructions hypothétiques. Aucun ne peut être considéré comme le prompt réellement utilisé.",
+          "liste": [
+            "Rédige un court paragraphe sur les avantages et inconvénients des réseaux sociaux.",
+            "Est-ce que les réseaux sociaux sont bons pour les relations humaines ? Donne ton avis.",
+            "Fais une réponse courte sur l'impact des réseaux sociaux sur les relations."
+          ]
+        },
+        "score_modele": 15,
+        "score_recalcule": 14
+      },
+      "niveau_risque": "faible",
+      "preuves_humain": [
+        "Le texte est simple, sans erreurs manifestes, mais sa brièveté et son manque de développement complexe sont des indicateurs de production humaine sous contrainte de temps."
+      ],
+      "preuves_ia": [
+        "Usage de 'À mon avis' en ouverture",
+        "Phrases courtes et syntaxe simple",
+        "Absence de connecteurs logiques sophistiqués",
+        "Ton personnel et direct"
+      ],
+      "score_ia": 14,
+      "synthese": "La réponse présente des caractéristiques stylistiques et structurelles typiques d'une production humaine spontanée. Le texte est concis, utilise un registre de langue courant et présente une structure argumentative simple, dépourvue des marqueurs de complexité ou de la verbosité habituelle des modèles de langage."
+    },
+    {
+      "classification": "PROBABLEMENT_IA",
+      "copie_id": "C04",
+      "details_complets": {
+        "classification_finale": "PROBABLEMENT_IA",
+        "classification_modele": "PROBABLEMENT_IA",
+        "conclusion": "Le texte présente des caractéristiques stylistiques et structurelles fortement corrélées aux productions des LLM. Bien qu'il soit possible qu'un étudiant ait rédigé ce texte de manière très scolaire, l'absence totale de marqueurs d'humanité (erreurs, style personnel, hésitations) rend l'hypothèse d'une assistance par IA très probable. Cette analyse reste un signal d'alerte et non une preuve.",
+        "dimensions": {
+          "adequation_semantique": {
+            "note": 7,
+            "observation": "Réponse pertinente mais très généraliste, survolant le sujet sans profondeur critique."
+          },
+          "fluidite_coherence": {
+            "note": 8,
+            "observation": "Fluidité parfaite, sans aucune rupture de rythme ou hésitation syntaxique."
+          },
+          "imperfections_humaines": {
+            "note": 9,
+            "observation": "Absence totale de fautes, de maladresses ou de tics d'écriture propres à une rédaction sous pression."
+          },
+          "regularite_stylistique": {
+            "note": 9,
+            "observation": "Style parfaitement homogène, sans variation de ton du début à la fin."
+          },
+          "repetitions_redondances": {
+            "note": 6,
+            "observation": "Structure répétitive dans la construction des phrases (sujet-verbe-complément)."
+          },
+          "richesse_lexicale": {
+            "note": 6,
+            "observation": "Vocabulaire correct mais générique, manquant de nuances personnelles ou d'exemples vécus."
+          },
+          "structure_argumentative": {
+            "note": 9,
+            "observation": "Plan scolaire classique (thèse, antithèse, synthèse) très rigide et prévisible."
+          }
+        },
+        "faux_positif_raison": "Un étudiant très rigoureux, cherchant à produire un texte académique standard et concis, pourrait adopter une structure similaire par souci de clarté.",
+        "faux_positif_risque": "MODERE",
+        "indices_linguistiques": [
+          "Utilisation de connecteurs logiques standards (Cependant, En effet, En conclusion).",
+          "Absence de ponctuation expressive ou de variations dans la longueur des phrases.",
+          "Neutralité excessive du ton.",
+          "Structure en trois paragraphes parfaitement délimités."
+        ],
+        "prompts_plausibles": {
+          "avertissement": "Ces prompts sont des reconstructions hypothétiques. Aucun ne peut être considéré comme le prompt réellement utilisé.",
+          "liste": [
+            "Rédige un court texte argumenté sur l'impact positif et négatif des réseaux sociaux sur les relations humaines.",
+            "Peux-tu expliquer si les réseaux sociaux sont bénéfiques ou néfastes pour les relations sociales en quelques phrases ?",
+            "Analyse l'impact des réseaux sociaux sur les interactions humaines en adoptant un plan équilibré.",
+            "Donne ton avis sur les réseaux sociaux et les relations personnelles avec des arguments pour et contre."
+          ]
+        },
+        "score_modele": 78,
+        "score_recalcule": 85
+      },
       "niveau_risque": "eleve",
-      "preuves_ia": "Structure syntaxique parfaitement équilibrée et prévisible (Introduction, Développement, Conclusion). Usage de connecteurs logiques standards et scolaires ('Cependant', 'En effet', 'Toutefois'). Absence totale de marques de subjectivité, d'idiosyncrasies ou de variations stylistiques. Développement neutre et impersonnel, typique des modèles de langage configurés pour une neutralité maximale.",
-      "preuves_collaboration": "Non applicable",
-      "verdict_juge": "Le texte présente toutes les caractéristiques d'une production générée par IA : une structure argumentative très formelle, une syntaxe sans aucune aspérité et une neutralité émotionnelle propre aux modèles comme GPT. Il manque totalement d'oralité, de nuances personnelles ou de fautes de structure typiques de l'écriture humaine spontanée."
+      "preuves_humain": [
+        "Absence totale de fautes, de maladresses ou de tics d'écriture propres à une rédaction sous pression."
+      ],
+      "preuves_ia": [
+        "Utilisation de connecteurs logiques standards (Cependant, En effet, En conclusion).",
+        "Absence de ponctuation expressive ou de variations dans la longueur des phrases.",
+        "Neutralité excessive du ton.",
+        "Structure en trois paragraphes parfaitement délimités."
+      ],
+      "score_ia": 85,
+      "synthese": "Le texte présente une structure hautement standardisée, typique des modèles de langage, caractérisée par une organisation tripartite équilibrée et une absence totale d'imperfections stylistiques ou de singularités rédactionnelles. La densité informationnelle est modérée et le ton reste neutre et impersonnel, ce qui renforce la probabilité d'une génération assistée."
+    },
+    {
+      "classification": "HUMAIN",
+      "copie_id": "C05",
+      "details_complets": {
+        "classification_finale": "HUMAIN",
+        "classification_modele": "HUMAIN",
+        "conclusion": "Le texte présente des marqueurs clairs d'une production humaine, notamment des erreurs syntaxiques et une structure non formelle. Il est très peu probable que ce texte ait été généré par un LLM, car ces modèles produisent généralement une syntaxe correcte et une structure plus élaborée.",
+        "dimensions": {
+          "adequation_semantique": {
+            "note": 4,
+            "observation": "La réponse traite le sujet mais de manière très personnelle et peu approfondie, sans la généralisation typique des LLM."
+          },
+          "fluidite_coherence": {
+            "note": 3,
+            "observation": "La fluidité est entravée par des tournures syntaxiques approximatives et une ponctuation parfois hésitante."
+          },
+          "imperfections_humaines": {
+            "note": 9,
+            "observation": "Présence marquée de fautes d'accord ('des bonnes ressources'), de fautes de syntaxe ('qu'est ce qui ce passe') et de maladresses ('sans se mêler des programmes chargés')."
+          },
+          "regularite_stylistique": {
+            "note": 2,
+            "observation": "Le style est irrégulier, avec un mélange de langage courant et de formulations maladroites."
+          },
+          "repetitions_redondances": {
+            "note": 3,
+            "observation": "Quelques répétitions ('parler à', 'normal') qui témoignent d'une rédaction directe sans relecture structurée."
+          },
+          "richesse_lexicale": {
+            "note": 2,
+            "observation": "Le vocabulaire est limité et répétitif, loin de la précision lexicale habituelle des modèles de langage."
+          },
+          "structure_argumentative": {
+            "note": 2,
+            "observation": "La structure est rudimentaire, sans plan académique rigide ou connecteurs logiques sophistiqués."
+          }
+        },
+        "faux_positif_raison": "La présence de fautes de français élémentaires et d'une syntaxe orale est incompatible avec le fonctionnement standard des LLM actuels.",
+        "faux_positif_risque": "FAIBLE",
+        "indices_linguistiques": [
+          "Fautes d'orthographe grammaticale (ce/se)",
+          "Syntaxe orale et peu académique",
+          "Absence de connecteurs logiques complexes",
+          "Construction de phrases non standard"
+        ],
+        "prompts_plausibles": {
+          "avertissement": "Ces prompts sont des reconstructions hypothétiques. Aucun ne peut être considéré comme le prompt réellement utilisé.",
+          "liste": [
+            "Donne ton avis sur les réseaux sociaux et les relations humaines.",
+            "Est-ce que les réseaux sociaux sont bons ou mauvais pour les relations ?",
+            "Rédige un court paragraphe sur l'impact des réseaux sociaux sur la communication."
+          ]
+        },
+        "score_modele": 15,
+        "score_recalcule": 30
+      },
+      "niveau_risque": "faible",
+      "preuves_humain": [
+        "Présence marquée de fautes d'accord ('des bonnes ressources'), de fautes de syntaxe ('qu'est ce qui ce passe') et de maladresses ('sans se mêler des programmes chargés')."
+      ],
+      "preuves_ia": [
+        "Fautes d'orthographe grammaticale (ce/se)",
+        "Syntaxe orale et peu académique",
+        "Absence de connecteurs logiques complexes",
+        "Construction de phrases non standard"
+      ],
+      "score_ia": 30,
+      "synthese": "La réponse présente des caractéristiques stylistiques et syntaxiques typiques d'une production humaine spontanée, marquée par des maladresses grammaticales et une structure informelle."
+    },
+    {
+      "classification": "HYBRIDE",
+      "copie_id": "C06",
+      "details_complets": {
+        "classification_finale": "HYBRIDE",
+        "classification_modele": "HYBRIDE",
+        "conclusion": "Le texte présente des caractéristiques de structure et de fluidité qui s'alignent avec les productions de modèles de langage. Toutefois, sa brièveté et son caractère générique ne permettent pas d'exclure une rédaction humaine très appliquée. Il est classé comme hybride en raison de l'absence d'imperfections humaines notables et de la structure très normée.",
+        "dimensions": {
+          "adequation_semantique": {
+            "note": 5,
+            "observation": "Réponse pertinente mais très sur-généralisée, manquant d'exemples personnels ou d'analyse critique spécifique."
+          },
+          "fluidite_coherence": {
+            "note": 6,
+            "observation": "La fluidité est très linéaire, sans aucune rupture de rythme ou hésitation syntaxique."
+          },
+          "imperfections_humaines": {
+            "note": 4,
+            "observation": "Absence totale de fautes d'orthographe ou de syntaxe, ce qui est statistiquement rare dans une production manuscrite spontanée."
+          },
+          "regularite_stylistique": {
+            "note": 6,
+            "observation": "Le ton est neutre et homogène du début à la fin, sans variation de registre."
+          },
+          "repetitions_redondances": {
+            "note": 4,
+            "observation": "Pas de répétitions excessives, mais une densité informationnelle assez faible."
+          },
+          "richesse_lexicale": {
+            "note": 5,
+            "observation": "Vocabulaire correct mais assez générique, sans marqueur de personnalité ou de réflexion approfondie."
+          },
+          "structure_argumentative": {
+            "note": 7,
+            "observation": "Plan très classique et symétrique (Avantages/Inconvénients/Synthèse) avec des connecteurs logiques standards (Néanmoins, Ainsi)."
+          }
+        },
+        "faux_positif_raison": "La brièveté du texte peut correspondre à un étudiant ayant appris un plan type par cœur ou ayant rédigé de manière très concise sous contrainte de temps.",
+        "faux_positif_risque": "MODERE",
+        "indices_linguistiques": [
+          "Utilisation de connecteurs logiques très scolaires (Néanmoins, Ainsi)",
+          "Structure en trois temps parfaitement équilibrée",
+          "Absence totale de scories ou d'hésitations rédactionnelles",
+          "Style neutre et impersonnel"
+        ],
+        "prompts_plausibles": {
+          "avertissement": "Ces prompts sont des reconstructions hypothétiques. Aucun ne peut être considéré comme le prompt réellement utilisé.",
+          "liste": [
+            "Rédige un court paragraphe sur l'impact positif et négatif des réseaux sociaux sur les relations humaines.",
+            "Fais une réponse courte et structurée sur les avantages et inconvénients des réseaux sociaux pour les relations interpersonnelles.",
+            "Analyse l'impact des réseaux sociaux sur les relations entre les personnes en quelques phrases."
+          ]
+        },
+        "score_modele": 55,
+        "score_recalcule": 65
+      },
+      "niveau_risque": "modere",
+      "preuves_humain": [
+        "Absence totale de fautes d'orthographe ou de syntaxe, ce qui est statistiquement rare dans une production manuscrite spontanée."
+      ],
+      "preuves_ia": [
+        "Utilisation de connecteurs logiques très scolaires (Néanmoins, Ainsi)",
+        "Structure en trois temps parfaitement équilibrée",
+        "Absence totale de scories ou d'hésitations rédactionnelles",
+        "Style neutre et impersonnel"
+      ],
+      "score_ia": 65,
+      "synthese": "Le texte présente une structure équilibrée et une fluidité constante typiques des modèles de langage, tout en restant relativement court et simple. L'absence d'erreurs manifestes couplée à une organisation très scolaire suggère une possible assistance ou une rédaction très formatée, bien que la brièveté empêche une certitude absolue."
+    },
+    {
+      "classification": "HYBRIDE",
+      "copie_id": "C07",
+      "details_complets": {
+        "classification_finale": "HYBRIDE",
+        "classification_modele": "HYBRIDE",
+        "conclusion": "Le texte présente des caractéristiques hybrides : une structure formelle et une fluidité qui rappellent les modèles de langage, contrebalancées par une simplicité de ton et une erreur de répétition qui suggèrent une rédaction humaine ou une modification manuelle. Il est impossible d'affirmer une origine artificielle, car ce type de réponse est également typique d'un étudiant produisant un devoir scolaire standard et prudent.",
+        "dimensions": {
+          "adequation_semantique": {
+            "note": 6,
+            "observation": "Réponse pertinente mais très générique, survolant le sujet sans apporter d'analyse critique approfondie."
+          },
+          "fluidite_coherence": {
+            "note": 7,
+            "observation": "Le texte est parfaitement fluide, sans aucune rupture de rythme ou hésitation syntaxique."
+          },
+          "imperfections_humaines": {
+            "note": 3,
+            "observation": "Présence d'une répétition maladroite ('relations aux relations humaines') qui constitue un indice d'imperfection humaine."
+          },
+          "regularite_stylistique": {
+            "note": 5,
+            "observation": "Style homogène, mais le registre reste assez neutre et scolaire, sans marqueur de personnalité forte."
+          },
+          "repetitions_redondances": {
+            "note": 5,
+            "observation": "La structure est répétitive dans sa construction, bien que le contenu soit concis."
+          },
+          "richesse_lexicale": {
+            "note": 4,
+            "observation": "Vocabulaire fonctionnel et accessible, sans termes techniques ou sophistiqués."
+          },
+          "structure_argumentative": {
+            "note": 6,
+            "observation": "Plan très classique et équilibré (thèse/antithèse/synthèse) avec des connecteurs logiques standards."
+          }
+        },
+        "faux_positif_raison": "La brièveté du texte et le vocabulaire simple sont très courants chez les étudiants en situation d'examen, ce qui rend la distinction avec une IA générative difficile.",
+        "faux_positif_risque": "MODERE",
+        "indices_linguistiques": [
+          "Utilisation de connecteurs logiques standards (Cependant, Pour conclure).",
+          "Structure en trois paragraphes très équilibrés.",
+          "Répétition lexicale en fin de texte ('relations aux relations').",
+          "Absence de ponctuation expressive ou de variations de longueur de phrase."
+        ],
+        "prompts_plausibles": {
+          "avertissement": "Ces prompts sont des reconstructions hypothétiques. Aucun ne peut être considéré comme le prompt réellement utilisé.",
+          "liste": [
+            "Rédige un court paragraphe sur l'impact positif et négatif des réseaux sociaux sur les relations humaines.",
+            "Fais une réponse courte et structurée sur les avantages et inconvénients des réseaux sociaux pour les relations entre les personnes.",
+            "Donne ton avis sur les réseaux sociaux et les relations humaines avec des exemples simples."
+          ]
+        },
+        "score_modele": 42,
+        "score_recalcule": 65
+      },
+      "niveau_risque": "modere",
+      "preuves_humain": [
+        "Présence d'une répétition maladroite ('relations aux relations humaines') qui constitue un indice d'imperfection humaine."
+      ],
+      "preuves_ia": [
+        "Utilisation de connecteurs logiques standards (Cependant, Pour conclure).",
+        "Structure en trois paragraphes très équilibrés.",
+        "Répétition lexicale en fin de texte ('relations aux relations').",
+        "Absence de ponctuation expressive ou de variations de longueur de phrase."
+      ],
+      "score_ia": 65,
+      "synthese": "Le texte présente une structure équilibrée et une fluidité constante typique des modèles de langage, tout en conservant une brièveté et une simplicité lexicale qui pourraient correspondre à une rédaction humaine sous contrainte de temps. La présence d'une répétition syntaxique en fin de texte suggère une intervention humaine ou une relecture incomplète."
     }
-  ],
-  "clusters_fraude": []
+  ]
 }

@@ -1,0 +1,1047 @@
+{
+  "nb_copies": 9,
+  "nb_suspects": 7,
+  "resultats": [
+    {
+      "copie_id": "C01",
+      "question": "Pensez-vous que les réseaux sociaux ont un impact positif ou négatif sur les relations entre les personnes ? Justifiez votre réponse avec des arguments et des exemples.",
+      "score_suspicion": 89,
+      "classification": "PROBABLEMENT_IA",
+      "classification_modele": "PROBABLEMENT_IA",
+      "resume_executif": "Le texte présente une structure argumentative très classique et équilibrée, une fluidité et une cohérence impeccables, ainsi qu'une régularité stylistique parfaite. L'absence totale d'imperfections humaines (fautes, maladresses) est un indicateur fort. Le vocabulaire est précis mais standard, et les arguments, bien que pertinents, restent à un niveau général sans profondeur critique ou originalité. Ces caractéristiques sont fortement compatibles avec un contenu généré par un modèle de langage.",
+      "dimensions": {
+        "structure_argumentative": {
+          "note": 8.0,
+          "observation": "Le texte est très structuré, suivant un plan classique 'introduction - développement - conclusion'. Les paragraphes sont courts et bien délimités, chacun abordant une idée principale. La transition 'Cependant' est claire et formelle, et la conclusion est explicitement introduite par 'En conclusion'. Cette organisation est très scolaire et équilibrée, typique des LLM."
+        },
+        "fluidite_coherence": {
+          "note": 9.0,
+          "observation": "Le texte est uniformément fluide. Les phrases sont bien construites, de longueur raisonnable et variée, sans aucune rupture de rythme ou d'hésitation. La cohérence est parfaite entre les idées, sans maladresses syntaxiques."
+        },
+        "regularite_stylistique": {
+          "note": 9.0,
+          "observation": "Le style est parfaitement homogène du début à la fin. Le ton est neutre, objectif et informatif, sans variation de niveau de langue ni relâchement. Le registre est constant, sans marques d'un scripteur sous pression."
+        },
+        "richesse_lexicale": {
+          "note": 7.0,
+          "observation": "Le vocabulaire est correct et précis ('occupent une place importante', 'maintenir des relations à distance', 'échanges virtuels', 'interactions réelles', 'affaiblir les liens sociaux', 'utilisation excessive'). Il n'est pas particulièrement soutenu ou original, mais il est approprié et sans faute, très 'standardisé'."
+        },
+        "imperfections_humaines": {
+          "note": 10,
+          "observation": "Le texte est exempt de toute imperfection humaine : aucune faute d'orthographe, de grammaire, de ponctuation, aucune maladresse de construction, aucune répétition involontaire, aucun oubli de mot. L'absence totale de ces erreurs est un signal fort."
+        },
+        "adequation_semantique": {
+          "note": 7.0,
+          "observation": "La réponse aborde précisément la question en présentant les impacts positifs et négatifs. Elle fournit des arguments et des exemples pertinents (rester en contact, remplacement des interactions réelles). La réponse est équilibrée et couvre les deux aspects demandés, mais reste à un niveau assez général sans exemples très spécifiques ou personnels."
+        },
+        "repetitions_redondances": {
+          "note": 7.0,
+          "observation": "Le texte est concis et ne présente pas de reformulations répétitives. La densité informationnelle est bonne pour sa longueur, chaque phrase apportant une nouvelle information ou un argument. Il n'y a pas de redondance, mais la profondeur critique est limitée, les arguments étant des lieux communs sur le sujet."
+        }
+      },
+      "indices_linguistiques": [
+        "Structure tripartite (introduction implicite, développement positif/négatif, conclusion explicite).",
+        "Utilisation de connecteurs logiques formels ('Cependant', 'En conclusion').",
+        "Absence totale de fautes d'orthographe, de grammaire ou de syntaxe.",
+        "Style neutre, objectif et homogène.",
+        "Arguments génériques mais pertinents, sans exemples très personnels ou spécifiques."
+      ],
+      "prompts_plausibles": {
+        "avertissement": "Ces prompts sont des reconstructions hypothétiques. Aucun ne peut être considéré comme le prompt réellement utilisé.",
+        "liste": [
+          "Rédige une réponse argumentée sur l'impact des réseaux sociaux sur les relations humaines, en abordant les aspects positifs et négatifs. Inclue des exemples.",
+          "Analyse les avantages et les inconvénients des réseaux sociaux pour les interactions entre individus. Structure ta réponse avec une introduction, un développement et une conclusion.",
+          "Quel est l'effet des réseaux sociaux sur les relations interpersonnelles ? Fournis des arguments pour et contre, avec des illustrations concrètes.",
+          "Écris un court essai sur la dualité de l'impact des réseaux sociaux sur les liens sociaux, en mettant en évidence les bénéfices et les préjudices."
+        ]
+      },
+      "conclusion": "L'analyse révèle un ensemble de caractéristiques (structure très organisée, fluidité parfaite, absence d'erreurs, style homogène, arguments génériques) qui rendent ce texte fortement compatible avec une génération par un modèle de langage. Il est important de rappeler qu'un étudiant très compétent et rigoureux pourrait produire un texte d'une qualité similaire. Cette analyse ne constitue pas une preuve de fraude, mais un signal d'alerte probabiliste.",
+      "faux_positif_risque": "ELEVE",
+      "faux_positif_raison": "Un étudiant très doué, ayant une excellente maîtrise de la langue française et des techniques de rédaction académique, pourrait produire un texte d'une qualité comparable, sans fautes et avec une structure logique. La brièveté du texte limite également la détection de variations stylistiques ou d'erreurs.",
+      "texte_reponse": "Les réseaux sociaux occupent aujourd’hui une place importante dans la vie quotidienne des individus. Ils permettent de communiquer rapidement et de maintenir des relations à distance. Par exemple, il est possible de rester en contact avec des amis ou des membres de la famille vivant à l’étranger.\n\nCependant, ces outils ont également des effets négatifs sur les relations humaines. En effet, les échanges virtuels remplacent souvent les interactions réelles, ce qui peut affaiblir les liens sociaux. Les personnes passent plus de temps sur leur téléphone que dans des conversations directes.\n\nEn conclusion, les réseaux sociaux ont un impact à la fois positif et négatif. Toutefois, leur utilisation excessive peut nuire à la qualité des relations humaines.",
+      "score_modele": 81,
+      "score_recalcule": 89,
+      "erreur": null,
+      "brut_modele": {
+        "score_suspicion": 81,
+        "classification": "PROBABLEMENT_IA",
+        "resume_executif": "Le texte présente une structure argumentative très classique et équilibrée, une fluidité et une cohérence impeccables, ainsi qu'une régularité stylistique parfaite. L'absence totale d'imperfections humaines (fautes, maladresses) est un indicateur fort. Le vocabulaire est précis mais standard, et les arguments, bien que pertinents, restent à un niveau général sans profondeur critique ou originalité. Ces caractéristiques sont fortement compatibles avec un contenu généré par un modèle de langage.",
+        "dimensions": {
+          "structure_argumentative": {
+            "note": 8,
+            "observation": "Le texte est très structuré, suivant un plan classique 'introduction - développement - conclusion'. Les paragraphes sont courts et bien délimités, chacun abordant une idée principale. La transition 'Cependant' est claire et formelle, et la conclusion est explicitement introduite par 'En conclusion'. Cette organisation est très scolaire et équilibrée, typique des LLM."
+          },
+          "fluidite_coherence": {
+            "note": 9,
+            "observation": "Le texte est uniformément fluide. Les phrases sont bien construites, de longueur raisonnable et variée, sans aucune rupture de rythme ou d'hésitation. La cohérence est parfaite entre les idées, sans maladresses syntaxiques."
+          },
+          "regularite_stylistique": {
+            "note": 9,
+            "observation": "Le style est parfaitement homogène du début à la fin. Le ton est neutre, objectif et informatif, sans variation de niveau de langue ni relâchement. Le registre est constant, sans marques d'un scripteur sous pression."
+          },
+          "richesse_lexicale": {
+            "note": 7,
+            "observation": "Le vocabulaire est correct et précis ('occupent une place importante', 'maintenir des relations à distance', 'échanges virtuels', 'interactions réelles', 'affaiblir les liens sociaux', 'utilisation excessive'). Il n'est pas particulièrement soutenu ou original, mais il est approprié et sans faute, très 'standardisé'."
+          },
+          "imperfections_humaines": {
+            "note": 10,
+            "observation": "Le texte est exempt de toute imperfection humaine : aucune faute d'orthographe, de grammaire, de ponctuation, aucune maladresse de construction, aucune répétition involontaire, aucun oubli de mot. L'absence totale de ces erreurs est un signal fort."
+          },
+          "adequation_semantique": {
+            "note": 7,
+            "observation": "La réponse aborde précisément la question en présentant les impacts positifs et négatifs. Elle fournit des arguments et des exemples pertinents (rester en contact, remplacement des interactions réelles). La réponse est équilibrée et couvre les deux aspects demandés, mais reste à un niveau assez général sans exemples très spécifiques ou personnels."
+          },
+          "repetitions_redondances": {
+            "note": 7,
+            "observation": "Le texte est concis et ne présente pas de reformulations répétitives. La densité informationnelle est bonne pour sa longueur, chaque phrase apportant une nouvelle information ou un argument. Il n'y a pas de redondance, mais la profondeur critique est limitée, les arguments étant des lieux communs sur le sujet."
+          }
+        },
+        "indices_linguistiques": [
+          "Structure tripartite (introduction implicite, développement positif/négatif, conclusion explicite).",
+          "Utilisation de connecteurs logiques formels ('Cependant', 'En conclusion').",
+          "Absence totale de fautes d'orthographe, de grammaire ou de syntaxe.",
+          "Style neutre, objectif et homogène.",
+          "Arguments génériques mais pertinents, sans exemples très personnels ou spécifiques."
+        ],
+        "prompts_plausibles": {
+          "avertissement": "Ces prompts sont des reconstructions hypothétiques. Aucun ne peut être considéré comme le prompt réellement utilisé.",
+          "liste": [
+            "Rédige une réponse argumentée sur l'impact des réseaux sociaux sur les relations humaines, en abordant les aspects positifs et négatifs. Inclue des exemples.",
+            "Analyse les avantages et les inconvénients des réseaux sociaux pour les interactions entre individus. Structure ta réponse avec une introduction, un développement et une conclusion.",
+            "Quel est l'effet des réseaux sociaux sur les relations interpersonnelles ? Fournis des arguments pour et contre, avec des illustrations concrètes.",
+            "Écris un court essai sur la dualité de l'impact des réseaux sociaux sur les liens sociaux, en mettant en évidence les bénéfices et les préjudices."
+          ]
+        },
+        "conclusion": "L'analyse révèle un ensemble de caractéristiques (structure très organisée, fluidité parfaite, absence d'erreurs, style homogène, arguments génériques) qui rendent ce texte fortement compatible avec une génération par un modèle de langage. Il est important de rappeler qu'un étudiant très compétent et rigoureux pourrait produire un texte d'une qualité similaire. Cette analyse ne constitue pas une preuve de fraude, mais un signal d'alerte probabiliste.",
+        "faux_positif_risque": "ELEVE",
+        "faux_positif_raison": "Un étudiant très doué, ayant une excellente maîtrise de la langue française et des techniques de rédaction académique, pourrait produire un texte d'une qualité comparable, sans fautes et avec une structure logique. La brièveté du texte limite également la détection de variations stylistiques ou d'erreurs."
+      }
+    },
+    {
+      "copie_id": "C02",
+      "question": "Pensez-vous que les réseaux sociaux ont un impact positif ou négatif sur les relations entre les personnes ? Justifiez votre réponse avec des arguments et des exemples.",
+      "score_suspicion": 45,
+      "classification": "HYBRIDE",
+      "classification_modele": "HUMAIN",
+      "resume_executif": "L'analyse révèle un texte court, simple et direct, caractérisé par un vocabulaire très basique et un registre informel. La structure argumentative est élémentaire (avantages/inconvénients/conclusion) et attendue pour la question. La présence d'un exemple personnel concret est un indicateur fort d'une production humaine. Bien que le texte soit exempt de fautes grammaticales ou orthographiques, sa simplicité générale rend cette absence moins suspecte. La conclusion est générique, mais l'ensemble du texte manque des marqueurs stylistiques et lexicaux habituellement associés aux modèles de langage avancés.",
+      "dimensions": {
+        "structure_argumentative": {
+          "note": 4.0,
+          "observation": "La structure est élémentaire (introduction contextuelle, points positifs, points négatifs, conclusion synthétique) mais ne présente pas de formalisme excessif ou de plan artificiel typique des LLM. Elle est naturelle pour une réponse simple."
+        },
+        "fluidite_coherence": {
+          "note": 5.0,
+          "observation": "Le texte est fluide et cohérent, mais cette fluidité est principalement due à la simplicité des phrases et du vocabulaire. Il n'y a pas de ruptures de registre ni d'hésitations, mais pas non plus une fluidité 'parfaite' et complexe."
+        },
+        "regularite_stylistique": {
+          "note": 6.0,
+          "observation": "Le style est homogène du début à la fin, maintenant un registre très simple et informel. Cette régularité, bien que présente, est à mettre en relation avec la brièveté et la simplicité du texte, et n'est pas un marqueur fort d'IA en soi."
+        },
+        "richesse_lexicale": {
+          "note": 1.0,
+          "observation": "Le vocabulaire est extrêmement basique et informel ('les gens', 'parler moins en vrai'). Il n'y a aucune trace de vocabulaire soutenu, précis ou sectoriel, ni de tournures complexes souvent associées aux LLM. C'est un indicateur fort d'une production humaine."
+        },
+        "imperfections_humaines": {
+          "note": 5.0,
+          "observation": "Le texte est exempt de fautes d'accord, de frappe ou de constructions maladroites. Cependant, étant donné la grande simplicité des phrases et du vocabulaire, l'absence d'erreurs est moins surprenante et moins indicative d'une génération par IA que dans un texte plus complexe."
+        },
+        "adequation_semantique": {
+          "note": 4.0,
+          "observation": "La réponse aborde bien la question en présentant des aspects positifs et négatifs. L'inclusion d'un exemple personnel ('moi j’utilise pour parler avec mes cousins') ancre la réponse dans une expérience vécue, la rendant moins générique qu'une réponse typique de LLM, malgré une conclusion très équilibrée et générale."
+        },
+        "repetitions_redondances": {
+          "note": 5.0,
+          "observation": "Le texte est concis et ne présente pas de répétitions ou de reformulations excessives. La densité informationnelle est faible, mais cela est cohérent avec la brièveté et la simplicité de la réponse."
+        }
+      },
+      "indices_linguistiques": [
+        "Vocabulaire très simple et informel ('les gens', 'parler moins en vrai').",
+        "Utilisation d'un exemple personnel concret ('moi j’utilise pour parler avec mes cousins').",
+        "Phrases courtes et structures syntaxiques élémentaires.",
+        "Conclusion équilibrée et générique ('avantages mais aussi des inconvénients et il faut les utiliser avec modération').",
+        "Absence d'erreurs grammaticales ou orthographiques dans un texte simple."
+      ],
+      "prompts_plausibles": {
+        "avertissement": "Ces prompts sont des reconstructions hypothétiques. Aucun ne peut être considéré comme le prompt réellement utilisé.",
+        "liste": [
+          "Rédige une courte réponse d'examen sur l'impact des réseaux sociaux sur les relations, en incluant des points positifs et négatifs, et un exemple personnel simple.",
+          "Explique en termes simples si les réseaux sociaux sont bons ou mauvais pour les relations humaines, avec un exemple et une conclusion équilibrée.",
+          "Donne ton avis sur les réseaux sociaux et les relations, en mentionnant les avantages et les inconvénients, et utilise un langage facile à comprendre."
+        ]
+      },
+      "conclusion": "Le texte présente des caractéristiques majoritairement compatibles avec une production humaine. La simplicité du langage, le registre informel et, surtout, l'intégration d'un exemple personnel authentique sont des signaux forts. Bien que l'absence de fautes et une structure claire puissent parfois évoquer une génération par IA, la nature élémentaire du texte et de ses arguments, ainsi que l'absence de complexité stylistique ou lexicale typique des LLM, orientent l'analyse vers une origine humaine. Il est important de rappeler qu'un étudiant peut tout à fait produire un texte concis, clair et sans faute, surtout sur un sujet familier et avec des phrases simples.",
+      "faux_positif_risque": "FAIBLE",
+      "faux_positif_raison": "La présence d'un exemple personnel concret et l'utilisation d'un vocabulaire très basique et informel sont des marqueurs forts d'une production humaine. L'absence de fautes est plausible pour un texte aussi court et simple, et ne suffit pas à elle seule à indiquer une génération par IA, surtout en l'absence d'autres signaux stylistiques ou lexicaux typiques des LLM.",
+      "texte_reponse": "Aujourd’hui les réseaux sociaux sont très utilisés par les gens surtout les jeunes. Je pense que ça peut aider pour parler avec des amis même si ils sont loin. Par exemple moi j’utilise pour parler avec mes cousins qui habitent dans une autre ville.\n\nMais aussi il y a des problèmes parce que parfois les gens restent trop sur leur téléphone et ils parlent moins en vrai. Ça peut créer une distance entre les personnes même si on parle tous les jours en ligne.\n\nDonc pour moi les réseaux sociaux ont des avantages mais aussi des inconvénients et il faut les utiliser avec modération.",
+      "score_modele": 30,
+      "score_recalcule": 45,
+      "erreur": null,
+      "brut_modele": {
+        "score_suspicion": 30,
+        "classification": "HUMAIN",
+        "resume_executif": "L'analyse révèle un texte court, simple et direct, caractérisé par un vocabulaire très basique et un registre informel. La structure argumentative est élémentaire (avantages/inconvénients/conclusion) et attendue pour la question. La présence d'un exemple personnel concret est un indicateur fort d'une production humaine. Bien que le texte soit exempt de fautes grammaticales ou orthographiques, sa simplicité générale rend cette absence moins suspecte. La conclusion est générique, mais l'ensemble du texte manque des marqueurs stylistiques et lexicaux habituellement associés aux modèles de langage avancés.",
+        "dimensions": {
+          "structure_argumentative": {
+            "note": 4,
+            "observation": "La structure est élémentaire (introduction contextuelle, points positifs, points négatifs, conclusion synthétique) mais ne présente pas de formalisme excessif ou de plan artificiel typique des LLM. Elle est naturelle pour une réponse simple."
+          },
+          "fluidite_coherence": {
+            "note": 5,
+            "observation": "Le texte est fluide et cohérent, mais cette fluidité est principalement due à la simplicité des phrases et du vocabulaire. Il n'y a pas de ruptures de registre ni d'hésitations, mais pas non plus une fluidité 'parfaite' et complexe."
+          },
+          "regularite_stylistique": {
+            "note": 6,
+            "observation": "Le style est homogène du début à la fin, maintenant un registre très simple et informel. Cette régularité, bien que présente, est à mettre en relation avec la brièveté et la simplicité du texte, et n'est pas un marqueur fort d'IA en soi."
+          },
+          "richesse_lexicale": {
+            "note": 1,
+            "observation": "Le vocabulaire est extrêmement basique et informel ('les gens', 'parler moins en vrai'). Il n'y a aucune trace de vocabulaire soutenu, précis ou sectoriel, ni de tournures complexes souvent associées aux LLM. C'est un indicateur fort d'une production humaine."
+          },
+          "imperfections_humaines": {
+            "note": 5,
+            "observation": "Le texte est exempt de fautes d'accord, de frappe ou de constructions maladroites. Cependant, étant donné la grande simplicité des phrases et du vocabulaire, l'absence d'erreurs est moins surprenante et moins indicative d'une génération par IA que dans un texte plus complexe."
+          },
+          "adequation_semantique": {
+            "note": 4,
+            "observation": "La réponse aborde bien la question en présentant des aspects positifs et négatifs. L'inclusion d'un exemple personnel ('moi j’utilise pour parler avec mes cousins') ancre la réponse dans une expérience vécue, la rendant moins générique qu'une réponse typique de LLM, malgré une conclusion très équilibrée et générale."
+          },
+          "repetitions_redondances": {
+            "note": 5,
+            "observation": "Le texte est concis et ne présente pas de répétitions ou de reformulations excessives. La densité informationnelle est faible, mais cela est cohérent avec la brièveté et la simplicité de la réponse."
+          }
+        },
+        "indices_linguistiques": [
+          "Vocabulaire très simple et informel ('les gens', 'parler moins en vrai').",
+          "Utilisation d'un exemple personnel concret ('moi j’utilise pour parler avec mes cousins').",
+          "Phrases courtes et structures syntaxiques élémentaires.",
+          "Conclusion équilibrée et générique ('avantages mais aussi des inconvénients et il faut les utiliser avec modération').",
+          "Absence d'erreurs grammaticales ou orthographiques dans un texte simple."
+        ],
+        "prompts_plausibles": {
+          "avertissement": "Ces prompts sont des reconstructions hypothétiques. Aucun ne peut être considéré comme le prompt réellement utilisé.",
+          "liste": [
+            "Rédige une courte réponse d'examen sur l'impact des réseaux sociaux sur les relations, en incluant des points positifs et négatifs, et un exemple personnel simple.",
+            "Explique en termes simples si les réseaux sociaux sont bons ou mauvais pour les relations humaines, avec un exemple et une conclusion équilibrée.",
+            "Donne ton avis sur les réseaux sociaux et les relations, en mentionnant les avantages et les inconvénients, et utilise un langage facile à comprendre."
+          ]
+        },
+        "conclusion": "Le texte présente des caractéristiques majoritairement compatibles avec une production humaine. La simplicité du langage, le registre informel et, surtout, l'intégration d'un exemple personnel authentique sont des signaux forts. Bien que l'absence de fautes et une structure claire puissent parfois évoquer une génération par IA, la nature élémentaire du texte et de ses arguments, ainsi que l'absence de complexité stylistique ou lexicale typique des LLM, orientent l'analyse vers une origine humaine. Il est important de rappeler qu'un étudiant peut tout à fait produire un texte concis, clair et sans faute, surtout sur un sujet familier et avec des phrases simples.",
+        "faux_positif_risque": "FAIBLE",
+        "faux_positif_raison": "La présence d'un exemple personnel concret et l'utilisation d'un vocabulaire très basique et informel sont des marqueurs forts d'une production humaine. L'absence de fautes est plausible pour un texte aussi court et simple, et ne suffit pas à elle seule à indiquer une génération par IA, surtout en l'absence d'autres signaux stylistiques ou lexicaux typiques des LLM."
+      }
+    },
+    {
+      "copie_id": "C03",
+      "question": "Pensez-vous que les réseaux sociaux ont un impact positif ou négatif sur les relations entre les personnes ? Justifiez votre réponse avec des arguments et des exemples.",
+      "score_suspicion": 0,
+      "classification": "HUMAIN",
+      "classification_modele": "HUMAIN",
+      "resume_executif": "L'analyse révèle que la réponse de l'étudiant présente de nombreuses caractéristiques d'une production humaine. Le texte est émaillé de fautes grammaticales, orthographiques et syntaxiques, d'un vocabulaire simple et d'une structure spontanée, sans formalisme excessif. Bien que la réponse soit superficielle et manque d'exemples concrets, elle aborde directement la question posée. Ces éléments s'éloignent significativement des productions typiques des modèles de langage.",
+      "dimensions": {
+        "structure_argumentative": {
+          "note": 1.0,
+          "observation": "La structure est très simple et spontanée, sans plan formel d'introduction, développement, conclusion. Les idées s'enchaînent de manière directe, ce qui est typique d'une rédaction humaine sous contrainte de temps ou de compétence."
+        },
+        "fluidite_coherence": {
+          "note": 0,
+          "observation": "La fluidité est faible et la cohérence est entravée par de nombreuses erreurs grammaticales, des tournures maladroites et des phrases complexes qui manquent de clarté. Le texte ne présente pas une uniformité de construction ni une fluidité constante."
+        },
+        "regularite_stylistique": {
+          "note": 0,
+          "observation": "Le style est homogène dans son registre informel et ses imperfections. Il n'y a pas de variation de ton ni de niveau de langue qui suggérerait une intervention externe ou une génération artificielle. Les relâchements sont constants."
+        },
+        "richesse_lexicale": {
+          "note": 0,
+          "observation": "Le vocabulaire est simple, courant et ne présente aucune richesse lexicale particulière ni de termes soutenus ou sectoriels. Aucune tournure typique des LLM n'est identifiable."
+        },
+        "imperfections_humaines": {
+          "note": 0,
+          "observation": "Le texte est émaillé de nombreuses imperfections humaines : fautes d'accord ('est une bonne sources', 'normaliser'), fautes d'orthographe ('Cpendant', 'a' pour 'à', 'meme', 'l autre'), répétition ('mais mais'), et constructions syntaxiques maladroites ou peu claires. Leur présence est un indicateur fort d'une production humaine."
+        },
+        "adequation_semantique": {
+          "note": 3.0,
+          "observation": "La réponse aborde la question des impacts positifs et négatifs, mais de manière très générale et superficielle. Elle manque d'arguments développés et d'exemples concrets, comme demandé par la consigne, ce qui pourrait être le signe d'une difficulté à élaborer pour l'étudiant plutôt qu'une réponse générique d'IA."
+        },
+        "repetitions_redondances": {
+          "note": 1.0,
+          "observation": "Le texte est court et ne présente pas de répétitions ou de reformulations redondantes d'une même idée. La densité informationnelle est faible, mais cela est dû à la concision et au manque de développement plutôt qu'à une structure répétitive typique des LLM."
+        }
+      },
+      "indices_linguistiques": [
+        "Fautes d'accord (ex: 'les réseaux sociaux est une bonne sources', 'normaliser')",
+        "Fautes d'orthographe (ex: 'Cpendant', 'a' pour 'à', 'meme', 'l autre')",
+        "Constructions syntaxiques maladroites et peu claires (ex: 'sans y rechercher beaucoup plus parler à nous amis sans se méfier des programmes chargés ou des places à chercher à visiter.')",
+        "Répétition de conjonction ('mais mais')",
+        "Vocabulaire simple et courant",
+        "Absence d'exemples concrets malgré la demande de la question"
+      ],
+      "prompts_plausibles": {
+        "avertissement": "Ces prompts sont des reconstructions hypothétiques. Aucun ne peut être considéré comme le prompt réellement utilisé.",
+        "liste": [
+          "Quel est l'impact des réseaux sociaux sur les relations entre les personnes ? Donne des arguments et des exemples.",
+          "Rédige une courte réponse sur les effets positifs et négatifs des réseaux sociaux sur les relations humaines.",
+          "Analyse l'influence des réseaux sociaux sur les liens interpersonnels, en justifiant ta position."
+        ]
+      },
+      "conclusion": "L'analyse forensique textuelle de la réponse de l'étudiant révèle une forte compatibilité avec une production humaine. Les nombreuses imperfections linguistiques, la simplicité du vocabulaire et la structure non formalisée sont des indicateurs clairs. Il est important de rappeler qu'un étudiant très compétent peut produire un texte bien écrit, mais inversement, un étudiant en difficulté peut produire un texte avec de nombreuses imperfections. Cette analyse ne constitue pas une preuve de fraude, mais un signal probabiliste.",
+      "faux_positif_risque": "FAIBLE",
+      "faux_positif_raison": "Le texte présente un nombre très élevé d'imperfections linguistiques et de maladresses stylistiques qui sont des marqueurs forts d'une production humaine et s'opposent aux caractéristiques typiques des textes générés par des LLM. Le risque de classer ce texte comme généré par IA serait très élevé.",
+      "texte_reponse": "Personnellement ,je pense que les réseaux sociaux est une bonne sources d'informations, de nouvelles et de communication .Ils nous permettent de savoir qu'est ce qui ce passe là où on veut sans y rechercher beaucoup plus parler à nous amis sans se méfier des programmes chargés ou des places à chercher à visiter.\nCpendant, parler a quelqu'un face à face n'est pas du tout la meme chose que parler sur les réseaux sociaux, sans voir les expressions de l autre, les toucher ou entendre leur voix en temps réel. Meme si ça parait normal car bien sur c'est-ce qui est normaliser de nos jours mais mais cela fait mal psychologiquement.",
+      "score_modele": 10,
+      "score_recalcule": 0,
+      "erreur": null,
+      "brut_modele": {
+        "score_suspicion": 10,
+        "classification": "HUMAIN",
+        "resume_executif": "L'analyse révèle que la réponse de l'étudiant présente de nombreuses caractéristiques d'une production humaine. Le texte est émaillé de fautes grammaticales, orthographiques et syntaxiques, d'un vocabulaire simple et d'une structure spontanée, sans formalisme excessif. Bien que la réponse soit superficielle et manque d'exemples concrets, elle aborde directement la question posée. Ces éléments s'éloignent significativement des productions typiques des modèles de langage.",
+        "dimensions": {
+          "structure_argumentative": {
+            "note": 1,
+            "observation": "La structure est très simple et spontanée, sans plan formel d'introduction, développement, conclusion. Les idées s'enchaînent de manière directe, ce qui est typique d'une rédaction humaine sous contrainte de temps ou de compétence."
+          },
+          "fluidite_coherence": {
+            "note": 0,
+            "observation": "La fluidité est faible et la cohérence est entravée par de nombreuses erreurs grammaticales, des tournures maladroites et des phrases complexes qui manquent de clarté. Le texte ne présente pas une uniformité de construction ni une fluidité constante."
+          },
+          "regularite_stylistique": {
+            "note": 0,
+            "observation": "Le style est homogène dans son registre informel et ses imperfections. Il n'y a pas de variation de ton ni de niveau de langue qui suggérerait une intervention externe ou une génération artificielle. Les relâchements sont constants."
+          },
+          "richesse_lexicale": {
+            "note": 0,
+            "observation": "Le vocabulaire est simple, courant et ne présente aucune richesse lexicale particulière ni de termes soutenus ou sectoriels. Aucune tournure typique des LLM n'est identifiable."
+          },
+          "imperfections_humaines": {
+            "note": 0,
+            "observation": "Le texte est émaillé de nombreuses imperfections humaines : fautes d'accord ('est une bonne sources', 'normaliser'), fautes d'orthographe ('Cpendant', 'a' pour 'à', 'meme', 'l autre'), répétition ('mais mais'), et constructions syntaxiques maladroites ou peu claires. Leur présence est un indicateur fort d'une production humaine."
+          },
+          "adequation_semantique": {
+            "note": 3,
+            "observation": "La réponse aborde la question des impacts positifs et négatifs, mais de manière très générale et superficielle. Elle manque d'arguments développés et d'exemples concrets, comme demandé par la consigne, ce qui pourrait être le signe d'une difficulté à élaborer pour l'étudiant plutôt qu'une réponse générique d'IA."
+          },
+          "repetitions_redondances": {
+            "note": 1,
+            "observation": "Le texte est court et ne présente pas de répétitions ou de reformulations redondantes d'une même idée. La densité informationnelle est faible, mais cela est dû à la concision et au manque de développement plutôt qu'à une structure répétitive typique des LLM."
+          }
+        },
+        "indices_linguistiques": [
+          "Fautes d'accord (ex: 'les réseaux sociaux est une bonne sources', 'normaliser')",
+          "Fautes d'orthographe (ex: 'Cpendant', 'a' pour 'à', 'meme', 'l autre')",
+          "Constructions syntaxiques maladroites et peu claires (ex: 'sans y rechercher beaucoup plus parler à nous amis sans se méfier des programmes chargés ou des places à chercher à visiter.')",
+          "Répétition de conjonction ('mais mais')",
+          "Vocabulaire simple et courant",
+          "Absence d'exemples concrets malgré la demande de la question"
+        ],
+        "prompts_plausibles": {
+          "avertissement": "Ces prompts sont des reconstructions hypothétiques. Aucun ne peut être considéré comme le prompt réellement utilisé.",
+          "liste": [
+            "Quel est l'impact des réseaux sociaux sur les relations entre les personnes ? Donne des arguments et des exemples.",
+            "Rédige une courte réponse sur les effets positifs et négatifs des réseaux sociaux sur les relations humaines.",
+            "Analyse l'influence des réseaux sociaux sur les liens interpersonnels, en justifiant ta position."
+          ]
+        },
+        "conclusion": "L'analyse forensique textuelle de la réponse de l'étudiant révèle une forte compatibilité avec une production humaine. Les nombreuses imperfections linguistiques, la simplicité du vocabulaire et la structure non formalisée sont des indicateurs clairs. Il est important de rappeler qu'un étudiant très compétent peut produire un texte bien écrit, mais inversement, un étudiant en difficulté peut produire un texte avec de nombreuses imperfections. Cette analyse ne constitue pas une preuve de fraude, mais un signal probabiliste.",
+        "faux_positif_risque": "FAIBLE",
+        "faux_positif_raison": "Le texte présente un nombre très élevé d'imperfections linguistiques et de maladresses stylistiques qui sont des marqueurs forts d'une production humaine et s'opposent aux caractéristiques typiques des textes générés par des LLM. Le risque de classer ce texte comme généré par IA serait très élevé."
+      }
+    },
+    {
+      "copie_id": "C04",
+      "question": "Pensez-vous que les réseaux sociaux ont un impact positif ou négatif sur les relations entre les personnes ? Justifiez votre réponse avec des arguments et des exemples.",
+      "score_suspicion": 71,
+      "classification": "PROBABLEMENT_IA",
+      "classification_modele": "HYBRIDE",
+      "resume_executif": "L'analyse révèle un texte très fluide, homogène et structuré de manière scolaire, avec une quasi-absence d'imperfections linguistiques majeures. La réponse est générique et superficielle, abordant la question de manière équilibrée mais sans profondeur ni exemples concrets. La présence d'une maladresse grammaticale mineure et d'un vocabulaire très simple suggère une possible intervention humaine sur un contenu potentiellement généré par un LLM, ou une production humaine très scolaire et simplifiée.",
+      "dimensions": {
+        "structure_argumentative": {
+          "note": 6.0,
+          "observation": "La réponse adopte une structure tripartite très classique (introduction, développement des points positifs, développement des points négatifs, conclusion) avec l'utilisation explicite de \"En conclusion\". Cette formalisation est un peu rigide pour un texte aussi court et potentiellement manuscrit, mais reste très basique."
+        },
+        "fluidite_coherence": {
+          "note": 8.0,
+          "observation": "Le texte est d'une fluidité remarquable et d'une cohérence parfaite. Les phrases sont courtes, simples et s'enchaînent sans aucune rupture de rythme, d'hésitation ou de maladresse syntaxique, ce qui est souvent caractéristique des productions LLM."
+        },
+        "regularite_stylistique": {
+          "note": 8.0,
+          "observation": "Le style est d'une homogénéité constante du début à la fin. Le ton est neutre et le niveau de langue (simple et direct) est maintenu sans aucune variation, ni relâchement qui pourrait trahir une écriture humaine sous pression."
+        },
+        "richesse_lexicale": {
+          "note": 3.0,
+          "observation": "Le vocabulaire est très simple, généraliste et manque de précision ou de termes spécifiques au domaine. Il n'y a pas de tournures particulièrement élaborées ou de richesse lexicale qui sont parfois associées aux LLM, mais l'absence de toute nuance ou spécificité peut aussi être un signe de simplification par un LLM."
+        },
+        "imperfections_humaines": {
+          "note": 7.0,
+          "observation": "Le texte est très propre avec une seule maladresse mineure (\"une partie importante dans notre vie quotidienne\" au lieu de \"de\" ou \"dans notre quotidien\"). L'absence quasi-totale de fautes d'orthographe, de grammaire, de ponctuation ou de constructions maladroites est un signal fort pour un texte produit sous contrainte de temps."
+        },
+        "adequation_semantique": {
+          "note": 7.0,
+          "observation": "La réponse couvre les deux aspects de la question (positif/négatif) de manière équilibrée, mais reste très superficielle. Les arguments sont génériques et l'exemple unique est très basique, sans profondeur ni spécificité, ce qui est une caractéristique fréquente des réponses LLM qui tendent à être \"sûres\" et généralistes."
+        },
+        "repetitions_redondances": {
+          "note": 5.0,
+          "observation": "Le texte est concis et ne présente pas de répétitions d'idées. Cependant, la densité informationnelle est faible, les idées sont énoncées sans être développées en profondeur, ce qui peut être interprété comme une absence de pensée critique approfondie."
+        }
+      },
+      "indices_linguistiques": [
+        "Utilisation de la formule \"En conclusion\".",
+        "Structure tripartite simple et explicite.",
+        "Fluidité et cohérence uniformes.",
+        "Absence quasi-totale d'imperfections linguistiques (une seule maladresse mineure).",
+        "Vocabulaire généraliste et peu nuancé.",
+        "Réponse générique et équilibrée, sans prise de position forte ni exemples concrets approfondis."
+      ],
+      "prompts_plausibles": {
+        "avertissement": "Ces prompts sont des reconstructions hypothétiques. Aucun ne peut être considéré comme le prompt réellement utilisé.",
+        "liste": [
+          "Rédige une réponse courte sur l'impact des réseaux sociaux sur les relations, en incluant des points positifs et négatifs.",
+          "Explique en quelques phrases si les réseaux sociaux sont bons ou mauvais pour les relations humaines, avec un exemple simple.",
+          "Donne ton avis sur les effets des réseaux sociaux sur les relations interpersonnelles, en structurant ta réponse avec une introduction et une conclusion.",
+          "Analyse l'influence des réseaux sociaux sur les liens entre les individus, en mentionnant les avantages et les inconvénients de manière concise."
+        ]
+      },
+      "conclusion": "Bien que la présence d'une maladresse grammaticale et d'un vocabulaire simple puisse suggérer une origine humaine, la fluidité, l'homogénéité stylistique, la structure formelle et la nature générique de la réponse sont des indicateurs compatibles avec un contenu partiellement ou entièrement généré par un modèle de langage, potentiellement simplifié ou édité par l'étudiant. Il est important de rappeler qu'un étudiant très compétent et concis peut produire un texte bien écrit et structuré.",
+      "faux_positif_risque": "MODERE",
+      "faux_positif_raison": "Un étudiant très concis, avec une bonne maîtrise de la langue écrite et une approche très scolaire, pourrait produire un texte similaire. La simplicité du vocabulaire et la présence d'une maladresse mineure pourraient également être des traits humains, rendant la distinction délicate pour un texte aussi court.",
+      "texte_reponse": "Les réseaux sociaux sont devenus une partie importante dans notre vie quotidienne. Ils permettent de communiquer rapidement et de partager des choses facilement. Par exemple, on peut envoyer des messages ou des photos.\n\nMais il y a aussi des effets négatifs. Les personnes passent beaucoup de temps sur internet et oublient parfois les relations réelles. Je pense que ça peut diminuer la qualité des relations.\n\nEn conclusion, les réseaux sociaux ne sont pas totalement mauvais mais leur utilisation doit être contrôlée.",
+      "score_modele": 63,
+      "score_recalcule": 71,
+      "erreur": null,
+      "brut_modele": {
+        "score_suspicion": 63,
+        "classification": "HYBRIDE",
+        "resume_executif": "L'analyse révèle un texte très fluide, homogène et structuré de manière scolaire, avec une quasi-absence d'imperfections linguistiques majeures. La réponse est générique et superficielle, abordant la question de manière équilibrée mais sans profondeur ni exemples concrets. La présence d'une maladresse grammaticale mineure et d'un vocabulaire très simple suggère une possible intervention humaine sur un contenu potentiellement généré par un LLM, ou une production humaine très scolaire et simplifiée.",
+        "dimensions": {
+          "structure_argumentative": {
+            "note": 6,
+            "observation": "La réponse adopte une structure tripartite très classique (introduction, développement des points positifs, développement des points négatifs, conclusion) avec l'utilisation explicite de \"En conclusion\". Cette formalisation est un peu rigide pour un texte aussi court et potentiellement manuscrit, mais reste très basique."
+          },
+          "fluidite_coherence": {
+            "note": 8,
+            "observation": "Le texte est d'une fluidité remarquable et d'une cohérence parfaite. Les phrases sont courtes, simples et s'enchaînent sans aucune rupture de rythme, d'hésitation ou de maladresse syntaxique, ce qui est souvent caractéristique des productions LLM."
+          },
+          "regularite_stylistique": {
+            "note": 8,
+            "observation": "Le style est d'une homogénéité constante du début à la fin. Le ton est neutre et le niveau de langue (simple et direct) est maintenu sans aucune variation, ni relâchement qui pourrait trahir une écriture humaine sous pression."
+          },
+          "richesse_lexicale": {
+            "note": 3,
+            "observation": "Le vocabulaire est très simple, généraliste et manque de précision ou de termes spécifiques au domaine. Il n'y a pas de tournures particulièrement élaborées ou de richesse lexicale qui sont parfois associées aux LLM, mais l'absence de toute nuance ou spécificité peut aussi être un signe de simplification par un LLM."
+          },
+          "imperfections_humaines": {
+            "note": 7,
+            "observation": "Le texte est très propre avec une seule maladresse mineure (\"une partie importante dans notre vie quotidienne\" au lieu de \"de\" ou \"dans notre quotidien\"). L'absence quasi-totale de fautes d'orthographe, de grammaire, de ponctuation ou de constructions maladroites est un signal fort pour un texte produit sous contrainte de temps."
+          },
+          "adequation_semantique": {
+            "note": 7,
+            "observation": "La réponse couvre les deux aspects de la question (positif/négatif) de manière équilibrée, mais reste très superficielle. Les arguments sont génériques et l'exemple unique est très basique, sans profondeur ni spécificité, ce qui est une caractéristique fréquente des réponses LLM qui tendent à être \"sûres\" et généralistes."
+          },
+          "repetitions_redondances": {
+            "note": 5,
+            "observation": "Le texte est concis et ne présente pas de répétitions d'idées. Cependant, la densité informationnelle est faible, les idées sont énoncées sans être développées en profondeur, ce qui peut être interprété comme une absence de pensée critique approfondie."
+          }
+        },
+        "indices_linguistiques": [
+          "Utilisation de la formule \"En conclusion\".",
+          "Structure tripartite simple et explicite.",
+          "Fluidité et cohérence uniformes.",
+          "Absence quasi-totale d'imperfections linguistiques (une seule maladresse mineure).",
+          "Vocabulaire généraliste et peu nuancé.",
+          "Réponse générique et équilibrée, sans prise de position forte ni exemples concrets approfondis."
+        ],
+        "prompts_plausibles": {
+          "avertissement": "Ces prompts sont des reconstructions hypothétiques. Aucun ne peut être considéré comme le prompt réellement utilisé.",
+          "liste": [
+            "Rédige une réponse courte sur l'impact des réseaux sociaux sur les relations, en incluant des points positifs et négatifs.",
+            "Explique en quelques phrases si les réseaux sociaux sont bons ou mauvais pour les relations humaines, avec un exemple simple.",
+            "Donne ton avis sur les effets des réseaux sociaux sur les relations interpersonnelles, en structurant ta réponse avec une introduction et une conclusion.",
+            "Analyse l'influence des réseaux sociaux sur les liens entre les individus, en mentionnant les avantages et les inconvénients de manière concise."
+          ]
+        },
+        "conclusion": "Bien que la présence d'une maladresse grammaticale et d'un vocabulaire simple puisse suggérer une origine humaine, la fluidité, l'homogénéité stylistique, la structure formelle et la nature générique de la réponse sont des indicateurs compatibles avec un contenu partiellement ou entièrement généré par un modèle de langage, potentiellement simplifié ou édité par l'étudiant. Il est important de rappeler qu'un étudiant très compétent et concis peut produire un texte bien écrit et structuré.",
+        "faux_positif_risque": "MODERE",
+        "faux_positif_raison": "Un étudiant très concis, avec une bonne maîtrise de la langue écrite et une approche très scolaire, pourrait produire un texte similaire. La simplicité du vocabulaire et la présence d'une maladresse mineure pourraient également être des traits humains, rendant la distinction délicate pour un texte aussi court."
+      }
+    },
+    {
+      "copie_id": "C05",
+      "question": "Pensez-vous que les réseaux sociaux ont un impact positif ou négatif sur les relations entre les personnes ? Justifiez votre réponse avec des arguments et des exemples.",
+      "score_suspicion": 93,
+      "classification": "PROBABLEMENT_IA",
+      "classification_modele": "PROBABLEMENT_IA",
+      "resume_executif": "La réponse de l'étudiant est remarquablement fluide, grammaticalement impeccable et stylistiquement homogène. Elle présente une vue d'ensemble équilibrée et générique de l'impact des médias sociaux sur les relations, mais omet de fournir les arguments et exemples explicitement demandés par la question. L'absence totale d'imperfections humaines et la nature très générale de la réponse sont des indicateurs forts d'une compatibilité avec un contenu généré par un modèle de langage.",
+      "dimensions": {
+        "structure_argumentative": {
+          "note": 8.0,
+          "observation": "La structure est très équilibrée et suit un schéma prévisible : introduction du sujet, présentation des deux facettes (positif/négatif), et conclusion par une synthèse équilibrée. Cette organisation est très propre et générique, typique d'une approche LLM visant à couvrir tous les angles sans approfondir."
+        },
+        "fluidite_coherence": {
+          "note": 9.0,
+          "observation": "Le texte est d'une fluidité exceptionnelle, sans aucune hésitation, rupture de rythme ou de registre. Les phrases sont toutes bien construites et s'enchaînent de manière parfaitement logique et harmonieuse, ce qui est rare pour une réponse spontanée d'examen."
+        },
+        "regularite_stylistique": {
+          "note": 9.0,
+          "observation": "Le style est parfaitement homogène du début à la fin, maintenant un ton objectif et légèrement formel. Il n'y a aucune variation de niveau de langue ni de relâchement, ce qui est inhabituel pour un scripteur humain sous la pression d'un examen."
+        },
+        "richesse_lexicale": {
+          "note": 8.0,
+          "observation": "Le vocabulaire est précis et approprié au sujet ('néfastes', 'bénéfiques', 'aggraver', 'à bon escient'). L'expression 'à bon escient' est légèrement formelle. L'utilisation de 'votre vie' et 'vos partenaires' confère un ton légèrement impersonnel et généraliste, plutôt que personnel ou académique."
+        },
+        "imperfections_humaines": {
+          "note": 10,
+          "observation": "Le texte est totalement exempt de toute imperfection humaine : aucune faute d'orthographe, de grammaire, de syntaxe, de ponctuation, ni de maladresse de formulation. Cette perfection est un signal très fort dans un contexte d'examen manuscrit."
+        },
+        "adequation_semantique": {
+          "note": 9.0,
+          "observation": "La réponse aborde la question de l'impact positif ou négatif des réseaux sociaux. Cependant, elle échoue complètement à fournir les 'arguments et exemples' explicitement demandés, se contentant d'une affirmation générale et équilibrée. Cette tendance à la généralisation et à l'évitement des spécificités est une caractéristique fréquente des LLM."
+        },
+        "repetitions_redondances": {
+          "note": 8.0,
+          "observation": "Le texte présente une faible densité informationnelle, reformulant la même idée centrale (les médias sociaux ont des effets à la fois positifs et négatifs) sans apporter de nouveaux arguments ou de profondeur critique. Il y a une légère répétition de la structure 'Les médias sociaux peuvent...'."
+        }
+      },
+      "indices_linguistiques": [
+        "Absence totale de fautes d'orthographe, de grammaire ou de syntaxe.",
+        "Fluidité et cohérence parfaites du discours.",
+        "Structure argumentative très équilibrée et générique, présentant les deux facettes du sujet.",
+        "Utilisation de tournures légèrement formelles ('à bon escient').",
+        "Réponse de haut niveau de généralité, manquant de spécificité (absence d'arguments et d'exemples).",
+        "Ton impersonnel ('votre vie', 'vos partenaires') pour une question demandant une opinion personnelle."
+      ],
+      "prompts_plausibles": {
+        "avertissement": "Ces prompts sont des reconstructions hypothétiques. Aucun ne peut être considéré comme le prompt réellement utilisé.",
+        "liste": [
+          "Rédige une courte réponse équilibrée sur l'impact positif et négatif des médias sociaux sur les relations interpersonnelles.",
+          "Quel est l'effet des réseaux sociaux sur les relations humaines ? Donne une vue d'ensemble générale.",
+          "Écris un paragraphe sur les avantages et inconvénients des médias sociaux pour les relations, sans donner d'exemples précis.",
+          "Décris comment les médias sociaux peuvent affecter les relations avec les amis et la famille, en restant neutre."
+        ]
+      },
+      "conclusion": "Le texte présente un ensemble de caractéristiques (fluidité parfaite, absence d'erreurs, structure équilibrée et générique, manque de spécificité malgré la demande explicite) qui sont fortement compatibles avec une génération par un modèle de langage. Bien qu'un étudiant très compétent puisse produire un texte bien écrit, la combinaison de ces éléments, en particulier l'absence totale d'imperfections et le défaut de fournir des arguments/exemples, élève le niveau de suspicion.",
+      "faux_positif_risque": "MODERE",
+      "faux_positif_raison": "Un étudiant très compétent, soucieux de la concision et de la clarté, pourrait produire un texte aussi fluide et grammaticalement irréprochable, surtout s'il est sous pression et choisit de présenter une synthèse générale plutôt que de développer des points spécifiques. Cependant, l'absence totale d'exemples ou d'arguments, malgré la demande explicite de la question, combinée à un ton très général et équilibré, reste un signal fort.",
+      "texte_reponse": "Les médias sociaux peuvent être utiles pour créer des liens lorsque nous ne pouvons pas nous rencontrer, mais ils peuvent aussi nous priver de temps de qualité lorsque nous le pouvons.\nLes médias sociaux peuvent affecter tous les aspects de votre vie, y compris vos relations avec vos partenaires, vos amis et les membres de votre famille.\nCes effets peuvent être à la fois néfastes et utiles. Bien que les médias sociaux puissent aggraver certains problèmes relationnels dans certains cas, ils peuvent également être bénéfiques lorsqu’ils sont utilisés à bon escient.",
+      "score_modele": 87,
+      "score_recalcule": 93,
+      "erreur": null,
+      "brut_modele": {
+        "score_suspicion": 87,
+        "classification": "PROBABLEMENT_IA",
+        "resume_executif": "La réponse de l'étudiant est remarquablement fluide, grammaticalement impeccable et stylistiquement homogène. Elle présente une vue d'ensemble équilibrée et générique de l'impact des médias sociaux sur les relations, mais omet de fournir les arguments et exemples explicitement demandés par la question. L'absence totale d'imperfections humaines et la nature très générale de la réponse sont des indicateurs forts d'une compatibilité avec un contenu généré par un modèle de langage.",
+        "dimensions": {
+          "structure_argumentative": {
+            "note": 8,
+            "observation": "La structure est très équilibrée et suit un schéma prévisible : introduction du sujet, présentation des deux facettes (positif/négatif), et conclusion par une synthèse équilibrée. Cette organisation est très propre et générique, typique d'une approche LLM visant à couvrir tous les angles sans approfondir."
+          },
+          "fluidite_coherence": {
+            "note": 9,
+            "observation": "Le texte est d'une fluidité exceptionnelle, sans aucune hésitation, rupture de rythme ou de registre. Les phrases sont toutes bien construites et s'enchaînent de manière parfaitement logique et harmonieuse, ce qui est rare pour une réponse spontanée d'examen."
+          },
+          "regularite_stylistique": {
+            "note": 9,
+            "observation": "Le style est parfaitement homogène du début à la fin, maintenant un ton objectif et légèrement formel. Il n'y a aucune variation de niveau de langue ni de relâchement, ce qui est inhabituel pour un scripteur humain sous la pression d'un examen."
+          },
+          "richesse_lexicale": {
+            "note": 8,
+            "observation": "Le vocabulaire est précis et approprié au sujet ('néfastes', 'bénéfiques', 'aggraver', 'à bon escient'). L'expression 'à bon escient' est légèrement formelle. L'utilisation de 'votre vie' et 'vos partenaires' confère un ton légèrement impersonnel et généraliste, plutôt que personnel ou académique."
+          },
+          "imperfections_humaines": {
+            "note": 10,
+            "observation": "Le texte est totalement exempt de toute imperfection humaine : aucune faute d'orthographe, de grammaire, de syntaxe, de ponctuation, ni de maladresse de formulation. Cette perfection est un signal très fort dans un contexte d'examen manuscrit."
+          },
+          "adequation_semantique": {
+            "note": 9,
+            "observation": "La réponse aborde la question de l'impact positif ou négatif des réseaux sociaux. Cependant, elle échoue complètement à fournir les 'arguments et exemples' explicitement demandés, se contentant d'une affirmation générale et équilibrée. Cette tendance à la généralisation et à l'évitement des spécificités est une caractéristique fréquente des LLM."
+          },
+          "repetitions_redondances": {
+            "note": 8,
+            "observation": "Le texte présente une faible densité informationnelle, reformulant la même idée centrale (les médias sociaux ont des effets à la fois positifs et négatifs) sans apporter de nouveaux arguments ou de profondeur critique. Il y a une légère répétition de la structure 'Les médias sociaux peuvent...'."
+          }
+        },
+        "indices_linguistiques": [
+          "Absence totale de fautes d'orthographe, de grammaire ou de syntaxe.",
+          "Fluidité et cohérence parfaites du discours.",
+          "Structure argumentative très équilibrée et générique, présentant les deux facettes du sujet.",
+          "Utilisation de tournures légèrement formelles ('à bon escient').",
+          "Réponse de haut niveau de généralité, manquant de spécificité (absence d'arguments et d'exemples).",
+          "Ton impersonnel ('votre vie', 'vos partenaires') pour une question demandant une opinion personnelle."
+        ],
+        "prompts_plausibles": {
+          "avertissement": "Ces prompts sont des reconstructions hypothétiques. Aucun ne peut être considéré comme le prompt réellement utilisé.",
+          "liste": [
+            "Rédige une courte réponse équilibrée sur l'impact positif et négatif des médias sociaux sur les relations interpersonnelles.",
+            "Quel est l'effet des réseaux sociaux sur les relations humaines ? Donne une vue d'ensemble générale.",
+            "Écris un paragraphe sur les avantages et inconvénients des médias sociaux pour les relations, sans donner d'exemples précis.",
+            "Décris comment les médias sociaux peuvent affecter les relations avec les amis et la famille, en restant neutre."
+          ]
+        },
+        "conclusion": "Le texte présente un ensemble de caractéristiques (fluidité parfaite, absence d'erreurs, structure équilibrée et générique, manque de spécificité malgré la demande explicite) qui sont fortement compatibles avec une génération par un modèle de langage. Bien qu'un étudiant très compétent puisse produire un texte bien écrit, la combinaison de ces éléments, en particulier l'absence totale d'imperfections et le défaut de fournir des arguments/exemples, élève le niveau de suspicion.",
+        "faux_positif_risque": "ÉLEVÉ",
+        "faux_positif_raison": "Un étudiant très compétent, soucieux de la concision et de la clarté, pourrait produire un texte aussi fluide et grammaticalement irréprochable, surtout s'il est sous pression et choisit de présenter une synthèse générale plutôt que de développer des points spécifiques. Cependant, l'absence totale d'exemples ou d'arguments, malgré la demande explicite de la question, combinée à un ton très général et équilibré, reste un signal fort."
+      }
+    },
+    {
+      "copie_id": "C06",
+      "question": "Pensez-vous que les réseaux sociaux ont un impact positif ou négatif sur les relations entre les personnes ? Justifiez votre réponse avec des arguments et des exemples.",
+      "score_suspicion": 90,
+      "classification": "PROBABLEMENT_IA",
+      "classification_modele": "HYBRIDE",
+      "resume_executif": "L'analyse révèle une structure argumentative très claire et formelle, une fluidité et une cohérence remarquables, ainsi qu'une régularité stylistique parfaite. L'absence totale d'imperfections humaines est un signal fort. Bien que le vocabulaire soit approprié, il manque de richesse distinctive et les arguments, bien qu'adéquats, restent génériques et peu étayés par des exemples concrets. Ces caractéristiques suggèrent une compatibilité avec un texte potentiellement assisté par un modèle de langage, bien qu'il puisse avoir été simplifié ou adapté par un humain.",
+      "dimensions": {
+        "structure_argumentative": {
+          "note": 8.0,
+          "observation": "La réponse est très structurée, suivant un plan classique introduction-développement-conclusion. Les transitions sont explicites et formulaiques ('Par exemple', 'Cependant', 'En outre', 'Pour conclure'), ce qui est inhabituel pour une réponse manuscrite courte sous contrainte de temps."
+        },
+        "fluidite_coherence": {
+          "note": 9.0,
+          "observation": "Le texte est uniformément fluide, sans aucune hésitation, rupture de registre ou maladresse de formulation. Les phrases sont toutes bien construites et d'une longueur régulière, contribuant à une lecture très aisée."
+        },
+        "regularite_stylistique": {
+          "note": 9.0,
+          "observation": "Le style est parfaitement homogène du début à la fin, sans aucune variation de ton ou de niveau de langue. Il n'y a pas de relâchements typiques d'un scripteur humain sous pression, ce qui est un indicateur de régularité."
+        },
+        "richesse_lexicale": {
+          "note": 7.0,
+          "observation": "Le vocabulaire est approprié, précis et académique ('rôle majeur', 'individus', 'réduire la qualité', 'superficielles', 'dépendance', 'effets mixtes'). Cependant, il n'est pas particulièrement riche ou original, et ne présente pas de tournures uniques ou de profondeur lexicale qui distingueraient un style humain très personnel."
+        },
+        "imperfections_humaines": {
+          "note": 10,
+          "observation": "Le texte est exempt de toute imperfection humaine : aucune faute d'accord, de frappe, de construction maladroite, de répétition involontaire, de familiarisme passager ou d'oubli de mots. Cette perfection grammaticale et syntaxique est un signal fort."
+        },
+        "adequation_semantique": {
+          "note": 7.0,
+          "observation": "La réponse aborde directement la question en présentant des impacts positifs et négatifs, puis une conclusion nuancée. Cependant, les arguments et les 'exemples' ('échanger des messages en temps réel') sont très génériques et manquent de spécificité ou de profondeur critique, ce qui est une caractéristique fréquente des réponses de LLM."
+        },
+        "repetitions_redondances": {
+          "note": 8.0,
+          "observation": "Le texte est concis et ne présente pas de reformulations répétitives d'une même idée. Il offre une densité informationnelle correcte pour sa longueur, mais sans véritable profondeur d'analyse ou de critique, se contentant d'énumérer des points."
+        }
+      },
+      "indices_linguistiques": [
+        "Structure tripartite (introduction, développement, conclusion) explicite et formelle.",
+        "Utilisation de connecteurs logiques et de transitions formulaiques ('Par exemple', 'Cependant', 'En outre', 'Pour conclure').",
+        "Fluidité et correction grammaticale parfaites, sans aucune erreur ou maladresse.",
+        "Absence totale d'imperfections typiquement humaines (fautes, hésitations, ruptures de style).",
+        "Arguments et exemples génériques, manquant de spécificité ou d'originalité.",
+        "Vocabulaire académique 'sûr' mais sans richesse distinctive."
+      ],
+      "prompts_plausibles": {
+        "avertissement": "Ces prompts sont des reconstructions hypothétiques. Aucun ne peut être considéré comme le prompt réellement utilisé.",
+        "liste": [
+          "Rédige une réponse d'examen sur l'impact des réseaux sociaux sur les relations interpersonnelles, en présentant des arguments positifs et négatifs, et une conclusion.",
+          "Analyse les effets des réseaux sociaux sur les liens humains. Inclue des exemples et structure ta réponse avec une introduction, un développement et une conclusion.",
+          "Écris un court essai sur les avantages et les inconvénients des réseaux sociaux pour les relations entre les personnes, en utilisant un langage clair et concis."
+        ]
+      },
+      "conclusion": "Le texte présente plusieurs caractéristiques compatibles avec une génération assistée par un modèle de langage, notamment une structure très organisée, une fluidité impeccable et une absence totale d'erreurs. Cependant, la simplicité relative du vocabulaire et la généralité des arguments pourraient indiquer une intervention humaine pour adapter ou simplifier le contenu initial, ou une consigne de prompt visant la concision. Il est important de rappeler qu'un étudiant très compétent peut produire un texte bien écrit et structuré. Cette analyse ne constitue pas une preuve de fraude, mais un signal d'alerte probabiliste.",
+      "faux_positif_risque": "MODERE",
+      "faux_positif_raison": "Un étudiant très doué, ayant une excellente maîtrise de la langue et des techniques rédactionnelles, pourrait produire un texte aussi propre et structuré, surtout pour une réponse courte. La simplicité des arguments pourrait aussi être due à un manque de temps ou de profondeur de réflexion sur le sujet, plutôt qu'à une génération IA.",
+      "texte_reponse": "Les réseaux sociaux jouent un rôle majeur dans les relations entre les individus. Ils permettent de communiquer facilement et de rester connecté avec les autres. Par exemple, il est possible d’échanger des messages en temps réel.\n\nCependant, ces outils peuvent également réduire la qualité des relations. Les discussions en ligne sont souvent superficielles et ne permettent pas de créer des liens profonds. En outre, les réseaux sociaux peuvent entraîner une dépendance.\n\nPour conclure, les réseaux sociaux ont des effets mixtes, mais leur utilisation excessive peut nuire aux relations humaines.",
+      "score_modele": 58,
+      "score_recalcule": 90,
+      "erreur": null,
+      "brut_modele": {
+        "score_suspicion": 58,
+        "classification": "HYBRIDE",
+        "resume_executif": "L'analyse révèle une structure argumentative très claire et formelle, une fluidité et une cohérence remarquables, ainsi qu'une régularité stylistique parfaite. L'absence totale d'imperfections humaines est un signal fort. Bien que le vocabulaire soit approprié, il manque de richesse distinctive et les arguments, bien qu'adéquats, restent génériques et peu étayés par des exemples concrets. Ces caractéristiques suggèrent une compatibilité avec un texte potentiellement assisté par un modèle de langage, bien qu'il puisse avoir été simplifié ou adapté par un humain.",
+        "dimensions": {
+          "structure_argumentative": {
+            "note": 8,
+            "observation": "La réponse est très structurée, suivant un plan classique introduction-développement-conclusion. Les transitions sont explicites et formulaiques ('Par exemple', 'Cependant', 'En outre', 'Pour conclure'), ce qui est inhabituel pour une réponse manuscrite courte sous contrainte de temps."
+          },
+          "fluidite_coherence": {
+            "note": 9,
+            "observation": "Le texte est uniformément fluide, sans aucune hésitation, rupture de registre ou maladresse de formulation. Les phrases sont toutes bien construites et d'une longueur régulière, contribuant à une lecture très aisée."
+          },
+          "regularite_stylistique": {
+            "note": 9,
+            "observation": "Le style est parfaitement homogène du début à la fin, sans aucune variation de ton ou de niveau de langue. Il n'y a pas de relâchements typiques d'un scripteur humain sous pression, ce qui est un indicateur de régularité."
+          },
+          "richesse_lexicale": {
+            "note": 7,
+            "observation": "Le vocabulaire est approprié, précis et académique ('rôle majeur', 'individus', 'réduire la qualité', 'superficielles', 'dépendance', 'effets mixtes'). Cependant, il n'est pas particulièrement riche ou original, et ne présente pas de tournures uniques ou de profondeur lexicale qui distingueraient un style humain très personnel."
+          },
+          "imperfections_humaines": {
+            "note": 10,
+            "observation": "Le texte est exempt de toute imperfection humaine : aucune faute d'accord, de frappe, de construction maladroite, de répétition involontaire, de familiarisme passager ou d'oubli de mots. Cette perfection grammaticale et syntaxique est un signal fort."
+          },
+          "adequation_semantique": {
+            "note": 7,
+            "observation": "La réponse aborde directement la question en présentant des impacts positifs et négatifs, puis une conclusion nuancée. Cependant, les arguments et les 'exemples' ('échanger des messages en temps réel') sont très génériques et manquent de spécificité ou de profondeur critique, ce qui est une caractéristique fréquente des réponses de LLM."
+          },
+          "repetitions_redondances": {
+            "note": 8,
+            "observation": "Le texte est concis et ne présente pas de reformulations répétitives d'une même idée. Il offre une densité informationnelle correcte pour sa longueur, mais sans véritable profondeur d'analyse ou de critique, se contentant d'énumérer des points."
+          }
+        },
+        "indices_linguistiques": [
+          "Structure tripartite (introduction, développement, conclusion) explicite et formelle.",
+          "Utilisation de connecteurs logiques et de transitions formulaiques ('Par exemple', 'Cependant', 'En outre', 'Pour conclure').",
+          "Fluidité et correction grammaticale parfaites, sans aucune erreur ou maladresse.",
+          "Absence totale d'imperfections typiquement humaines (fautes, hésitations, ruptures de style).",
+          "Arguments et exemples génériques, manquant de spécificité ou d'originalité.",
+          "Vocabulaire académique 'sûr' mais sans richesse distinctive."
+        ],
+        "prompts_plausibles": {
+          "avertissement": "Ces prompts sont des reconstructions hypothétiques. Aucun ne peut être considéré comme le prompt réellement utilisé.",
+          "liste": [
+            "Rédige une réponse d'examen sur l'impact des réseaux sociaux sur les relations interpersonnelles, en présentant des arguments positifs et négatifs, et une conclusion.",
+            "Analyse les effets des réseaux sociaux sur les liens humains. Inclue des exemples et structure ta réponse avec une introduction, un développement et une conclusion.",
+            "Écris un court essai sur les avantages et les inconvénients des réseaux sociaux pour les relations entre les personnes, en utilisant un langage clair et concis."
+          ]
+        },
+        "conclusion": "Le texte présente plusieurs caractéristiques compatibles avec une génération assistée par un modèle de langage, notamment une structure très organisée, une fluidité impeccable et une absence totale d'erreurs. Cependant, la simplicité relative du vocabulaire et la généralité des arguments pourraient indiquer une intervention humaine pour adapter ou simplifier le contenu initial, ou une consigne de prompt visant la concision. Il est important de rappeler qu'un étudiant très compétent peut produire un texte bien écrit et structuré. Cette analyse ne constitue pas une preuve de fraude, mais un signal d'alerte probabiliste.",
+        "faux_positif_risque": "MODERE",
+        "faux_positif_raison": "Un étudiant très doué, ayant une excellente maîtrise de la langue et des techniques rédactionnelles, pourrait produire un texte aussi propre et structuré, surtout pour une réponse courte. La simplicité des arguments pourrait aussi être due à un manque de temps ou de profondeur de réflexion sur le sujet, plutôt qu'à une génération IA."
+      }
+    },
+    {
+      "copie_id": "C07",
+      "question": "Pensez-vous que les réseaux sociaux ont un impact positif ou négatif sur les relations entre les personnes ? Justifiez votre réponse avec des arguments et des exemples.",
+      "score_suspicion": 31,
+      "classification": "HUMAIN",
+      "classification_modele": "HUMAIN",
+      "resume_executif": "L'analyse de la réponse révèle un texte court, simple et direct, avec une structure argumentative basique mais fonctionnelle. Le style est homogène et informel, le vocabulaire est courant et la présence d'une faute mineure (\"des nouvelles informations\" au lieu de \"de nouvelles informations\") ainsi que de tournures familières (\"Ça\", \"pas trop\") sont des indicateurs forts d'une production humaine. La réponse est pertinente et ne présente pas les caractéristiques de fluidité excessive, de formalisme artificiel ou de richesse lexicale constante souvent associées aux LLM.",
+      "dimensions": {
+        "structure_argumentative": {
+          "note": 3.0,
+          "observation": "La structure est simple et linéaire, suivant un schéma introductif, développement des points positifs et négatifs, puis une conclusion. Elle est fonctionnelle mais ne présente pas la complexité ou la formalité excessive parfois observée dans les textes générés par LLM. Les transitions sont basiques (\"Mais\", \"Donc\")."
+        },
+        "fluidite_coherence": {
+          "note": 5.0,
+          "observation": "Le texte est globalement fluide et cohérent. Les phrases sont courtes et bien enchaînées, sans ruptures de registre majeures, bien que l'utilisation de \"Ça\" soit un peu informelle. La longueur des phrases est assez régulière."
+        },
+        "regularite_stylistique": {
+          "note": 4.0,
+          "observation": "Le style est homogène du début à la fin, caractérisé par sa simplicité et un registre légèrement informel (\"À mon avis\", \"Ça peut créer des problèmes\", \"pas trop\"). Il n'y a pas de variations de ton ni de niveau de langue, ce qui est cohérent avec un scripteur humain s'exprimant simplement."
+        },
+        "richesse_lexicale": {
+          "note": 1.0,
+          "observation": "Le vocabulaire est très simple et courant, sans aucune richesse lexicale particulière ni termes soutenus ou sectoriels. Il n'y a pas de tournures complexes ou de phraséologie typique des LLM. Le registre est familier."
+        },
+        "imperfections_humaines": {
+          "note": 2.0,
+          "observation": "La présence de l'erreur \"des nouvelles informations\" au lieu de \"de nouvelles informations\" est une imperfection humaine claire. L'utilisation de \"Ça\" et \"pas trop\" renforce le caractère informel et spontané, moins poli qu'un LLM."
+        },
+        "adequation_semantique": {
+          "note": 3.0,
+          "observation": "La réponse aborde directement la question des impacts positifs et négatifs des réseaux sociaux sur les relations interpersonnelles, avec des arguments simples et un exemple. Elle n'est pas sur-généralisée et répond précisément aux attentes de la question."
+        },
+        "repetitions_redondances": {
+          "note": 3.0,
+          "observation": "Le texte est concis et ne présente pas de reformulations répétitives d'une même idée. La densité informationnelle est faible, mais cela est dû à la brièveté de la réponse plutôt qu'à une redondance. La répétition de \"je pense\" est un marqueur de style simple."
+        }
+      },
+      "indices_linguistiques": [
+        "Utilisation de \"À mon avis\" et \"Donc je pense\" comme marqueurs de structure simples.",
+        "Vocabulaire courant et simple (\"utiles\", \"dangereux\", \"amis\", \"problèmes\").",
+        "Présence d'une faute grammaticale mineure (\"des nouvelles informations\" au lieu de \"de nouvelles informations\").",
+        "Utilisation de tournures informelles (\"Ça\", \"pas trop\").",
+        "Répétition de \"je pense\"."
+      ],
+      "prompts_plausibles": {
+        "avertissement": "Ces prompts sont des reconstructions hypothétiques. Aucun ne peut être considéré comme le prompt réellement utilisé.",
+        "liste": [
+          "Rédige une courte réponse à la question : 'Les réseaux sociaux ont-ils un impact positif ou négatif sur les relations ?' Donne ton avis et quelques arguments simples.",
+          "Explique en quelques phrases si les réseaux sociaux sont bons ou mauvais pour les relations entre les gens, avec un exemple.",
+          "Donne un avis personnel sur l'influence des réseaux sociaux sur les relations humaines, en mentionnant des points positifs et négatifs."
+        ]
+      },
+      "conclusion": "L'ensemble des critères analysés, notamment la simplicité du style, le vocabulaire courant, la présence d'une erreur grammaticale et l'absence de marqueurs stylistiques complexes ou de formalisme excessif, suggère fortement une production humaine. Bien qu'un étudiant très compétent puisse produire un texte bien écrit, la nature des imperfections et la simplicité générale de cette réponse la rendent très compatible avec une rédaction spontanée par un humain.",
+      "faux_positif_risque": "FAIBLE",
+      "faux_positif_raison": "La présence d'une faute grammaticale claire, d'un registre informel et d'un vocabulaire très simple rend peu probable une attribution erronée à un LLM. Les LLM tendent à produire des textes plus polis, plus corrects grammaticalement et avec un vocabulaire plus varié, même dans des réponses courtes.",
+      "texte_reponse": "À mon avis, les réseaux sociaux sont utiles mais aussi dangereux. Ils permettent de rester en contact avec des amis et de connaître des nouvelles informations. Par exemple, on peut suivre l’actualité facilement.\n\nMais les gens deviennent dépendants et ils préfèrent parler en ligne au lieu de parler face à face. Ça peut créer des problèmes dans les relations.\n\nDonc je pense qu’il faut utiliser les réseaux sociaux mais pas trop pour garder de bonnes relations avec les autres.",
+      "score_modele": 21,
+      "score_recalcule": 31,
+      "erreur": null,
+      "brut_modele": {
+        "score_suspicion": 21,
+        "classification": "HUMAIN",
+        "resume_executif": "L'analyse de la réponse révèle un texte court, simple et direct, avec une structure argumentative basique mais fonctionnelle. Le style est homogène et informel, le vocabulaire est courant et la présence d'une faute mineure (\"des nouvelles informations\" au lieu de \"de nouvelles informations\") ainsi que de tournures familières (\"Ça\", \"pas trop\") sont des indicateurs forts d'une production humaine. La réponse est pertinente et ne présente pas les caractéristiques de fluidité excessive, de formalisme artificiel ou de richesse lexicale constante souvent associées aux LLM.",
+        "dimensions": {
+          "structure_argumentative": {
+            "note": 3,
+            "observation": "La structure est simple et linéaire, suivant un schéma introductif, développement des points positifs et négatifs, puis une conclusion. Elle est fonctionnelle mais ne présente pas la complexité ou la formalité excessive parfois observée dans les textes générés par LLM. Les transitions sont basiques (\"Mais\", \"Donc\")."
+          },
+          "fluidite_coherence": {
+            "note": 5,
+            "observation": "Le texte est globalement fluide et cohérent. Les phrases sont courtes et bien enchaînées, sans ruptures de registre majeures, bien que l'utilisation de \"Ça\" soit un peu informelle. La longueur des phrases est assez régulière."
+          },
+          "regularite_stylistique": {
+            "note": 4,
+            "observation": "Le style est homogène du début à la fin, caractérisé par sa simplicité et un registre légèrement informel (\"À mon avis\", \"Ça peut créer des problèmes\", \"pas trop\"). Il n'y a pas de variations de ton ni de niveau de langue, ce qui est cohérent avec un scripteur humain s'exprimant simplement."
+          },
+          "richesse_lexicale": {
+            "note": 1,
+            "observation": "Le vocabulaire est très simple et courant, sans aucune richesse lexicale particulière ni termes soutenus ou sectoriels. Il n'y a pas de tournures complexes ou de phraséologie typique des LLM. Le registre est familier."
+          },
+          "imperfections_humaines": {
+            "note": 2,
+            "observation": "La présence de l'erreur \"des nouvelles informations\" au lieu de \"de nouvelles informations\" est une imperfection humaine claire. L'utilisation de \"Ça\" et \"pas trop\" renforce le caractère informel et spontané, moins poli qu'un LLM."
+          },
+          "adequation_semantique": {
+            "note": 3,
+            "observation": "La réponse aborde directement la question des impacts positifs et négatifs des réseaux sociaux sur les relations interpersonnelles, avec des arguments simples et un exemple. Elle n'est pas sur-généralisée et répond précisément aux attentes de la question."
+          },
+          "repetitions_redondances": {
+            "note": 3,
+            "observation": "Le texte est concis et ne présente pas de reformulations répétitives d'une même idée. La densité informationnelle est faible, mais cela est dû à la brièveté de la réponse plutôt qu'à une redondance. La répétition de \"je pense\" est un marqueur de style simple."
+          }
+        },
+        "indices_linguistiques": [
+          "Utilisation de \"À mon avis\" et \"Donc je pense\" comme marqueurs de structure simples.",
+          "Vocabulaire courant et simple (\"utiles\", \"dangereux\", \"amis\", \"problèmes\").",
+          "Présence d'une faute grammaticale mineure (\"des nouvelles informations\" au lieu de \"de nouvelles informations\").",
+          "Utilisation de tournures informelles (\"Ça\", \"pas trop\").",
+          "Répétition de \"je pense\"."
+        ],
+        "prompts_plausibles": {
+          "avertissement": "Ces prompts sont des reconstructions hypothétiques. Aucun ne peut être considéré comme le prompt réellement utilisé.",
+          "liste": [
+            "Rédige une courte réponse à la question : 'Les réseaux sociaux ont-ils un impact positif ou négatif sur les relations ?' Donne ton avis et quelques arguments simples.",
+            "Explique en quelques phrases si les réseaux sociaux sont bons ou mauvais pour les relations entre les gens, avec un exemple.",
+            "Donne un avis personnel sur l'influence des réseaux sociaux sur les relations humaines, en mentionnant des points positifs et négatifs."
+          ]
+        },
+        "conclusion": "L'ensemble des critères analysés, notamment la simplicité du style, le vocabulaire courant, la présence d'une erreur grammaticale et l'absence de marqueurs stylistiques complexes ou de formalisme excessif, suggère fortement une production humaine. Bien qu'un étudiant très compétent puisse produire un texte bien écrit, la nature des imperfections et la simplicité générale de cette réponse la rendent très compatible avec une rédaction spontanée par un humain.",
+        "faux_positif_risque": "FAIBLE",
+        "faux_positif_raison": "La présence d'une faute grammaticale claire, d'un registre informel et d'un vocabulaire très simple rend peu probable une attribution erronée à un LLM. Les LLM tendent à produire des textes plus polis, plus corrects grammaticalement et avec un vocabulaire plus varié, même dans des réponses courtes."
+      }
+    },
+    {
+      "copie_id": "C08",
+      "question": "Pensez-vous que les réseaux sociaux ont un impact positif ou négatif sur les relations entre les personnes ? Justifiez votre réponse avec des arguments et des exemples.",
+      "score_suspicion": 74,
+      "classification": "PROBABLEMENT_IA",
+      "classification_modele": "HYBRIDE",
+      "resume_executif": "L'analyse révèle un texte d'une fluidité et d'une régularité stylistique remarquables, avec un vocabulaire précis et un faible nombre d'imperfections humaines, ce qui est souvent caractéristique d'une production assistée. La structure est équilibrée, présentant les aspects positifs et négatifs de manière claire. Cependant, l'absence d'exemples concrets, pourtant explicitement demandés, et une certaine généricité dans les arguments suggèrent une réponse qui pourrait avoir été initialement générée par un modèle de langage, puis potentiellement revue ou adaptée par l'étudiant.",
+      "dimensions": {
+        "structure_argumentative": {
+          "note": 6.0,
+          "observation": "La structure est équilibrée, présentant d'abord les aspects positifs puis les négatifs, avec des connecteurs comme 'Toutefois'. L'utilisation de 'également' et 'enfin' est un peu formulaïque. Il n'y a pas d'introduction ou de conclusion formelle, ce qui est courant pour un examen, mais l'organisation reste très claire."
+        },
+        "fluidite_coherence": {
+          "note": 8.0,
+          "observation": "Le texte est uniformément fluide, sans hésitations ni ruptures de registre. Les phrases sont bien construites, y compris une phrase longue et complexe qui reste grammaticalement irréprochable et facile à suivre."
+        },
+        "regularite_stylistique": {
+          "note": 8.0,
+          "observation": "Le style est parfaitement homogène du début à la fin, maintenant un ton formel et académique sans variations de niveau de langue ni relâchements, ce qui est peu commun pour un scripteur humain sous pression d'examen."
+        },
+        "richesse_lexicale": {
+          "note": 7.0,
+          "observation": "Le vocabulaire est soutenu, précis et sectoriel ('ludique', 'chronophage', 'aliénant', 'fatalisme', 'dynamique interne', 'TIC') de façon constante. La formulation 'difficulté à élaborer l’ennui' est également notable."
+        },
+        "imperfections_humaines": {
+          "note": 9.0,
+          "observation": "Le texte est remarquablement exempt d'imperfections humaines typiques telles que des fautes d'accord mineures, des fautes de frappe, des constructions maladroites ou des répétitions involontaires. La propreté linguistique est très élevée."
+        },
+        "adequation_semantique": {
+          "note": 6.0,
+          "observation": "La réponse aborde bien les impacts positifs et négatifs des réseaux sociaux sur les relations. Cependant, elle manque d'exemples concrets, qui étaient explicitement demandés dans la question, se contentant de lister des catégories d'arguments."
+        },
+        "repetitions_redondances": {
+          "note": 7.0,
+          "observation": "Le texte ne présente pas de reformulations répétitives d'une même idée. La densité informationnelle est relativement élevée pour sa longueur, mais les points sont davantage listés que développés en profondeur ou avec une analyse critique nuancée."
+        }
+      },
+      "indices_linguistiques": [
+        "Utilisation de connecteurs logiques formels ('Toutefois', 'également', 'enfin').",
+        "Vocabulaire soutenu et précis ('chronophage', 'aliénant', 'fatalisme', 'dynamique interne', 'TIC').",
+        "Structure équilibrée (avantages/inconvénients) sans introduction ni conclusion formelle d'examen.",
+        "Absence quasi-totale de fautes d'orthographe, de grammaire ou de maladresses stylistiques.",
+        "Formulation de phrases complexes mais grammaticalement irréprochables.",
+        "Tendance à lister des arguments généraux plutôt qu'à fournir des exemples spécifiques."
+      ],
+      "prompts_plausibles": {
+        "avertissement": "Ces prompts sont des reconstructions hypothétiques. Aucun ne peut être considéré comme le prompt réellement utilisé.",
+        "liste": [
+          "Rédige une réponse argumentée sur l'impact positif et négatif des réseaux sociaux sur les relations interpersonnelles, en incluant des arguments et des exemples.",
+          "Analyse les effets des nouvelles technologies et des réseaux sociaux sur les dynamiques familiales et les relations entre individus, en abordant les avantages et les inconvénients.",
+          "Décris les dangers et les bénéfices des réseaux sociaux pour les adolescents et les familles, en utilisant un vocabulaire académique.",
+          "Quels sont les impacts des TIC sur les relations humaines, en particulier chez les jeunes ? Donne des arguments pour et contre."
+        ]
+      },
+      "conclusion": "Bien que le texte présente une qualité rédactionnelle élevée, une structure claire et un vocabulaire soutenu, l'absence d'exemples concrets et une certaine généricité des arguments, combinées à une fluidité et une régularité stylistique inhabituelles pour un examen manuscrit, suggèrent une compatibilité avec un texte ayant pu bénéficier d'une assistance par un modèle de langage. La présence de quelques tournures qui pourraient être légèrement moins 'polies' que du pur LLM (e.g. la longue phrase sur les dangers) ou le manque de profondeur critique empêchent une classification 'PROBABLEMENT_IA' pure, orientant vers une classification 'HYBRIDE'. Il est important de rappeler qu'un étudiant très compétent peut produire un texte d'une telle qualité.",
+      "faux_positif_risque": "MODERE",
+      "faux_positif_raison": "Un étudiant très doué, ayant une excellente maîtrise de la langue et une bonne capacité d'organisation, pourrait produire un texte de cette qualité, même sans exemples spécifiques s'il est sous pression ou s'il a mal interprété la demande d'exemples comme des catégories d'arguments.",
+      "texte_reponse": "Les nouvelles technologies permettent et favorisent un lien entre les personnes avec une communication ludique, plus rapide et plus facile. Elles permettent également de mieux s’organiser, de mieux travailler ensemble. Elles permettent enfin un accès plus facile à l’information et la formation.\n\nToutefois, mal utilisées, les réseaux sociaux peuvent représenter un réel danger dans les familles, dont le risque majeur de l’addiction chez les adolescents ou encore, toujours chez ces derniers, est le côté illusoire du sentiment d’être en lien et d’avoir des amis, la difficulté à élaborer l’ennui ou encore l’aspect chronophage et aliénant des TIC.\n\nLes familles vivent l’introduction des TIC en leur sein avec une certaine notion de fatalisme, avec une forme d’obligation de faire avec, de s’y adapter.\n\nParmi les TIC, les réseaux sociaux sont extrêmement présents dans les familles dont ils impactent très significativement la dynamique interne.",
+      "score_modele": 51,
+      "score_recalcule": 74,
+      "erreur": null,
+      "brut_modele": {
+        "score_suspicion": 51,
+        "classification": "HYBRIDE",
+        "resume_executif": "L'analyse révèle un texte d'une fluidité et d'une régularité stylistique remarquables, avec un vocabulaire précis et un faible nombre d'imperfections humaines, ce qui est souvent caractéristique d'une production assistée. La structure est équilibrée, présentant les aspects positifs et négatifs de manière claire. Cependant, l'absence d'exemples concrets, pourtant explicitement demandés, et une certaine généricité dans les arguments suggèrent une réponse qui pourrait avoir été initialement générée par un modèle de langage, puis potentiellement revue ou adaptée par l'étudiant.",
+        "dimensions": {
+          "structure_argumentative": {
+            "note": 6,
+            "observation": "La structure est équilibrée, présentant d'abord les aspects positifs puis les négatifs, avec des connecteurs comme 'Toutefois'. L'utilisation de 'également' et 'enfin' est un peu formulaïque. Il n'y a pas d'introduction ou de conclusion formelle, ce qui est courant pour un examen, mais l'organisation reste très claire."
+          },
+          "fluidite_coherence": {
+            "note": 8,
+            "observation": "Le texte est uniformément fluide, sans hésitations ni ruptures de registre. Les phrases sont bien construites, y compris une phrase longue et complexe qui reste grammaticalement irréprochable et facile à suivre."
+          },
+          "regularite_stylistique": {
+            "note": 8,
+            "observation": "Le style est parfaitement homogène du début à la fin, maintenant un ton formel et académique sans variations de niveau de langue ni relâchements, ce qui est peu commun pour un scripteur humain sous pression d'examen."
+          },
+          "richesse_lexicale": {
+            "note": 7,
+            "observation": "Le vocabulaire est soutenu, précis et sectoriel ('ludique', 'chronophage', 'aliénant', 'fatalisme', 'dynamique interne', 'TIC') de façon constante. La formulation 'difficulté à élaborer l’ennui' est également notable."
+          },
+          "imperfections_humaines": {
+            "note": 9,
+            "observation": "Le texte est remarquablement exempt d'imperfections humaines typiques telles que des fautes d'accord mineures, des fautes de frappe, des constructions maladroites ou des répétitions involontaires. La propreté linguistique est très élevée."
+          },
+          "adequation_semantique": {
+            "note": 6,
+            "observation": "La réponse aborde bien les impacts positifs et négatifs des réseaux sociaux sur les relations. Cependant, elle manque d'exemples concrets, qui étaient explicitement demandés dans la question, se contentant de lister des catégories d'arguments."
+          },
+          "repetitions_redondances": {
+            "note": 7,
+            "observation": "Le texte ne présente pas de reformulations répétitives d'une même idée. La densité informationnelle est relativement élevée pour sa longueur, mais les points sont davantage listés que développés en profondeur ou avec une analyse critique nuancée."
+          }
+        },
+        "indices_linguistiques": [
+          "Utilisation de connecteurs logiques formels ('Toutefois', 'également', 'enfin').",
+          "Vocabulaire soutenu et précis ('chronophage', 'aliénant', 'fatalisme', 'dynamique interne', 'TIC').",
+          "Structure équilibrée (avantages/inconvénients) sans introduction ni conclusion formelle d'examen.",
+          "Absence quasi-totale de fautes d'orthographe, de grammaire ou de maladresses stylistiques.",
+          "Formulation de phrases complexes mais grammaticalement irréprochables.",
+          "Tendance à lister des arguments généraux plutôt qu'à fournir des exemples spécifiques."
+        ],
+        "prompts_plausibles": {
+          "avertissement": "Ces prompts sont des reconstructions hypothétiques. Aucun ne peut être considéré comme le prompt réellement utilisé.",
+          "liste": [
+            "Rédige une réponse argumentée sur l'impact positif et négatif des réseaux sociaux sur les relations interpersonnelles, en incluant des arguments et des exemples.",
+            "Analyse les effets des nouvelles technologies et des réseaux sociaux sur les dynamiques familiales et les relations entre individus, en abordant les avantages et les inconvénients.",
+            "Décris les dangers et les bénéfices des réseaux sociaux pour les adolescents et les familles, en utilisant un vocabulaire académique.",
+            "Quels sont les impacts des TIC sur les relations humaines, en particulier chez les jeunes ? Donne des arguments pour et contre."
+          ]
+        },
+        "conclusion": "Bien que le texte présente une qualité rédactionnelle élevée, une structure claire et un vocabulaire soutenu, l'absence d'exemples concrets et une certaine généricité des arguments, combinées à une fluidité et une régularité stylistique inhabituelles pour un examen manuscrit, suggèrent une compatibilité avec un texte ayant pu bénéficier d'une assistance par un modèle de langage. La présence de quelques tournures qui pourraient être légèrement moins 'polies' que du pur LLM (e.g. la longue phrase sur les dangers) ou le manque de profondeur critique empêchent une classification 'PROBABLEMENT_IA' pure, orientant vers une classification 'HYBRIDE'. Il est important de rappeler qu'un étudiant très compétent peut produire un texte d'une telle qualité.",
+        "faux_positif_risque": "MODERE",
+        "faux_positif_raison": "Un étudiant très doué, ayant une excellente maîtrise de la langue et une bonne capacité d'organisation, pourrait produire un texte de cette qualité, même sans exemples spécifiques s'il est sous pression ou s'il a mal interprété la demande d'exemples comme des catégories d'arguments."
+      }
+    },
+    {
+      "copie_id": "C09",
+      "question": "Pensez-vous que les réseaux sociaux ont un impact positif ou négatif sur les relations entre les personnes ? Justifiez votre réponse avec des arguments et des exemples.",
+      "score_suspicion": 90,
+      "classification": "PROBABLEMENT_IA",
+      "classification_modele": "PROBABLEMENT_IA",
+      "resume_executif": "L'analyse révèle un texte d'une grande fluidité, parfaitement structuré en trois parties classiques (introduction, développement positif, développement négatif, conclusion) avec des transitions formelles. L'absence totale d'imperfections linguistiques (fautes d'orthographe, de grammaire, maladresses syntaxiques) est notable. Le style est homogène et le vocabulaire précis, bien que la réponse omette de fournir les exemples concrets demandés par la question, restant à un niveau d'abstraction élevé. Ces caractéristiques combinées suggèrent une forte compatibilité avec un contenu généré par un modèle de langage.",
+      "dimensions": {
+        "structure_argumentative": {
+          "note": 8.0,
+          "observation": "La réponse est très clairement structurée en une introduction, un développement en deux parties (avantages, inconvénients) et une conclusion. Les transitions ('Néanmoins', 'Ainsi') sont formelles et scolaires, ce qui est très organisé pour un examen manuscrit."
+        },
+        "fluidite_coherence": {
+          "note": 9.0,
+          "observation": "Le texte est d'une fluidité impeccable et uniforme du début à la fin. Les phrases sont toutes bien construites, de longueur régulière et s'enchaînent logiquement sans aucune hésitation ni rupture de registre."
+        },
+        "regularite_stylistique": {
+          "note": 9.0,
+          "observation": "Le style est parfaitement homogène, maintenant un ton objectif et formel sans aucune variation de niveau de langue. Il n'y a aucun signe de relâchement ou de pression, ce qui est inhabituel pour une production humaine en contexte d'examen."
+        },
+        "richesse_lexicale": {
+          "note": 7.0,
+          "observation": "Le vocabulaire est précis et approprié au sujet ('incontournables', 'facilitent', 'élargir', 'essentielles', 'dépendantes'). Il est soutenu sans être excessivement complexe, mais reste générique et manque de la spécificité ou de la nuance qu'un scripteur humain pourrait apporter avec des exemples concrets."
+        },
+        "imperfections_humaines": {
+          "note": 10,
+          "observation": "Le texte est exempt de toute imperfection humaine : aucune faute d'orthographe, de grammaire, de ponctuation, aucune maladresse syntaxique, répétition involontaire ou familiarisme. Cette perfection est un signal fort."
+        },
+        "adequation_semantique": {
+          "note": 7.0,
+          "observation": "La réponse aborde bien la question des impacts positifs et négatifs. Cependant, elle omet de fournir les 'exemples' explicitement demandés par la consigne, se contentant d'arguments généraux. Cette généralisation est une caractéristique fréquente des LLM."
+        },
+        "repetitions_redondances": {
+          "note": 8.0,
+          "observation": "Le texte est concis et dense en informations, évitant les reformulations répétitives. Il présente les idées de manière efficace sans s'attarder, mais sans non plus développer une profondeur critique ou des nuances complexes."
+        }
+      },
+      "indices_linguistiques": [
+        "Structure tripartite classique (introduction, développement en deux parties, conclusion)",
+        "Utilisation de connecteurs logiques formels ('Néanmoins', 'Ainsi')",
+        "Fluidité et cohérence uniformes, sans aucune hésitation ou rupture",
+        "Absence totale d'erreurs grammaticales, orthographiques ou de syntaxe",
+        "Vocabulaire précis mais générique, sans exemples concrets",
+        "Ton objectif et impersonnel",
+        "Omission des exemples spécifiques demandés par la question"
+      ],
+      "prompts_plausibles": {
+        "avertissement": "Ces prompts sont des reconstructions hypothétiques. Aucun ne peut être considéré comme le prompt réellement utilisé.",
+        "liste": [
+          "Rédige une réponse argumentée sur l'impact positif et négatif des réseaux sociaux sur les relations interpersonnelles pour un examen. Inclue une introduction, un développement et une conclusion.",
+          "Analyse les avantages et les inconvénients des réseaux sociaux sur les liens humains. Structure ta réponse de manière équilibrée et utilise des transitions formelles.",
+          "Écris un court essai sur l'influence des réseaux sociaux sur les relations entre les individus, en présentant les deux côtés de l'argumentation, sans faire de fautes.",
+          "Quel est l'impact des réseaux sociaux sur les relations humaines ? Donne des arguments pour et contre, en restant concis et objectif."
+        ]
+      },
+      "conclusion": "Bien que la production d'un texte de cette qualité soit possible pour un étudiant très compétent, la combinaison d'une structure argumentative très formelle, d'une fluidité impeccable, d'une homogénéité stylistique parfaite et de l'absence totale d'imperfections humaines, associée à l'omission des exemples spécifiques demandés, rend ce texte fortement compatible avec une génération par un modèle de langage. Cette analyse constitue un signal d'alerte probabiliste.",
+      "faux_positif_risque": "MODERE",
+      "faux_positif_raison": "Un étudiant très compétent et méticuleux, ayant une excellente maîtrise de la langue et des techniques rédactionnelles académiques, pourrait produire un texte d'une qualité similaire, notamment en l'absence de contrainte de temps ou de pression d'examen qui génèrent habituellement des imperfections. La brièveté de la réponse limite également la détection de marqueurs plus subtils.",
+      "texte_reponse": "De nos jours, les réseaux sociaux sont devenus incontournables dans notre société. Ils facilitent la communication et permettent de partager des informations instantanément. Grâce à ces plateformes, les individus peuvent élargir leur cercle social et découvrir de nouvelles cultures.\n\nNéanmoins, les réseaux sociaux peuvent aussi créer une distance entre les personnes. Les interactions virtuelles ne remplacent pas les relations réelles, qui sont essentielles pour le développement des liens humains. De plus, certaines personnes deviennent dépendantes de ces outils.\n\nAinsi, même si les réseaux sociaux présentent des avantages, ils peuvent également avoir des conséquences négatives sur les relations sociales.",
+      "score_modele": 75,
+      "score_recalcule": 90,
+      "erreur": null,
+      "brut_modele": {
+        "score_suspicion": 75,
+        "classification": "PROBABLEMENT_IA",
+        "resume_executif": "L'analyse révèle un texte d'une grande fluidité, parfaitement structuré en trois parties classiques (introduction, développement positif, développement négatif, conclusion) avec des transitions formelles. L'absence totale d'imperfections linguistiques (fautes d'orthographe, de grammaire, maladresses syntaxiques) est notable. Le style est homogène et le vocabulaire précis, bien que la réponse omette de fournir les exemples concrets demandés par la question, restant à un niveau d'abstraction élevé. Ces caractéristiques combinées suggèrent une forte compatibilité avec un contenu généré par un modèle de langage.",
+        "dimensions": {
+          "structure_argumentative": {
+            "note": 8,
+            "observation": "La réponse est très clairement structurée en une introduction, un développement en deux parties (avantages, inconvénients) et une conclusion. Les transitions ('Néanmoins', 'Ainsi') sont formelles et scolaires, ce qui est très organisé pour un examen manuscrit."
+          },
+          "fluidite_coherence": {
+            "note": 9,
+            "observation": "Le texte est d'une fluidité impeccable et uniforme du début à la fin. Les phrases sont toutes bien construites, de longueur régulière et s'enchaînent logiquement sans aucune hésitation ni rupture de registre."
+          },
+          "regularite_stylistique": {
+            "note": 9,
+            "observation": "Le style est parfaitement homogène, maintenant un ton objectif et formel sans aucune variation de niveau de langue. Il n'y a aucun signe de relâchement ou de pression, ce qui est inhabituel pour une production humaine en contexte d'examen."
+          },
+          "richesse_lexicale": {
+            "note": 7,
+            "observation": "Le vocabulaire est précis et approprié au sujet ('incontournables', 'facilitent', 'élargir', 'essentielles', 'dépendantes'). Il est soutenu sans être excessivement complexe, mais reste générique et manque de la spécificité ou de la nuance qu'un scripteur humain pourrait apporter avec des exemples concrets."
+          },
+          "imperfections_humaines": {
+            "note": 10,
+            "observation": "Le texte est exempt de toute imperfection humaine : aucune faute d'orthographe, de grammaire, de ponctuation, aucune maladresse syntaxique, répétition involontaire ou familiarisme. Cette perfection est un signal fort."
+          },
+          "adequation_semantique": {
+            "note": 7,
+            "observation": "La réponse aborde bien la question des impacts positifs et négatifs. Cependant, elle omet de fournir les 'exemples' explicitement demandés par la consigne, se contentant d'arguments généraux. Cette généralisation est une caractéristique fréquente des LLM."
+          },
+          "repetitions_redondances": {
+            "note": 8,
+            "observation": "Le texte est concis et dense en informations, évitant les reformulations répétitives. Il présente les idées de manière efficace sans s'attarder, mais sans non plus développer une profondeur critique ou des nuances complexes."
+          }
+        },
+        "indices_linguistiques": [
+          "Structure tripartite classique (introduction, développement en deux parties, conclusion)",
+          "Utilisation de connecteurs logiques formels ('Néanmoins', 'Ainsi')",
+          "Fluidité et cohérence uniformes, sans aucune hésitation ou rupture",
+          "Absence totale d'erreurs grammaticales, orthographiques ou de syntaxe",
+          "Vocabulaire précis mais générique, sans exemples concrets",
+          "Ton objectif et impersonnel",
+          "Omission des exemples spécifiques demandés par la question"
+        ],
+        "prompts_plausibles": {
+          "avertissement": "Ces prompts sont des reconstructions hypothétiques. Aucun ne peut être considéré comme le prompt réellement utilisé.",
+          "liste": [
+            "Rédige une réponse argumentée sur l'impact positif et négatif des réseaux sociaux sur les relations interpersonnelles pour un examen. Inclue une introduction, un développement et une conclusion.",
+            "Analyse les avantages et les inconvénients des réseaux sociaux sur les liens humains. Structure ta réponse de manière équilibrée et utilise des transitions formelles.",
+            "Écris un court essai sur l'influence des réseaux sociaux sur les relations entre les individus, en présentant les deux côtés de l'argumentation, sans faire de fautes.",
+            "Quel est l'impact des réseaux sociaux sur les relations humaines ? Donne des arguments pour et contre, en restant concis et objectif."
+          ]
+        },
+        "conclusion": "Bien que la production d'un texte de cette qualité soit possible pour un étudiant très compétent, la combinaison d'une structure argumentative très formelle, d'une fluidité impeccable, d'une homogénéité stylistique parfaite et de l'absence totale d'imperfections humaines, associée à l'omission des exemples spécifiques demandés, rend ce texte fortement compatible avec une génération par un modèle de langage. Cette analyse constitue un signal d'alerte probabiliste.",
+        "faux_positif_risque": "ÉLEVÉ",
+        "faux_positif_raison": "Un étudiant très compétent et méticuleux, ayant une excellente maîtrise de la langue et des techniques rédactionnelles académiques, pourrait produire un texte d'une qualité similaire, notamment en l'absence de contrainte de temps ou de pression d'examen qui génèrent habituellement des imperfections. La brièveté de la réponse limite également la détection de marqueurs plus subtils."
+      }
+    }
+  ]
+}

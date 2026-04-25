@@ -2,6 +2,16 @@ import json
 import numpy as np
 from crewai.tools import tool
 
+# Global model cache to avoid reloading on every tool call
+_sbert_model = None
+
+def get_sbert_model():
+    global _sbert_model
+    if _sbert_model is None:
+        from sentence_transformers import SentenceTransformer
+        _sbert_model = SentenceTransformer("all-MiniLM-L6-v2")
+    return _sbert_model
+
 @tool("Outil de Calcul de Similarite SBERT et MinHash")
 def outil_similarite_sbert(chemin_fichier: str) -> str:
     """
@@ -10,7 +20,6 @@ def outil_similarite_sbert(chemin_fichier: str) -> str:
     Action : Lit le fichier et calcule la distance sémantique.
     Output : Un JSON listant les paires de copies suspectes.
     """
-    from sentence_transformers import SentenceTransformer
     from sklearn.metrics.pairwise import cosine_similarity
     from datasketch import MinHash
 
@@ -32,7 +41,7 @@ def outil_similarite_sbert(chemin_fichier: str) -> str:
 
     # 2. COUCHE SÉMANTIQUE SBERT (Le reste du code ne change pas)
     try:
-        model = SentenceTransformer("all-MiniLM-L6-v2") 
+        model = get_sbert_model()
         embeds = model.encode(textes, show_progress_bar=False)
         mat_sbert = cosine_similarity(embeds)
         np.fill_diagonal(mat_sbert, 0)

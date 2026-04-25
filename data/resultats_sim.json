@@ -1,5 +1,22 @@
 {
-  "clusters": [],
-  "message": "Aucune paire suspecte.",
-  "seuil_utilise": 0
+  "nb_copies_analysees": 6,
+  "nb_suspects": 4,
+  "copies_suspectes": [
+    "C01",
+    "C04",
+    "C05",
+    "C06"
+  ],
+  "clusters_fraude": [
+    {
+      "cluster_id": "Cluster_1",
+      "niveau_risque": "modere",
+      "copies": [
+        "C01",
+        "C04",
+        "C05",
+        "C06"
+      ]
+    }
+  ]
 }

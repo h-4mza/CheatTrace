@@ -124,17 +124,36 @@ RÈGLES DE CALIBRATION SUPPLÉMENTAIRES :
   - 0 à 34 = HUMAIN
   - 35 à 69 = HYBRIDE
   - 70 à 100 = PROBABLEMENT_IA
+RÈGLES CRITIQUES POUR LA DÉTECTION HYBRIDE (OBLIGATOIRE) :
 
-RÈGLES SPÉCIALES POUR LE CAS HYBRIDE :
-- Un texte hybride peut être un texte généré par IA puis simplifié, raccourci, reformulé ou légèrement fautif après intervention humaine.
-- La présence de fautes mineures, d’un vocabulaire simple ou d’un registre moins soutenu ne doit pas automatiquement conduire à une classification HUMAIN.
-- Si le texte reste globalement très générique, bien équilibré, sémantiquement “sûr”, peu personnel, sans véritable expérience vécue ni exemples précis, mais contient quelques imperfections humaines, il faut envisager la classe HYBRIDE.
-- Un texte hybride présente souvent :
-  - une structure encore trop propre ou trop équilibrée,
-  - des idées générales mais peu incarnées,
-  - une fluidité globale encore préservée malgré quelques maladresses locales,
-  - une absence d’authentiques traces de pensée spontanée.
-- Dans le doute entre HUMAIN et HYBRIDE, si plusieurs signaux IA faibles persistent malgré quelques fautes humaines, privilégier HYBRIDE plutôt que HUMAIN.
+- Un texte peut être généré par IA puis modifié par un humain (simplification, fautes, reformulation).
+- La présence de fautes, d’un vocabulaire simple ou d’un style imparfait NE signifie PAS automatiquement HUMAIN.
+
+- Un texte HYBRIDE présente souvent :
+  - une structure logique claire et équilibrée
+  - une réponse générique (peu d’exemples personnels)
+  - une cohérence globale correcte
+  - mais avec quelques imperfections humaines locales
+
+- IMPORTANT :
+Si le texte contient à la fois :
+  ✔ une structure cohérente (≥5)
+  ✔ une fluidité correcte (≥5)
+  ✔ une réponse pertinente (≥5)
+  ✔ ET quelques imperfections humaines
+
+→ ALORS classer HYBRIDE (et non HUMAIN)
+
+- Un texte HUMAIN réel contient souvent :
+  - des idées désorganisées
+  - des ruptures logiques
+  - des exemples personnels concrets
+  - une progression irrégulière
+
+- Si ces éléments sont absents → ne pas classer HUMAIN
+
+RÈGLE FORTE :
+En cas d’ambiguïté entre HUMAIN et HYBRIDE → choisir HYBRIDE.
 
 CONSIGNES POUR LES NOTES PAR DIMENSION :
 - Les notes doivent être réellement discriminantes.
@@ -215,7 +234,37 @@ def normaliser_classification(score: int) -> str:
     return "PROBABLEMENT_IA"
 
 
+def corriger_dimensions(dimensions: dict) -> dict:
+    def get_note(name):
+        try:
+            return float(dimensions.get(name, {}).get("note", 0))
+        except:
+            return 0.0
+
+    def set_note(name, val):
+        if name not in dimensions:
+            dimensions[name] = {}
+        dimensions[name]["note"] = val
+
+    structure = get_note("structure_argumentative")
+    fluidite = get_note("fluidite_coherence")
+    adequation = get_note("adequation_semantique")
+
+    # 🔥 floor for obviously structured text
+  # 🔥 Apply correction ONLY if text shows structure
+    if (
+        structure >= 3 and
+        fluidite >= 3
+    ):
+        if structure < 4:
+            set_note("structure_argumentative", 4)
+        if fluidite < 4:
+            set_note("fluidite_coherence", 4)
+
+    return dimensions
+
 def recalculer_score_depuis_dimensions(dimensions: dict) -> int:
+
     def get_note(nom: str) -> float:
         bloc = dimensions.get(nom, {})
         if not isinstance(bloc, dict):
@@ -223,7 +272,7 @@ def recalculer_score_depuis_dimensions(dimensions: dict) -> int:
         note = bloc.get("note", 0)
         try:
             note = float(note)
-        except Exception:
+        except:
             note = 0.0
         return max(0.0, min(10.0, note))
 
@@ -235,77 +284,110 @@ def recalculer_score_depuis_dimensions(dimensions: dict) -> int:
     adequation = get_note("adequation_semantique")
     repetitions = get_note("repetitions_redondances")
 
-    poids = {
-        "structure": 0.18,
-        "fluidite": 0.16,
-        "regularite": 0.17,
-        "richesse": 0.08,
-        "imperfections": 0.16,
-        "adequation": 0.13,
-        "repetitions": 0.12,
-    }
-
+    # --- BASE WEIGHTED SCORE ---
     score_0_10 = (
-        structure * poids["structure"]
-        + fluidite * poids["fluidite"]
-        + regularite * poids["regularite"]
-        + richesse * poids["richesse"]
-        + imperfections * poids["imperfections"]
-        + adequation * poids["adequation"]
-        + repetitions * poids["repetitions"]
+        structure * 0.18 +
+        fluidite * 0.18 +
+        regularite * 0.15 +
+        richesse * 0.10 +
+        imperfections * 0.17 +
+        adequation * 0.12 +
+        repetitions * 0.10
     )
 
+    # ===============================
+    # 🔥 HYBRID SIMPLE STRUCTURE BOOST
+    # ===============================
     if (
-        structure >= 5
-        and fluidite >= 5
-        and regularite >= 5
-        and 2 <= imperfections <= 7
+        structure >= 4 and
+        fluidite >= 4 and
+        richesse <= 3 and
+        imperfections <= 4
     ):
-        score_0_10 += 0.6
+        score_0_10 += 1.5
 
+
+    # ===============================
+    # 🔥 CONTRADICTION BOOST
+    # ===============================
+    contradiction = abs(structure - imperfections)
+
+    if contradiction >= 3:
+        score_0_10 += 0.8
+
+
+    # ===============================
+    # 🔥 HYBRID BOOST (CRITICAL FIX)
+    # ===============================
     if (
-        structure >= 4
-        and regularite >= 5
-        and adequation >= 3
-        and fluidite >= 3
-        and imperfections <= 2
-        and repetitions <= 3
+        structure >= 5 and
+        fluidite >= 5 and
+        adequation >= 5 and
+        2 <= imperfections <= 7
     ):
-        score_0_10 += 0.9
+        score_0_10 += 1.2
 
+    # ===============================
+    # 🔥 PREVENT "FAKE HUMAN" CASE
+    # ===============================
     if (
-        structure >= 4
-        and regularite >= 4
-        and fluidite >= 3
-        and richesse <= 3
-        and adequation >= 3
-        and imperfections <= 3
+        structure >= 6 and
+        adequation >= 6 and
+        score_0_10 < 3
+    ):
+        score_0_10 = 3.5
+
+    # ===============================
+    # 🔥 MINIMUM SUSPICION FLOOR
+    # ===============================
+    if (
+        structure >= 6 and
+        fluidite >= 6
+    ):
+        score_0_10 = max(score_0_10, 4.0)
+
+    # ===============================
+    # 🔴 STRONG IA DETECTION (KEEP)
+    # ===============================
+    if (
+        structure >= 8 and
+        fluidite >= 8 and
+        regularite >= 8 and
+        imperfections >= 8
     ):
         score_0_10 += 0.5
 
+    # ===============================
+    # 🟢 STRONG HUMAN SIGNAL
+    # ===============================
     if (
-        structure >= 8
-        and fluidite >= 8
-        and regularite >= 8
-        and imperfections >= 8
+        fluidite <= 3 and
+        richesse <= 3 and
+        imperfections <= 3
     ):
-        score_0_10 += 0.5
+        score_0_10 -= 0.8
 
+    # ===============================
+    # 🔥 LOW SCORE GUARD
+    # ===============================
+   # 🔥 apply guard ONLY if NOT strongly human
     if (
-        fluidite <= 3
-        and imperfections <= 3
-        and richesse <= 3
-        and structure <= 3
+        structure >= 4 and
+        fluidite >= 4 and
+        score_0_10 < 4 and
+        imperfections >= 3
     ):
-        score_0_10 -= 0.45
+        score_0_10 = 4.5
 
+    # ===============================
+    # 🟢 STRONG HUMAN OVERRIDE
+    # ===============================
     if (
-        imperfections <= 2
-        and fluidite <= 2
-        and regularite <= 3
-        and structure <= 3
+        imperfections >= 7 and
+        structure <= 4 and
+        fluidite <= 4
     ):
-        score_0_10 -= 0.35
+        score_0_10 -= 1.5
 
     score_0_10 = max(0.0, min(10.0, score_0_10))
     return int(round(score_0_10 * 10))
@@ -323,8 +405,47 @@ def normaliser_sortie(data: dict) -> dict:
     if not isinstance(dims, dict):
         dims = {}
 
+    dims = corriger_dimensions(dims)  # 🔥 ADD THIS LINE
+
+
     score = recalculer_score_depuis_dimensions(dims)
     classification = normaliser_classification(score)
+
+    # ===============================
+    # 🔥 HYBRID SAFETY OVERRIDE
+    # ===============================
+    def safe_note(name):
+        try:
+            return round(float(dims.get(name, {}).get("note", 0)))
+        except:
+            return 0.0
+
+    structure = safe_note("structure_argumentative")
+    fluidite = safe_note("fluidite_coherence")
+    imperfections = safe_note("imperfections_humaines")
+
+    if (
+        structure >= 4 and
+        fluidite >= 4 and
+        2 <= imperfections <= 6
+    ):
+        classification = "HYBRIDE"
+        if score >= 70:
+            score = 65
+
+
+    # ===============================
+    # 🟢 HUMAN SAFETY OVERRIDE
+    # ===============================
+    if (
+        imperfections >= 7 and
+        structure <= 5 and
+        fluidite <= 5
+    ):
+        classification = "HUMAIN"
+        if score > 30:
+            score = 25
+
 
     prompts = data.get("prompts_plausibles", {})
     if not isinstance(prompts, dict):

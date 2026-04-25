@@ -137,7 +137,7 @@ def main():
         resultat_json = {"resultats": [], "erreur": "Format de sortie invalide"}
 
     # Sauvegarder le résultat NLP
-    chemin_sortie = os.path.abspath(os.path.join(script_dir, "..", "data", "resultats_nlp.json"))
+    chemin_sortie = os.path.abspath(os.path.join(script_dir, "..", "data", f"resultats_nlp_{session_id}.json"))
     os.makedirs(os.path.dirname(chemin_sortie), exist_ok=True)
     with open(chemin_sortie, "w", encoding="utf-8") as f:
         json.dump(resultat_json, f, ensure_ascii=False, indent=2)

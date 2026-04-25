@@ -124,7 +124,7 @@ def main():
     resultat_json = extraire_json_verdict(str(resultat_brut))
 
     # Sauvegarder le résultat Similarité
-    chemin_sortie = os.path.abspath(os.path.join(script_dir, "..", "data", "resultats_sim.json"))
+    chemin_sortie = os.path.abspath(os.path.join(script_dir, "..", "data", f"resultats_sim_{session_id}.json"))
     os.makedirs(os.path.dirname(chemin_sortie), exist_ok=True)
     with open(chemin_sortie, "w", encoding="utf-8") as f:
         json.dump(resultat_json, f, ensure_ascii=False, indent=2)
