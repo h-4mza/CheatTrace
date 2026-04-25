@@ -15,13 +15,13 @@ def get_sbert_model():
 @tool("Outil de Calcul de Similarite SBERT et MinHash")
 def outil_similarite_sbert(chemin_fichier: str) -> str:
     """
-    Outil mathématique pour calculer la similarité entre un lot de copies.
+    Outil mathématique avancé pour calculer la similarité entre un lot de copies.
     Input : Le chemin absolu vers le fichier JSON des copies.
-    Action : Lit le fichier et calcule la distance sémantique.
+    Action : Lit le fichier et calcule une distance sémantique (SBERT) et lexicale (TF-IDF) avec pénalité de disparité.
     Output : Un JSON listant les paires de copies suspectes.
     """
     from sklearn.metrics.pairwise import cosine_similarity
-    from datasketch import MinHash
+    from sklearn.feature_extraction.text import TfidfVectorizer
 
     # 1. LECTURE DU FICHIER SUR LE DISQUE
     try:
@@ -33,13 +33,13 @@ def outil_similarite_sbert(chemin_fichier: str) -> str:
         return f'{{"erreur": "Impossible de lire le fichier {chemin_fichier} : {str(e)}"}}'
 
     ids = [c["copie_id"] for c in copies_valides]
-    textes = [c["texte_complet"] for c in copies_valides]
+    textes = [c["texte_complet"].lower() for c in copies_valides]
     n = len(copies_valides)
 
     if n < 2:
         return '{"paires_suspectes": []}'
 
-    # 2. COUCHE SÉMANTIQUE SBERT (Le reste du code ne change pas)
+    # 2. COUCHE SÉMANTIQUE (SBERT)
     try:
         model = get_sbert_model()
         embeds = model.encode(textes, show_progress_bar=False)
@@ -49,35 +49,45 @@ def outil_similarite_sbert(chemin_fichier: str) -> str:
         print(f"Attention: Erreur SBERT ({e}).")
         mat_sbert = np.zeros((n, n))
 
-    def get_shingles(texte, k=5):
-        mots = texte.lower().split()
-        return set(" ".join(mots[i:i+k]) for i in range(max(1, len(mots)-k+1)))
+    # 3. COUCHE LEXICALE (TF-IDF - Remplace MinHash)
+    try:
+        vectorizer = TfidfVectorizer(ngram_range=(1, 3), stop_words='english', max_df=0.95, min_df=1)
+        tfidf_matrix = vectorizer.fit_transform(textes)
+        mat_tfidf = cosine_similarity(tfidf_matrix)
+        np.fill_diagonal(mat_tfidf, 0)
+    except Exception as e:
+        print(f"Attention: Erreur TF-IDF ({e}).")
+        mat_tfidf = np.zeros((n, n))
 
-    minhashes = []
-    for texte in textes:
-        m = MinHash(num_perm=128)
-        for shingle in get_shingles(texte):
-            m.update(shingle.encode("utf-8"))
-        minhashes.append(m)
-
+    # 4. FUSION ET PÉNALITÉ DE DISPARITÉ (LENGTH PENALTY)
     paires = []
     for i in range(n):
         for j in range(i+1, n):
             s_sbert = float(mat_sbert[i][j])
-            s_minhash = minhashes[i].jaccard(minhashes[j])
+            s_tfidf = float(mat_tfidf[i][j])
             
-            # On donne beaucoup plus de poids au sens (SBERT) qu'aux mots exacts (MinHash)
-            # pour détecter la reformulation d'idées (triche intelligente)
-            s_combine = (0.80 * s_sbert) + (0.20 * s_minhash)
+            # La similarité globale est le max des deux (soit copié-collé exact, soit paraphrasé)
+            s_base = max(s_sbert, s_tfidf) * 0.7 + ((s_sbert + s_tfidf) / 2) * 0.3
             
-            # Seuil abaissé pour capter des reformulations plus larges
-            if s_combine > 0.30:
+            # Pénalité de disparité de taille
+            len_i = len(textes[i])
+            len_j = len(textes[j])
+            ratio_taille = min(len_i, len_j) / max(len_i, len_j)
+            
+            # Si une copie est plus de 2x plus grande que l'autre, on applique une pénalité exponentielle
+            penalty = 1.0
+            if ratio_taille < 0.5:
+                penalty = ratio_taille + 0.5 # Ex: ratio 0.2 -> penalty 0.7. (score réduit de 30%)
+                
+            s_final = s_base * penalty
+            
+            if s_final > 0.35: # Seuil minimum de pertinence
                 paires.append({
                     "copie_a": ids[i],
                     "copie_b": ids[j],
                     "score_sbert": round(s_sbert, 3),
-                    "score_minhash": round(s_minhash, 3),
-                    "score_combine": round(s_combine, 3)
+                    "score_tfidf": round(s_tfidf, 3),
+                    "score_combine": round(s_final, 3)
                 })
 
     paires.sort(key=lambda x: -x["score_combine"])
@@ -86,12 +96,13 @@ def outil_similarite_sbert(chemin_fichier: str) -> str:
 @tool("Outil de Clustering de Fraude")
 def outil_clustering(paires_json_str: str) -> str:
     """
-    Outil d'analyse de réseau.
+    Outil d'analyse de réseau (Community Detection).
     Input : Le JSON généré par l'Outil de Calcul de Similarite (contenant 'paires_suspectes').
-    Action : Calcule un seuil adaptatif de triche et regroupe les fraudeurs en clusters.
+    Action : Utilise l'algorithme de Louvain pour trouver des communautés denses de fraudeurs sans faux positifs.
     Output : Un JSON listant les clusters de fraude organisée et le seuil utilisé.
     """
     import networkx as nx
+    from networkx.algorithms import community
 
     try:
         data = json.loads(paires_json_str)
@@ -102,13 +113,13 @@ def outil_clustering(paires_json_str: str) -> str:
     if not paires:
         return '{"seuil_utilise": 0.0, "clusters": [], "message": "Aucune paire suspecte."}'
 
-    # 1. Calcul du Seuil Adaptatif (Le bruit de fond de la classe)
+    # 1. Filtrage dynamique (Garder uniquement le top)
     scores = [p["score_combine"] for p in paires]
     moyenne = float(np.mean(scores))
     ecart_type = float(np.std(scores))
     
-    # Seuil assoupli : moyenne + 1 ecart-type (au lieu de 2) pour lier plus facilement les fraudeurs qui reformulent
-    seuil = min(moyenne + (1.0 * ecart_type), 0.85)
+    # Seuil dynamique de confiance
+    seuil = min(moyenne + (1.0 * ecart_type), 0.80)
 
     # 2. Modélisation du Graphe
     G = nx.Graph()
@@ -116,26 +127,56 @@ def outil_clustering(paires_json_str: str) -> str:
         if p["score_combine"] >= seuil:
             G.add_edge(p["copie_a"], p["copie_b"], weight=p["score_combine"])
 
-    # 3. Extraction des Composantes Connexes (Les Clusters)
-    clusters_out = []
-    for cid, composante in enumerate(nx.connected_components(G), 1):
-        if len(composante) > 1:
-            membres = sorted(list(composante))
-            
-            # On récupère les scores moyens au sein de ce cluster
-            scores_cluster = [
-                p["score_combine"] for p in paires 
-                if p["copie_a"] in membres and p["copie_b"] in membres
-            ]
-            score_moyen = float(np.mean(scores_cluster)) if scores_cluster else 0.0
-            niveau = "eleve" if score_moyen >= 0.80 else "modere"
+    if G.number_of_edges() == 0:
+        return json.dumps({
+            "seuil_utilise_statistique": round(seuil, 3),
+            "nb_clusters_trouves": 0,
+            "clusters": []
+        }, ensure_ascii=False)
 
-            clusters_out.append({
-                "cluster_id": cid,
-                "copies": membres,
-                "score_moyen": round(score_moyen, 3),
-                "niveau_risque": niveau
-            })
+    # 3. Extraction par Détection de Communautés (Algorithme de Louvain / Modularity)
+    # Empêche l'effet de chaîne des composantes connexes.
+    clusters_out = []
+    
+    # On utilise Louvain Communities s'il est dispo, sinon on fallback sur connected_components propre
+    try:
+        if hasattr(nx.community, 'louvain_communities'):
+            communautes = list(nx.community.louvain_communities(G, weight='weight'))
+        else:
+            communautes = list(nx.community.greedy_modularity_communities(G, weight='weight'))
+            
+        for cid, com in enumerate(communautes, 1):
+            membres = sorted(list(com))
+            if len(membres) > 1:
+                # Filtrage supplémentaire : Vérifier que le sous-graphe est vraiment dense (Cliques)
+                sub_g = G.subgraph(membres)
+                densite = nx.density(sub_g)
+                
+                # Si la communauté a été formée juste par un lien très faible, on la skip ou la re-sépare
+                if densite < 0.3 and len(membres) > 3:
+                    continue # On ignore les chaînes bizarres très éparses
+                
+                scores_cluster = [d['weight'] for u, v, d in sub_g.edges(data=True)]
+                score_moyen = float(np.mean(scores_cluster)) if scores_cluster else 0.0
+                niveau = "eleve" if score_moyen >= 0.80 else "modere"
+
+                clusters_out.append({
+                    "cluster_id": cid,
+                    "copies": membres,
+                    "score_moyen": round(score_moyen, 3),
+                    "niveau_risque": niveau
+                })
+    except Exception as e:
+        # Fallback de sécurité si les communautés échouent
+        for cid, composante in enumerate(nx.connected_components(G), 1):
+            if len(composante) > 1:
+                membres = sorted(list(composante))
+                clusters_out.append({
+                    "cluster_id": cid,
+                    "copies": membres,
+                    "score_moyen": 0.0,
+                    "niveau_risque": "modere"
+                })
 
     return json.dumps({
         "seuil_utilise_statistique": round(seuil, 3),
