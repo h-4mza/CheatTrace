@@ -2,6 +2,7 @@ import os
 import json
 import time
 import re
+import concurrent.futures
 from crewai.tools import tool
 from dotenv import load_dotenv
 import google.generativeai as genai
@@ -14,8 +15,8 @@ SEUIL_HUMAIN_MAX = 29
 SEUIL_HYBRIDE_MAX = 69
 SEUIL_IA_MIN = 70
 
-NB_RETRIES_429 = 3
-DELAI_RETRY_BASE = 6.0
+NB_RETRIES_429 = 4
+DELAI_RETRY_BASE = 15.0  # Augmenté pour gérer les quotas sévères en parallèle
 
 
 SYSTEM_PROMPT_FORENSIQUE = """
@@ -182,14 +183,14 @@ def extraire_retry_delay(message: str):
     if not message:
         return None
 
-    m = re.search(r"retry in\\s+([0-9]+(?:\\.[0-9]+)?)s", message, re.IGNORECASE)
+    m = re.search(r"retry in\s+([0-9]+(?:\.[0-9]+)?)s", message, re.IGNORECASE)
     if m:
         try:
             return float(m.group(1)) + 1.0
         except Exception:
             pass
 
-    m = re.search(r"seconds:\\s*([0-9]+)", message, re.IGNORECASE)
+    m = re.search(r"seconds:\s*([0-9]+)", message, re.IGNORECASE)
     if m:
         try:
             return float(m.group(1)) + 1.0
@@ -207,7 +208,7 @@ def extraire_json(texte: str) -> dict:
     except Exception:
         pass
 
-    match = re.search(r"```json\\s*(\\{.*?\\})\\s*```", texte, re.DOTALL)
+    match = re.search(r"```json\s*(\{.*?\})\s*```", texte, re.DOTALL)
     if match:
         try:
             return json.loads(match.group(1))
@@ -248,23 +249,14 @@ def corriger_dimensions(dimensions: dict) -> dict:
 
     structure = get_note("structure_argumentative")
     fluidite = get_note("fluidite_coherence")
-    adequation = get_note("adequation_semantique")
 
-    # 🔥 floor for obviously structured text
-  # 🔥 Apply correction ONLY if text shows structure
-    if (
-        structure >= 3 and
-        fluidite >= 3
-    ):
-        if structure < 4:
-            set_note("structure_argumentative", 4)
-        if fluidite < 4:
-            set_note("fluidite_coherence", 4)
+    if (structure >= 3 and fluidite >= 3):
+        if structure < 4: set_note("structure_argumentative", 4)
+        if fluidite < 4: set_note("fluidite_coherence", 4)
 
     return dimensions
 
 def recalculer_score_depuis_dimensions(dimensions: dict) -> int:
-
     def get_note(nom: str) -> float:
         bloc = dimensions.get(nom, {})
         if not isinstance(bloc, dict):
@@ -284,7 +276,6 @@ def recalculer_score_depuis_dimensions(dimensions: dict) -> int:
     adequation = get_note("adequation_semantique")
     repetitions = get_note("repetitions_redondances")
 
-    # --- BASE WEIGHTED SCORE ---
     score_0_10 = (
         structure * 0.18 +
         fluidite * 0.18 +
@@ -295,98 +286,32 @@ def recalculer_score_depuis_dimensions(dimensions: dict) -> int:
         repetitions * 0.10
     )
 
-    # ===============================
-    # 🔥 HYBRID SIMPLE STRUCTURE BOOST
-    # ===============================
-    if (
-        structure >= 4 and
-        fluidite >= 4 and
-        richesse <= 3 and
-        imperfections <= 4
-    ):
+    if (structure >= 4 and fluidite >= 4 and richesse <= 3 and imperfections <= 4):
         score_0_10 += 1.5
 
-
-    # ===============================
-    # 🔥 CONTRADICTION BOOST
-    # ===============================
     contradiction = abs(structure - imperfections)
-
     if contradiction >= 3:
         score_0_10 += 0.8
 
-
-    # ===============================
-    # 🔥 HYBRID BOOST (CRITICAL FIX)
-    # ===============================
-    if (
-        structure >= 5 and
-        fluidite >= 5 and
-        adequation >= 5 and
-        2 <= imperfections <= 7
-    ):
+    if (structure >= 5 and fluidite >= 5 and adequation >= 5 and 2 <= imperfections <= 7):
         score_0_10 += 1.2
 
-    # ===============================
-    # 🔥 PREVENT "FAKE HUMAN" CASE
-    # ===============================
-    if (
-        structure >= 6 and
-        adequation >= 6 and
-        score_0_10 < 3
-    ):
+    if (structure >= 6 and adequation >= 6 and score_0_10 < 3):
         score_0_10 = 3.5
 
-    # ===============================
-    # 🔥 MINIMUM SUSPICION FLOOR
-    # ===============================
-    if (
-        structure >= 6 and
-        fluidite >= 6
-    ):
+    if (structure >= 6 and fluidite >= 6):
         score_0_10 = max(score_0_10, 4.0)
 
-    # ===============================
-    # 🔴 STRONG IA DETECTION (KEEP)
-    # ===============================
-    if (
-        structure >= 8 and
-        fluidite >= 8 and
-        regularite >= 8 and
-        imperfections >= 8
-    ):
+    if (structure >= 8 and fluidite >= 8 and regularite >= 8 and imperfections >= 8):
         score_0_10 += 0.5
 
-    # ===============================
-    # 🟢 STRONG HUMAN SIGNAL
-    # ===============================
-    if (
-        fluidite <= 3 and
-        richesse <= 3 and
-        imperfections <= 3
-    ):
+    if (fluidite <= 3 and richesse <= 3 and imperfections <= 3):
         score_0_10 -= 0.8
 
-    # ===============================
-    # 🔥 LOW SCORE GUARD
-    # ===============================
-   # 🔥 apply guard ONLY if NOT strongly human
-    if (
-        structure >= 4 and
-        fluidite >= 4 and
-        score_0_10 < 4 and
-        imperfections >= 3
-    ):
+    if (structure >= 4 and fluidite >= 4 and score_0_10 < 4 and imperfections >= 3):
         score_0_10 = 4.5
 
-    # ===============================
-    # 🟢 STRONG HUMAN OVERRIDE
-    # ===============================
-    if (
-        imperfections >= 7 and
-        structure <= 4 and
-        fluidite <= 4
-    ):
+    if (imperfections >= 7 and structure <= 4 and fluidite <= 4):
         score_0_10 -= 1.5
 
     score_0_10 = max(0.0, min(10.0, score_0_10))
@@ -405,15 +330,10 @@ def normaliser_sortie(data: dict) -> dict:
     if not isinstance(dims, dict):
         dims = {}
 
-    dims = corriger_dimensions(dims)  # 🔥 ADD THIS LINE
-
-
+    dims = corriger_dimensions(dims)
     score = recalculer_score_depuis_dimensions(dims)
     classification = normaliser_classification(score)
 
-    # ===============================
-    # 🔥 HYBRID SAFETY OVERRIDE
-    # ===============================
     def safe_note(name):
         try:
             return round(float(dims.get(name, {}).get("note", 0)))
@@ -424,28 +344,15 @@ def normaliser_sortie(data: dict) -> dict:
     fluidite = safe_note("fluidite_coherence")
     imperfections = safe_note("imperfections_humaines")
 
-    if (
-        structure >= 4 and
-        fluidite >= 4 and
-        2 <= imperfections <= 6
-    ):
+    if (structure >= 4 and fluidite >= 4 and 2 <= imperfections <= 6):
         classification = "HYBRIDE"
         if score >= 70:
             score = 65
 
-
-    # ===============================
-    # 🟢 HUMAN SAFETY OVERRIDE
-    # ===============================
-    if (
-        imperfections >= 7 and
-        structure <= 5 and
-        fluidite <= 5
-    ):
+    if (imperfections >= 7 and structure <= 5 and fluidite <= 5):
         classification = "HUMAIN"
         if score > 30:
             score = 25
-
 
     prompts = data.get("prompts_plausibles", {})
     if not isinstance(prompts, dict):
@@ -521,7 +428,7 @@ class ClientGeminiForensique:
         self.model = genai.GenerativeModel(GEMINI_MODEL)
 
     def appeler_json(self, question: str, texte_reponse: str) -> dict:
-        prompt_complet = f"{SYSTEM_PROMPT_FORENSIQUE}\\n\\n{construire_user_prompt(question, texte_reponse)}"
+        prompt_complet = f"{SYSTEM_PROMPT_FORENSIQUE}\n\n{construire_user_prompt(question, texte_reponse)}"
         dernier_echec = None
 
         for tentative in range(1, NB_RETRIES_429 + 1):
@@ -548,6 +455,72 @@ class ClientGeminiForensique:
 
         raise dernier_echec
 
+def process_single_copy(copie, client):
+    copie_id = copie.get("copie_id", "Inconnu")
+    question = copie.get("question", "")
+    texte = copie.get("texte_complet", "")
+
+    if len(texte.strip()) < 20:
+        return None
+
+    print(f"   -> Analyse de la copie {copie_id}...")
+
+    try:
+        brut = client.appeler_json(question, texte)
+        propre = normaliser_sortie(brut)
+
+        classification = propre.get("classification", "HUMAIN")
+        if classification == "PROBABLEMENT_IA":
+            niveau_risque = "eleve"
+        elif classification == "HYBRIDE":
+            niveau_risque = "modere"
+        else:
+            niveau_risque = "faible"
+
+        preuves_ia = propre.get("indices_linguistiques", [])[:6]
+        preuves_humain = []
+        dims = propre.get("dimensions", {})
+
+        imp = dims.get("imperfections_humaines", {})
+        obs_imp = imp.get("observation", "")
+        if obs_imp:
+            preuves_humain.append(obs_imp)
+
+        return {
+            "copie_id": copie_id,
+            "score_ia": propre.get("score_suspicion", 0),
+            "niveau_risque": niveau_risque,
+            "classification": classification,
+            "preuves_ia": preuves_ia,
+            "preuves_humain": preuves_humain,
+            "synthese": propre.get("resume_executif", ""),
+            "details_complets": {
+                "score_modele": propre.get("score_modele"),
+                "score_recalcule": propre.get("score_recalcule"),
+                "classification_modele": propre.get("classification_modele"),
+                "classification_finale": propre.get("classification"),
+                "dimensions": propre.get("dimensions"),
+                "indices_linguistiques": propre.get("indices_linguistiques"),
+                "prompts_plausibles": propre.get("prompts_plausibles"),
+                "conclusion": propre.get("conclusion"),
+                "faux_positif_risque": propre.get("faux_positif_risque"),
+                "faux_positif_raison": propre.get("faux_positif_raison"),
+            }
+        }
+
+    except Exception as e:
+        print(f"   [!] Erreur sur {copie_id}: {str(e)}")
+        return {
+            "copie_id": copie_id,
+            "score_ia": None,
+            "niveau_risque": "erreur",
+            "classification": "ERREUR_ANALYSE",
+            "preuves_ia": [],
+            "preuves_humain": [],
+            "synthese": "Échec de l'analyse IA.",
+            "details_complets": {"erreur": str(e)}
+        }
+
 
 @tool("Outil de Detection Stylometrique Globale")
 def outil_detection_ia(chemin_fichier: str) -> str:
@@ -569,75 +542,23 @@ def outil_detection_ia(chemin_fichier: str) -> str:
         return json.dumps({"erreur": f"Initialisation Gemini impossible: {str(e)}"}, ensure_ascii=False)
 
     resultats_globaux = []
-    print("\\n[Outil NLP] 🚀 Début de l'analyse Gemini des copies...")
+    print("\n[Outil NLP] 🚀 Début de l'analyse Gemini des copies en PARALLÈLE...")
 
-    for copie in copies:
-        copie_id = copie.get("copie_id", "Inconnu")
-        question = copie.get("question", "")
-        texte = copie.get("texte_complet", "")
+    # Utilisation d'un ThreadPoolExecutor pour analyser plusieurs copies en même temps
+    # Max_workers est limité à 4 pour ne pas surcharger les quotas "Free Tier" de l'API Gemini
+    # tout en restant beaucoup plus rapide qu'une exécution séquentielle.
+    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
+        futures = {executor.submit(process_single_copy, copie, client): copie for copie in copies}
+        
+        for future in concurrent.futures.as_completed(futures):
+            res = future.result()
+            if res is not None:
+                resultats_globaux.append(res)
+            # Petit délai pour ménager l'API
+            time.sleep(0.5)
 
-        if len(texte.strip()) < 20:
-            continue
+    # Tri pour garder l'ordre d'origine
+    resultats_globaux.sort(key=lambda x: x.get("copie_id", ""))
 
-        print(f"   -> Analyse de la copie {copie_id}...")
-
-        try:
-            brut = client.appeler_json(question, texte)
-            propre = normaliser_sortie(brut)
-
-            classification = propre.get("classification", "HUMAIN")
-            if classification == "PROBABLEMENT_IA":
-                niveau_risque = "eleve"
-            elif classification == "HYBRIDE":
-                niveau_risque = "modere"
-            else:
-                niveau_risque = "faible"
-
-            preuves_ia = propre.get("indices_linguistiques", [])[:6]
-            preuves_humain = []
-            dims = propre.get("dimensions", {})
-
-            imp = dims.get("imperfections_humaines", {})
-            obs_imp = imp.get("observation", "")
-            if obs_imp:
-                preuves_humain.append(obs_imp)
-
-            resultat_compatible = {
-                "copie_id": copie_id,
-                "score_ia": propre.get("score_suspicion", 0),
-                "niveau_risque": niveau_risque,
-                "classification": classification,
-                "preuves_ia": preuves_ia,
-                "preuves_humain": preuves_humain,
-                "synthese": propre.get("resume_executif", ""),
-                "details_complets": {
-                    "score_modele": propre.get("score_modele"),
-                    "score_recalcule": propre.get("score_recalcule"),
-                    "classification_modele": propre.get("classification_modele"),
-                    "classification_finale": propre.get("classification"),
-                    "dimensions": propre.get("dimensions"),
-                    "indices_linguistiques": propre.get("indices_linguistiques"),
-                    "prompts_plausibles": propre.get("prompts_plausibles"),
-                    "conclusion": propre.get("conclusion"),
-                    "faux_positif_risque": propre.get("faux_positif_risque"),
-                    "faux_positif_raison": propre.get("faux_positif_raison"),
-                }
-            }
-
-            resultats_globaux.append(resultat_compatible)
-
-        except Exception as e:
-            print(f"   [!] Erreur sur {copie_id}: {str(e)}")
-            resultats_globaux.append({
-                "copie_id": copie_id,
-                "score_ia": None,
-                "niveau_risque": "erreur",
-                "classification": "ERREUR_ANALYSE",
-                "preuves_ia": [],
-                "preuves_humain": [],
-                "synthese": "Échec de l'analyse IA.",
-                "details_complets": {"erreur": str(e)}
-            })
-
-    print("[Outil NLP] ✅ Analyse terminée.\\n")
+    print("[Outil NLP] ✅ Analyse terminée.\n")
     return json.dumps({"resultats_stylometrie": resultats_globaux}, ensure_ascii=False)
