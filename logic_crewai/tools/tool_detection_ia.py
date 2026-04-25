@@ -71,7 +71,7 @@ Fonde ton évaluation exclusivement sur les dimensions suivantes. Pour chacune, 
 - PROBABLEMENT_IA
 
 ## EXTRAITS SUSPECTS
-Si tu identifies des phrases ou paragraphes qui sont de très forts indicateurs d'une génération par IA (vocabulaire trop soutenu, transition artificielle, "hallucination", formatage typique), cite-les EXACTEMENT tels qu'ils apparaissent dans le texte et justifie pourquoi. Si le texte est très humain, retourne une liste vide.
+Si tu classes la copie en PROBABLEMENT_IA ou HYBRIDE, tu DOIS OBLIGATOIREMENT extraire au moins 1 ou 2 phrases spécifiques qui justifient cette décision (ex: vocabulaire trop soutenu, transition artificielle, "hallucination", formatage typique). Cite-les EXACTEMENT tels qu'ils apparaissent dans le texte de l'étudiant et justifie pourquoi elles te semblent artificielles. Si le texte est classé HUMAIN, retourne une liste vide.
 
 ## PROMPTS PLAUSIBLES
 
