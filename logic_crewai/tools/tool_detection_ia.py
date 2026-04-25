@@ -70,6 +70,9 @@ Fonde ton évaluation exclusivement sur les dimensions suivantes. Pour chacune, 
 - HYBRIDE
 - PROBABLEMENT_IA
 
+## EXTRAITS SUSPECTS
+Si tu identifies des phrases ou paragraphes qui sont de très forts indicateurs d'une génération par IA (vocabulaire trop soutenu, transition artificielle, "hallucination", formatage typique), cite-les EXACTEMENT tels qu'ils apparaissent dans le texte et justifie pourquoi. Si le texte est très humain, retourne une liste vide.
+
 ## PROMPTS PLAUSIBLES
 
 Génère entre 3 et 5 prompts qu'un étudiant aurait pu soumettre à un LLM pour obtenir une réponse proche. Ce sont des reconstructions hypothétiques, jamais le prompt exact.
@@ -99,6 +102,9 @@ Génère entre 3 et 5 prompts qu'un étudiant aurait pu soumettre à un LLM pour
   },
   "indices_linguistiques": [
     <string>
+  ],
+  "extraits_suspects": [
+    { "texte": "<citation exacte>", "justification": "<explication>" }
   ],
   "prompts_plausibles": {
     "avertissement": "Ces prompts sont des reconstructions hypothétiques. Aucun ne peut être considéré comme le prompt réellement utilisé.",
@@ -501,6 +507,7 @@ def process_single_copy(copie, client):
                 "classification_finale": propre.get("classification"),
                 "dimensions": propre.get("dimensions"),
                 "indices_linguistiques": propre.get("indices_linguistiques"),
+                "extraits_suspects": propre.get("extraits_suspects", []),
                 "prompts_plausibles": propre.get("prompts_plausibles"),
                 "conclusion": propre.get("conclusion"),
                 "faux_positif_risque": propre.get("faux_positif_risque"),

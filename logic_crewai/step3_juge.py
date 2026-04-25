@@ -215,6 +215,15 @@ def main():
                     md += "- Aucun indice spécifique relevé.\n"
                 md += "\n"
                 
+                extraits = details.get('extraits_suspects', [])
+                if extraits:
+                    md += "#### 🚨 Extraits Suspects (Générés par IA)\n"
+                    for ext in extraits:
+                        texte = ext.get('texte', '')
+                        justif = ext.get('justification', '')
+                        if texte:
+                            md += f"> <mark class=\"bg-red-100 text-red-900 px-1 rounded\">\"{texte}\"</mark>\n> \n> **Justification :** *{justif}*\n\n"
+
                 prompts = details.get('prompts_plausibles', {})
                 if prompts:
                     md += "#### 🤖 Prompts Plausibles (Hypothèses)\n"
