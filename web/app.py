@@ -383,10 +383,3 @@ def admin_investigations_all():
 
 if __name__ == '__main__':
     app.run(debug=True, port=5001)
-                       investigations=investigations, 
-                           professors=professors,
-                           current_prof_id=prof_id,
-                           current_status=status)
-
-if __name__ == '__main__':
-    app.run(debug=True, port=5001)
