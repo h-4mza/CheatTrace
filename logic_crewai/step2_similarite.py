@@ -157,62 +157,6 @@ def main():
             for c in clusters:
                 copies_str = ", ".join(c.get("copies", []))
                 md += f"- **Cluster {c.get('cluster_id','?')}** : {copies_str} — Risque : **{c.get('niveau_risque','?')}**\n"
-        
-        md += "---\n\n"
-        md += "## 🔬 Détails de l'Analyse Stylométrique (NLP)\n\n"
-        
-        # Intégration complète des détails NLP s'ils existent
-        chemin_nlp = os.path.abspath(os.path.join(script_dir, "..", "data", "resultats_nlp.json"))
-        if os.path.exists(chemin_nlp):
-            try:
-                with open(chemin_nlp, "r", encoding="utf-8") as f:
-                    nlp_data = json.load(f)
-                
-                resultats_nlp = nlp_data.get("resultats", [])
-                for s in resultats_nlp:
-                    details = s.get('details_complets', s)
-                    classification = s.get('classification', details.get('classification_finale', 'INCONNU'))
-                    score = s.get('score_ia', details.get('score_recalcule', 0))
-                    
-                    icon = "🔴" if classification == "PROBABLEMENT_IA" else "🟠" if classification == "HYBRIDE" else "🟢"
-                    md += f"### {icon} Copie {s.get('copie_id','?')} — {classification} (Score : {score}/100)\n\n"
-                    
-                    md += f"**Résumé Exécutif :**\n{details.get('resume_executif', s.get('synthese', 'N/A'))}\n\n"
-                    
-                    md += "#### 📊 Analyse Multidimensionnelle\n"
-                    dims = details.get('dimensions', {})
-                    if dims:
-                        for d_name, d_val in dims.items():
-                            md += f"- **{d_name.replace('_',' ').title()} ({d_val.get('note',0)}/10) :** {d_val.get('observation', '')}\n"
-                    else:
-                        md += "- Détails des dimensions non disponibles.\n"
-                    md += "\n"
-                    
-                    md += "#### 🔎 Indices Linguistiques Relevés\n"
-                    indices = details.get('indices_linguistiques', s.get('preuves_ia', []))
-                    if indices:
-                        for ind in indices:
-                            md += f"- {ind}\n"
-                    else:
-                        md += "- Aucun indice spécifique relevé.\n"
-                    md += "\n"
-                    
-                    prompts = details.get('prompts_plausibles', {})
-                    if prompts:
-                        md += "#### 🤖 Prompts Plausibles (Hypothèses)\n"
-                        if isinstance(prompts, dict):
-                            md += f"*{prompts.get('avertissement', '')}*\n"
-                            for p in prompts.get('liste', []):
-                                md += f"- `{p}`\n"
-                        md += "\n"
-                    
-                    md += "#### ⚖️ Conclusion & Risque de Faux Positif\n"
-                    md += f"**Conclusion :** {details.get('conclusion', 'N/A')}\n\n"
-                    md += f"**Risque de Faux Positif :** `{details.get('faux_positif_risque', 'INCONNU')}`\n"
-                    md += f"**Raison :** {details.get('faux_positif_raison', 'N/A')}\n\n"
-                    md += "---\n\n"
-            except Exception as e:
-                md += f"*Détails NLP en cours de chargement ou indisponibles ({str(e)}).*\n"
 
         with open(chemin_rapport, "w", encoding="utf-8") as f:
             f.write(md)
