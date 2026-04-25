@@ -112,6 +112,12 @@ def run_investigation_pipeline(investigation_id, professor_email):
                         with open(report_path, 'w', encoding='utf-8') as f:
                             f.write(report_content)
                             
+                        # Sauvegarde du JSON pour le graphe interactif
+                        json_path = os.path.join(report_dir, f"investigation_{investigation_id}.json")
+                        import json
+                        with open(json_path, 'w', encoding='utf-8') as f:
+                            json.dump(result, f, ensure_ascii=False)
+                            
                         inv.report_path = report_path
                         inv.completed_at = datetime.utcnow()
                         

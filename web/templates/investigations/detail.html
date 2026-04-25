@@ -121,10 +121,20 @@
                 </article>
             </div>
             
-            <div class="p-8 bg-slate-50 border-t border-slate-100 flex items-center justify-center gap-8 grayscale opacity-50">
-                <span class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Preuves Stylométriques</span>
-                <span class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Analyse de Similarité</span>
-                <span class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Détection IA Multi-Couches</span>
+            <div class="p-8 bg-slate-50 border-t border-slate-100 flex flex-col items-center justify-center gap-8">
+                <!-- GRAPH CONTAINER -->
+                <div id="collusion-graph-wrapper" class="w-full hidden">
+                    <h3 class="text-lg font-black text-slate-900 mb-4 flex items-center gap-2">
+                        <i class="bi bi-diagram-3-fill text-trust-600"></i> Graphe de Collusion Interactif
+                    </h3>
+                    <div id="collusion-network" class="w-full h-[400px] bg-white rounded-2xl border border-slate-200 shadow-inner"></div>
+                </div>
+
+                <div class="flex items-center justify-center gap-8 grayscale opacity-50 mt-4">
+                    <span class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Preuves Stylométriques</span>
+                    <span class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Analyse de Similarité</span>
+                    <span class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Détection IA Multi-Couches</span>
+                </div>
             </div>
         </div>
 
@@ -143,6 +153,9 @@
         </div>
     </div>
 </div>
+
+<!-- Add vis-network -->
+<script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
 
 <script>
     const invId = {{ investigation.id }};
@@ -191,6 +204,97 @@
                 }
             } catch (e) { console.error("Polling error", e); }
         }, 4000);
+    }
+
+    // Graph Loading Logic
+    if ("{{ investigation.status }}" === 'completed') {
+        fetch(`/api/investigations/${invId}/graph_data`)
+            .then(response => response.json())
+            .then(data => {
+                const clusters = data.clusters_fraude || [];
+                if (clusters.length > 0) {
+                    document.getElementById('collusion-graph-wrapper').classList.remove('hidden');
+                    
+                    const nodes = new vis.DataSet();
+                    const edges = new vis.DataSet();
+                    
+                    clusters.forEach(cluster => {
+                        const clusterNodeId = 'cluster_' + cluster.cluster_id;
+                        
+                        // Déterminer la couleur du cluster selon le risque
+                        let clusterColor = '#0284c7'; // Bleu par défaut (modéré)
+                        if (cluster.niveau_risque && cluster.niveau_risque.toLowerCase() === 'eleve') {
+                            clusterColor = '#ef4444'; // Rouge (élevé)
+                        }
+                        
+                        nodes.add({
+                            id: clusterNodeId,
+                            label: 'Réseau ' + cluster.cluster_id,
+                            shape: 'hexagon',
+                            color: clusterColor,
+                            font: { color: 'white', face: 'Plus Jakarta Sans', size: 16, bold: true },
+                            size: 30
+                        });
+                        
+                        const copies = cluster.copies || [];
+                        copies.forEach(copy => {
+                            if (!nodes.get(copy)) {
+                                nodes.add({
+                                    id: copy,
+                                    label: copy,
+                                    shape: 'box',
+                                    color: '#f8fafc',
+                                    font: { color: '#0f172a', face: 'Plus Jakarta Sans' },
+                                    borderWidth: 2,
+                                    color: { border: clusterColor, background: '#ffffff' }
+                                });
+                            }
+                            
+                            edges.add({
+                                from: clusterNodeId,
+                                to: copy,
+                                width: 2,
+                                color: { color: clusterColor, opacity: 0.6 },
+                                length: 150
+                            });
+                        });
+                    });
+
+                    // Ajouter les copies normales déconnectées si elles existent
+                    const copiesNormales = data.copies_normales || [];
+                    copiesNormales.forEach(copy => {
+                        if (!nodes.get(copy)) {
+                            nodes.add({
+                                id: copy,
+                                label: copy,
+                                shape: 'box',
+                                color: '#f1f5f9',
+                                font: { color: '#64748b', face: 'Plus Jakarta Sans' },
+                                borderWidth: 1,
+                                color: { border: '#cbd5e1', background: '#f8fafc' }
+                            });
+                        }
+                    });
+
+                    const container = document.getElementById('collusion-network');
+                    const graphData = { nodes: nodes, edges: edges };
+                    const options = {
+                        physics: {
+                            stabilization: true,
+                            barnesHut: {
+                                springLength: 100,
+                                springConstant: 0.04
+                            }
+                        },
+                        interaction: {
+                            zoomView: true,
+                            dragView: true
+                        }
+                    };
+                    new vis.Network(container, graphData, options);
+                }
+            })
+            .catch(err => console.error("Erreur chargement graphe:", err));
     }
 </script>
 

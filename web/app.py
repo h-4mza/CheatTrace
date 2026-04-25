@@ -245,14 +245,23 @@ def investigation_callback():
     }
     """
     data = request.json
-    inv_id = data.get('investigation_id')
-    status = data.get('status', 'completed')
-    report_content = data.get('report_content', '')
+    
+    # Accepte les clés de l'ancien format ou du nouveau format n8n (session_id, statut, output)
+    inv_id = data.get('investigation_id') or data.get('session_id')
+    status = data.get('status') or data.get('statut', 'completed')
+    
+    # Mapping du statut n8n ('termine', 'ocr_ok', etc.) vers les statuts Flask
+    if status == 'termine' or status == 'ocr_ok':
+        status = 'completed'
+    elif 'erreur' in status.lower():
+        status = 'failed'
+        
+    report_content = data.get('report_content') or data.get('output', '')
     ocr_results = data.get('ocr_results', [])
 
     inv = Investigation.query.get(inv_id)
     if not inv:
-        return jsonify({"error": "Investigation not found"}), 404
+        return jsonify({"error": f"Investigation {inv_id} not found"}), 404
 
     inv.status = status
     
@@ -283,11 +292,32 @@ def investigation_callback():
         with open(report_path, 'w', encoding='utf-8') as f:
             f.write(report_content)
             
+        # Sauvegarde du JSON pour le graphe interactif
+        import json
+        json_path = os.path.join(report_dir, f"investigation_{inv_id}.json")
+        with open(json_path, 'w', encoding='utf-8') as f:
+            json.dump(data, f, ensure_ascii=False)
+            
         inv.report_path = report_path
         inv.completed_at = datetime.utcnow()
         
     db.session.commit()
     return jsonify({"message": "Callback processed successfully (OCR text saved)"}), 200
+
+@app.route('/api/investigations/<int:id>/graph_data')
+@login_required
+def api_investigation_graph_data(id):
+    inv = Investigation.query.get_or_404(id)
+    if current_user.role != 'admin' and inv.module.professor_id != current_user.id:
+        return jsonify({"error": "Unauthorized"}), 403
+    
+    if inv.report_path:
+        json_path = inv.report_path.replace('.md', '.json')
+        if os.path.exists(json_path):
+            import json
+            with open(json_path, 'r', encoding='utf-8') as f:
+                return jsonify(json.load(f))
+    return jsonify({})
 
 @app.route('/investigations/<int:id>/delete', methods=['POST'])
 @login_required
