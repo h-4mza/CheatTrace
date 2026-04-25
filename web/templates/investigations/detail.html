@@ -314,6 +314,15 @@
     #markdown-content li { position: relative; padding-left: 1.75rem; margin-bottom: 0.75rem; font-weight: 500; }
     #markdown-content li::before { content: "\F26A"; font-family: "bootstrap-icons"; position: absolute; left: 0; color: #16a34a; font-weight: bold; }
     #markdown-content strong { color: #0f172a; font-weight: 800; }
+    
+    /* Table Styling */
+    #markdown-content table { width: 100%; border-collapse: separate; border-spacing: 0; margin-bottom: 2rem; border-radius: 12px; overflow: hidden; border: 1px solid #e2e8f0; }
+    #markdown-content thead { background-color: #f8fafc; }
+    #markdown-content th { text-align: left; padding: 1rem 1.5rem; font-weight: 800; color: #475569; border-bottom: 2px solid #e2e8f0; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    #markdown-content td { padding: 1rem 1.5rem; border-bottom: 1px solid #f1f5f9; color: #334155; font-weight: 500; }
+    #markdown-content tr:last-child td { border-bottom: none; }
+    #markdown-content tr:hover td { background-color: #f8fafc; }
+    #markdown-content td code { background: #f1f5f9; padding: 0.25rem 0.5rem; border-radius: 6px; font-size: 0.875rem; color: #0284c7; font-weight: 700; border: 1px solid #e2e8f0; }
     #markdown-content blockquote { border-left: 4px solid #e2e8f0; padding-left: 1.5rem; font-style: italic; color: #64748b; margin: 2rem 0; }
 
     @media print {
