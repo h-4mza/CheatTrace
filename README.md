@@ -189,8 +189,8 @@ En mode complet, Python fusionne les suspects des deux analyses (union sans doub
 ### 1. Cloner et créer l'environnement
 
 ```bash
-git clone https://github.com/h-4mza/plateforme-confiance-numerique.git cheattrace
-cd cheattrace
+git clone https://github.com/h-4mza/CheatTrace.git
+cd CheatTrace
 
 python -m venv env
 # Windows
