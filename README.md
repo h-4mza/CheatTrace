@@ -82,7 +82,7 @@ La plateforme reste un **outil d'aide à la décision** : elle fournit des preuv
 - **Mémoire inter-sessions** (ChromaDB) pour repérer une copie qui ressemble à celle d'une promotion précédente.
 - **Rapports « zéro hallucination »** : Python calcule tous les chiffres, le LLM ne fait que la rédaction, puis Python réinjecte les données exactes.
 - **Gestion des rôles** Administrateur / Professeur, modules pédagogiques, historique des investigations, suivi du statut en temps réel.
-- **Orchestration asynchrone** via un workflow n8n.
+- **Orchestration asynchrone** via un workflow n8n, avec **alerte email au professeur** quand des suspects sont détectés.
 
 ## 🏗️ Architecture
 
@@ -109,11 +109,21 @@ Le projet est organisé en trois pôles :
 | **Intelligence artificielle** | `logic_crewai/` | Agents CrewAI, OCR, analyse NLP, similarité, juge et génération des rapports |
 | **Orchestration** | `n8n/` | Workflow n8n qui enchaîne les scripts selon le type d'investigation |
 
-<details>
-<summary><b>Workflow n8n</b></summary>
-<br>
+### Workflow n8n
+
 <img src="docs/assets/workflow-n8n.png" alt="Workflow n8n">
-</details>
+
+| Étape | Nœud | Rôle |
+|---|---|---|
+| 1 | **Webhook — Réception des scans** | Reçoit en `POST` les copies et les métadonnées envoyées par Flask |
+| 2 | **Sauvegarde des images** | Enregistre les copies dans le dossier de l'investigation |
+| 3 | **OCR — Extraction texte** | Lance `ocr_batch.py` (Gemini) |
+| 4 | **Vérification OCR** | Contrôle que le texte a bien été extrait |
+| 5 | **CrewAI — Investigation** | Exécute le pipeline multi-agents (NLP, similarité, juge) |
+| 6 | **Parse résultat CrewAI** | Récupère le verdict et le rapport |
+| 7 | **Y a-t-il des suspects ?** | Si oui : **email d'alerte au professeur** + réponse « Succès » ; sinon : réponse « Aucune fraude » |
+
+Le déclencheur manuel (*When clicking 'Execute workflow'*) permet de tester le workflow directement depuis n8n.
 
 ## 🔬 Comment ça marche
 
