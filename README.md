@@ -82,7 +82,7 @@ La plateforme reste un **outil d'aide à la décision** : elle fournit des preuv
 - **Mémoire inter-sessions** (ChromaDB) pour repérer une copie qui ressemble à celle d'une promotion précédente.
 - **Rapports « zéro hallucination »** : Python calcule tous les chiffres, le LLM ne fait que la rédaction, puis Python réinjecte les données exactes.
 - **Gestion des rôles** Administrateur / Professeur, modules pédagogiques, historique des investigations, suivi du statut en temps réel.
-- **Orchestration asynchrone** via un workflow n8n, avec **alerte email au professeur** quand des suspects sont détectés.
+- **Orchestration asynchrone** via un workflow n8n qui aiguille chaque investigation vers la bonne branche d'analyse.
 
 ## 🏗️ Architecture
 
@@ -119,11 +119,12 @@ Le projet est organisé en trois pôles :
 | 2 | **Sauvegarde des images** | Enregistre les copies dans le dossier de l'investigation |
 | 3 | **OCR — Extraction texte** | Lance `ocr_batch.py` (Gemini) |
 | 4 | **Vérification OCR** | Contrôle que le texte a bien été extrait |
-| 5 | **CrewAI — Investigation** | Exécute le pipeline multi-agents (NLP, similarité, juge) |
-| 6 | **Parse résultat CrewAI** | Récupère le verdict et le rapport |
-| 7 | **Y a-t-il des suspects ?** | Si oui : **email d'alerte au professeur** + réponse « Succès » ; sinon : réponse « Aucune fraude » |
-
-Le déclencheur manuel (*When clicking 'Execute workflow'*) permet de tester le workflow directement depuis n8n.
+| 5 | **Switch Type Investigation** | Choisit la branche selon le type d'analyse demandé |
+| 6a | **Étape 1 (Singulière)** | `step1_nlp.py` — détection d'IA copie par copie |
+| 6b | **Étape 2 (Collaborative)** | `step2_similarite.py` — détection de collusion |
+| 6c | **Étape 1 → Étape 2 → Étape 3 : Juge** | Analyse complète : NLP, similarité puis verdict croisé (`step3_juge.py`) |
+| 7 | **Parse résultat Final** | Récupère le verdict et le rapport généré |
+| 8 | **Réponse au Webhook** | Renvoie le résultat à Flask, qui met à jour l'investigation |
 
 ## 🔬 Comment ça marche
 
